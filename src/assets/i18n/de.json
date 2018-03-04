@@ -1,0 +1,15 @@
+{
+    "title": "Tiny Tiny RSS PWA",
+    "Actions Mark Feed Read": "Markiere Feed als gelesen",
+    "Actions Mark Feed Read Hint": "Diese Aktion markiert alle Artikel in diesem Feed als gelesen. Bist du dir sicher?",    
+    "Actions Mark Read": "Als gelesen markieren",
+    "Actions Mark Starred": "Als Favorit markieren",
+    "Dialog OK": "OK",
+    "Dialog Abort": "Abbrechen",
+    "Settings": "Einstellungen",
+    "Settings Server URL": "Server URL",
+    "Settings Verify": "Testen",
+    "Settings Username": "Nutzername",
+    "Settings Password": "Passwort",
+    "Settings Language": "Sprache wählen"
+}

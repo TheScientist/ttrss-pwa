@@ -1,0 +1,28 @@
+:host() {
+    flex-direction: column;
+    display: flex; 
+    flex-grow: 1;
+}
+
+.mat-subheader:hover {
+    cursor: pointer;
+    background: rgba(0,0,0,.04);
+}
+.mat-subheader {
+    cursor: pointer;
+}
+.mat-nav-list .mat-subheader:first-child {
+    margin:0;
+}
+#menu-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 100;
+}
+.list-indent {
+    margin-top: 40px;
+}
+#sidenav {
+    max-width: 400px;
+}

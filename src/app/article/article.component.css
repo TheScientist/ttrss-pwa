@@ -1,0 +1,41 @@
+.mat-list-item {
+    height: auto;
+    padding: 12px 0;
+}
+
+.mat-list-item .breakwords {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.mat-list-item .unread {
+    font-weight: 600;
+}
+
+.mat-list-item .starred {
+    font-style: italic;
+}
+
+.articleAction {
+    vertical-align: middle;
+    margin: auto 0;
+}
+
+.articleAction>* {
+    padding: 0 .3em;
+    vertical-align: middle;
+}
+
+.articleAction>mat-icon {
+    margin: auto 0;
+}
+
+.green {
+    background-color: green;
+    color: white;
+}
+
+.red {
+    background-color: red;
+    color: white;
+}
