@@ -1,0 +1,23 @@
+<div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
+  <div>
+    <mat-form-field class="settings-form-field">
+      <input matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url" type="url">
+    </mat-form-field>
+    <mat-form-field class="settings-form-field">
+      <input matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username" type="text">
+    </mat-form-field>
+    <mat-form-field class="settings-form-field">
+      <input matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password" type="password">
+    </mat-form-field>
+    <button mat-raised-button (click)="testConnection()">{{'Settings Verify' | translate }}</button>
+    <br />
+    <br />
+    <mat-form-field>
+      <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (change)="onLocaleChange($event)">
+        <mat-option *ngFor="let lang of settings.locales" [value]="lang.key">
+          {{ lang.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

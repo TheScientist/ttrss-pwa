@@ -1,0 +1,12 @@
+#feedHead {
+  margin-left: 12px;
+  vertical-align: middle;
+}
+
+#feedHead>* {
+  vertical-align: middle;
+}
+
+.menu-indent {
+  margin-left: 40px;
+}

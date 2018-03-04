@@ -1,0 +1,6 @@
+<div *ngIf="msgService.uimessages.length">
+
+  <h2>Messages</h2>
+  <div *ngFor='let message of msgService.uimessages.reverse()'> {{message}} </div>
+
+</div>

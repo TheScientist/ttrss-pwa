@@ -1,0 +1,6 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 100%;
+    height: 100%;
+}

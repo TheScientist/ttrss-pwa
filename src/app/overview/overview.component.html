@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex="1 1 auto">
+  <button id="menu-button" mat-icon-button (click)="snav.toggle()" aria-label="Menu" [style.display]="isMobile ? 'block' : 'none'">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;" fxFlex="1 1 auto">
+    <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
+      <mat-nav-list [class.list-indent]="isMobile">
+        <div *ngFor="let cat of categories">
+          <h2 mat-subheader (click)="onSelect(cat);">{{cat.title}}</h2>
+          <mat-list-item *ngFor="let feed of feeds | feedFilter:cat.id" (click)="onSelect(feed);" [class.selected]="feed === selectedFeed">
+            <img *ngIf="feed.id>0; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
+            <ng-template #matIcon>
+              <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id) }}</mat-icon>
+            </ng-template>
+            <a mat-list-item fxFlex="1 1 auto">{{feed.title}}</a>
+            <span mat-list-item>{{feed.unread}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content role="main" id="feedView">
+      <ttrss-headlines [feed]="selectedFeed"></ttrss-headlines>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
