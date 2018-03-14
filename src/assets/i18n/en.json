@@ -6,6 +6,8 @@
     "Actions Mark Starred": "star article",
     "Dialog OK": "OK",
     "Dialog Abort": "Abort",
+    "NoHeadlines": "No headlines found to display.",
+    "NoFeed": "No Feed selected.",
     "Settings": "Settings",
     "Settings Server URL": "Server URL",
     "Settings Verify": "Verify",

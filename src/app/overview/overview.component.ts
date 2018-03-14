@@ -35,6 +35,9 @@ export class OverviewComponent implements OnInit {
 
   onSelect(feed: Feed|Category) {
     this.selectedFeed = feed;
+    if(this.isMobile) {
+      this.snav.close();
+    }
   }
 
   ngOnDestroy(): void {

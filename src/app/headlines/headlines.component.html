@@ -36,9 +36,9 @@
     </a>
   </mat-menu>
 </mat-toolbar>
-<div *ngIf="feed" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false" [infiniteScrollContainer]="'#feedView'"
+<div *ngIf="feed;else noFeed" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false" [infiniteScrollContainer]="'#feedView'"
   [fromRoot]="true">
-  <mat-nav-list id="headlist" role="list" *ngIf="headlines">
+  <mat-nav-list id="headlist" role="list" *ngIf="headlines && headlines.length>0;else emtpyList">
     <div role="listitem" *ngFor="let head of headlines" fxLayout="row">
       <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)" (change)="onSelect(head)"></mat-checkbox>
       <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="feed" [article]="head" (click)="onSelect(head);" [selected]="selectedHeadline && head===selectedHeadline"
@@ -46,4 +46,10 @@
     </div>
     <mat-divider></mat-divider>
   </mat-nav-list>
+  <ng-template #emtpyList>
+    <p style="text-align: center;">{{'NoHeadlines' | translate}}</p>
+  </ng-template>
 </div>
+<ng-template #noFeed>
+  <p style="text-align: center;">{{'NoFeed' | translate}}</p>
+</ng-template>

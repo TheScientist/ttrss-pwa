@@ -6,6 +6,8 @@
     "Actions Mark Starred": "Als Favorit markieren",
     "Dialog OK": "OK",
     "Dialog Abort": "Abbrechen",
+    "NoHeadlines": "Keine Artikel zur Anzeige gefunden.",
+    "NoFeed": "Kein Feed ausgewählt.",
     "Settings": "Einstellungen",
     "Settings Server URL": "Server URL",
     "Settings Verify": "Testen",
