@@ -66,7 +66,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => this.messages.log("got feeds", data, true))
+      .do(data => {if(data.length>0) this.messages.log("got feeds", data, true)})
       .catch(err => this.handleError('getAllFeeds', err, []));
   }
 
@@ -82,7 +82,10 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => this.messages.log("got categories", data, true))
+      .do(data => {
+        if(data.length>0) 
+          this.messages.log("got categories", data, true);
+      })
       .map(data => data.map(cat => new Category(cat)))
       .map(data => data.filter(cat => cat.id >= -1).sort((a, b) => a.order_id - b.order_id))
       .catch(err => this.handleError('getCategories', err, []));
@@ -100,7 +103,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => this.messages.log("got headlines", data, true))
+      .do(data => {if(data.length>0) this.messages.log("got headlines", data, true)})
       .catch(err => this.handleError('getHeadlines', err, []));
   }
 
@@ -155,7 +158,7 @@ export class TtrssClientService {
           return data.content[0];
         }
       })
-      .do(data => this.messages.log("got article", data, true))
+      .do(data => {if(data!==null) this.messages.log("got article", data, true)})
       .catch(err => this.handleError('getArticle', err, null));
   }
 
