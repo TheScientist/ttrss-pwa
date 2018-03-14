@@ -1,6 +1,11 @@
-<div *ngIf="msgService.uimessages.length">
-
-  <h2>Messages</h2>
-  <div *ngFor='let message of msgService.uimessages.reverse()'> {{message}} </div>
-
-</div>
+<mat-expansion-panel *ngIf="msgService.uimessages.length">
+  <mat-expansion-panel-header>
+    <mat-panel-title fxFlex="0 1 auto">
+      {{'Logging' | translate }}
+    </mat-panel-title>
+    <mat-panel-description fxFlex="1 1 auto">
+      {{msgService.uimessages[0]}}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <div *ngFor='let message of msgService.uimessages'> {{message}} </div>
+</mat-expansion-panel>

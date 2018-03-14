@@ -14,7 +14,9 @@ import {
   MatSelectModule,
   MatButtonToggleModule,
   MatCheckboxModule,
-  MatDialogModule
+  MatDialogModule,
+  MatExpansionPanel,
+  MatExpansionModule
 } from '@angular/material';
 
 @NgModule({
@@ -33,7 +35,8 @@ import {
     MatSelectModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ],
   exports: [
     CdkTableModule,
@@ -50,7 +53,8 @@ import {
     MatSelectModule,
     MatButtonToggleModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatExpansionModule
   ]
 })
 export class MaterialModule {}

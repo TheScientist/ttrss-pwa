@@ -26,8 +26,8 @@ export class MessagingService {
      return;
    }
    if(this.uimessages.length>4) {
-     this.uimessages.shift();
+     this.uimessages.pop();
    }
-   this.uimessages.push(message);
+   this.uimessages.unshift(message);
  }
 }
