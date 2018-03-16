@@ -1,15 +1,15 @@
 # tt-RSS Progressive Web App
 
 ## TODOs
-- messaging + (httpclient progressbar) https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html
+- messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
 - button from settings to overview + settings layout
 - fix counters
-- tt-rss client logging
 - headline toolbar tooltips + localization
 - theming:
 -- highlight selected feed +headline (s)
--- wrap toolbar for mobile
+-- mobile layout (toolbar + content)
 -- article content
+-- link to open externally
 
 ## Future TODOs
 - allow mixed content in articles

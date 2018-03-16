@@ -1,12 +1,21 @@
-#feedHead {
+.ttrss-toolbar h1 {
   margin-left: 12px;
   vertical-align: middle;
 }
 
-#feedHead>* {
+.ttrss-toolbar h1>* {
   vertical-align: middle;
 }
 
-.menu-indent {
+.ttrss-toolbar h1.menu-indent {
   margin-left: 40px;
+}
+
+.ttrss-toolbar {
+  display: block;
+  position: relative;
+  float: left;
+}
+.ttrss-toolbar .tb-buttons {
+  float: right;
 }

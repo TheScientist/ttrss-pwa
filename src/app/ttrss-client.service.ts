@@ -66,7 +66,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => {if(data.length>0) this.messages.log("got feeds", data, true)})
+      .do(data => {if(data && data.length>0) this.messages.log("got feeds", data, true)})
       .catch(err => this.handleError('getAllFeeds', err, []));
   }
 
@@ -83,7 +83,7 @@ export class TtrssClientService {
         }
       })
       .do(data => {
-        if(data.length>0) 
+        if(data && data.length>0) 
           this.messages.log("got categories", data, true);
       })
       .map(data => data.map(cat => new Category(cat)))
@@ -103,7 +103,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => {if(data.length>0) this.messages.log("got headlines", data, true)})
+      .do(data => {if(data && data.length>0) this.messages.log("got headlines", data, true)})
       .catch(err => this.handleError('getHeadlines', err, []));
   }
 

@@ -1,40 +1,40 @@
 <mat-toolbar class="ttrss-toolbar">
-  <h1 fxFlex="1 1 auto" *ngIf="feed;else defaultHead" [class.menu-indent]="isMobile">
+  <!-- <mat-toolbar-row> -->
+  <h1 *ngIf="feed;else defaultHead" [class.menu-indent]="isMobile">
     <img *ngIf="feed.id>0 && !is_cat;else matFeedIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
     <ng-template #matFeedIcon>
       <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id, is_cat) }}</mat-icon>
     </ng-template>
     <span>{{ feed.title }}</span>
   </h1>
-
   <ng-template #defaultHead>
-    <h1 fxFlex="1 1 auto" class="ttrss-app-name" [class.menu-indent]="isMobile">{{'title' | translate}}</h1>
+    <h1 class="ttrss-app-name" [class.menu-indent]="isMobile">{{'title' | translate}}</h1>
   </ng-template>
-
-  <mat-button-toggle *ngIf="feed" mat-icon-button aria-label="multiselect" [checked]="multiSelectEnabled" (change)="multiselectChanged($event.source.checked)">
-    <mat-icon>done_all</mat-icon>
-  </mat-button-toggle>
-  <button mat-raised-button aria-label="unstar article(s)" *ngIf="selectedHeadline && selectedHeadline.marked" (click)="updateSelected(0, 0)">
-    <mat-icon>star_border</mat-icon>
-  </button>
-  <button mat-raised-button aria-label="toogle article(s) favorite state" (click)="updateSelected(0, 2)" *ngIf="selectedHeadline && !selectedHeadline.marked || multiSelectEnabled">
-    <mat-icon>star</mat-icon>
-  </button>
-  <button mat-raised-button aria-label="mark article(s) as unread" *ngIf="selectedHeadline && !selectedHeadline.unread" (click)="updateSelected(2, 0)">
-    <mat-icon>drafts</mat-icon>
-  </button>
-  <button mat-raised-button aria-label="toggle article(s) unread state" (click)="updateSelected(2, 2)" *ngIf="feed && (!selectedHeadline || selectedHeadline.unread)">
-    <mat-icon>mail</mat-icon>
-  </button>
-  <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #appMenu="matMenu">
-    <a mat-icon-button aria-label="Settings" routerLink="/settings">
-      <mat-icon>settings</mat-icon>
-      <!--{{'Settings' | translate}}-->
-    </a>
-  </mat-menu>
+  <div class="tb-buttons">
+    <mat-button-toggle *ngIf="feed" mat-icon-button aria-label="multiselect" [checked]="multiSelectEnabled" (change)="multiselectChanged($event.source.checked)">
+      <mat-icon>done_all</mat-icon>
+    </mat-button-toggle>
+    <button mat-raised-button aria-label="unstar article(s)" *ngIf="selectedHeadline && selectedHeadline.marked" (click)="updateSelected(0, 0)">
+      <mat-icon>star_border</mat-icon>
+    </button>
+    <button mat-raised-button aria-label="toogle article(s) favorite state" (click)="updateSelected(0, 2)" *ngIf="selectedHeadline && !selectedHeadline.marked || multiSelectEnabled">
+      <mat-icon>star</mat-icon>
+    </button>
+    <button mat-raised-button aria-label="mark article(s) as unread" *ngIf="selectedHeadline && !selectedHeadline.unread" (click)="updateSelected(2, 0)">
+      <mat-icon>drafts</mat-icon>
+    </button>
+    <button mat-raised-button aria-label="toggle article(s) unread state" (click)="updateSelected(2, 2)" *ngIf="feed && (!selectedHeadline || selectedHeadline.unread)">
+      <mat-icon>mail</mat-icon>
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #appMenu="matMenu">
+      <a mat-icon-button aria-label="Settings" routerLink="/settings">
+        <mat-icon>settings</mat-icon>{{'Settings' | translate }}
+      </a>
+    </mat-menu>
+  </div>
 </mat-toolbar>
 <div *ngIf="feed;else noFeed" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false" [infiniteScrollContainer]="'#feedView'"
   [fromRoot]="true">

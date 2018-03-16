@@ -1,10 +1,10 @@
-<swiper fxLayout="row" fxLayoutAlign="start stretch" *ngIf="article" index="1" (indexChange)="elementSwiped($event)" 
+<!-- <swiper fxLayout="row" fxLayoutAlign="start stretch" *ngIf="article" index="1" (indexChange)="elementSwiped($event)" 
 (swiperTouchStart)="swipeStarted()" (swiperTouchEnd)="swipeFinished()">
   <div fxLayout="row" fxLayoutAlign="end stretch" class="articleAction green">
     <p>{{'Actions Mark Read' | translate }}</p>
     <mat-icon>drafts</mat-icon>
-  </div>
-  <mat-list-item [class.swiper-no-swiping]="multiSelectEnabled">
+  </div> -->
+  <mat-list-item [class.swiper-no-swiping]="multiSelectEnabled" class="articleList">
     <div matLine fxLayout="row wrap" fxLayoutAlign="space-between" [ngClass]="{
       'unread':article.unread,
       'starred':article.marked
@@ -28,8 +28,8 @@
       <div  [innerHTML]="article.content"></div>
     </div>
   </mat-list-item>
-  <div fxLayout="row" fxLayoutAlign="start stretch" class="articleAction red">
+  <!-- <div fxLayout="row" fxLayoutAlign="start stretch" class="articleAction red">
       <mat-icon>star</mat-icon>
       <p>{{'Actions Mark Starred' | translate }}</p>
     </div>
-</swiper>
+</swiper> -->
