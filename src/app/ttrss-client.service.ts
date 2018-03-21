@@ -184,7 +184,7 @@ export class TtrssClientService {
           return data.content.updated >= 1;
         }
       })
-      .do(data => {if(data) this.messages.log("articel updated sucessfull", data, true);})
+      .do(data => {if(data) this.messages.log("article updated sucessfully", data, true);})
       .catch(err => this.handleError('updateArticle', err, false));
   }
 

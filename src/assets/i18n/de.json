@@ -14,5 +14,12 @@
     "Settings Verify": "Testen",
     "Settings Username": "Nutzername",
     "Settings Password": "Passwort",
-    "Settings Language": "Sprache wählen"
+    "Settings Language": "Sprache wählen",
+    "TB_Multiselect": "Mehrfachauswahl aktivieren/deaktivieren",
+    "TB_Star": "Als Favorit markieren",
+    "TB_ToggleStar": "Favoriten-Status umschalten",
+    "TB_Unstar": "Aus Favoriten entfernen",
+    "TB_MarkUnread" : "Als ungelesen markieren",
+    "TB_MarkRead" : "Als gelesen markieren",
+    "TB_ToggleRead" : "Gelesen-Status umschalten"
 }

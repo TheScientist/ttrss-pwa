@@ -1,18 +1,18 @@
 # tt-RSS Progressive Web App
 
 ## TODOs
-- messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
+- scroll to selected article
 - button from settings to overview + settings layout
 - fix counters
-- headline toolbar tooltips + localization
 - theming:
 -- highlight selected feed +headline (s)
--- mobile layout (toolbar + content)
 -- article content
 -- link to open externally
 
 ## Future TODOs
 - allow mixed content in articles
+- service worker
+- messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.

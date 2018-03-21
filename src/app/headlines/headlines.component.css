@@ -1,21 +1,37 @@
 .ttrss-toolbar h1 {
   margin-left: 12px;
   vertical-align: middle;
+  line-height: 40px;
+  /* float: left; */
+  /* padding-top: 10px; */
 }
 
 .ttrss-toolbar h1>* {
-  vertical-align: middle;
+  vertical-align: middle;  
 }
 
 .ttrss-toolbar h1.menu-indent {
-  margin-left: 40px;
+  margin-left: 50px;/* width of menu button + margin */
 }
 
+/* .clearFloat {
+  clear: both;
+ } */
+
 .ttrss-toolbar {
-  display: block;
-  position: relative;
-  float: left;
+  /* display: block; */
+  /* position: relative; */
+  /* float: left; */
+  height: auto;
+  min-height: 60px; /* height of menu button + margin */
+  flex-wrap: wrap;
+}
+.ttrss-toolbar>* {
+  margin: auto 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 .ttrss-toolbar .tb-buttons {
-  float: right;
+  /* float: right; */
+  margin-left: auto;
 }

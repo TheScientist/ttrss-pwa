@@ -14,5 +14,12 @@
     "Settings Verify": "Verify",
     "Settings Username": "Username",
     "Settings Password": "Password",
-    "Settings Language": "Choose Language"
+    "Settings Language": "Choose Language",
+    "TB_Multiselect": "enable/disable multiselection",
+    "TB_Star": "mark as favorite",
+    "TB_ToggleStar": "toggle favortite state",
+    "TB_Unstar": "remove from favorites",
+    "TB_MarkUnread" : "mark as unread",
+    "TB_MarkRead" : "mark as read",
+    "TB_ToggleRead" : "toggle read state"
 }
