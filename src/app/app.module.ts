@@ -25,7 +25,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import './util/rxjs-operators'
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FeedFilterPipe } from './util/filter-pipe';
-import { HeadlinesComponent } from './headlines/headlines.component';
 import { DateFixPipe } from './util/datefix-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -59,7 +58,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MessagingComponent,
     OverviewComponent,
     FeedFilterPipe,
-    HeadlinesComponent,
     DateFixPipe,
     ArticleComponent,
     MarkreaddialogComponent

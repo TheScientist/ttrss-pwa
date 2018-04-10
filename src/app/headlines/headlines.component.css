@@ -2,36 +2,35 @@
   margin-left: 12px;
   vertical-align: middle;
   line-height: 40px;
-  /* float: left; */
-  /* padding-top: 10px; */
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .ttrss-toolbar h1>* {
-  vertical-align: middle;  
+  vertical-align: middle;
 }
 
 .ttrss-toolbar h1.menu-indent {
-  margin-left: 50px;/* width of menu button + margin */
+  margin-left: 50px;  /* width of menu button + margin */
 }
 
-/* .clearFloat {
-  clear: both;
- } */
-
 .ttrss-toolbar {
-  /* display: block; */
-  /* position: relative; */
-  /* float: left; */
   height: auto;
   min-height: 60px; /* height of menu button + margin */
   flex-wrap: wrap;
+  position: fixed;
+  top: 0px;
+  z-index: 1;
+  /* width: 100%; */
 }
+
 .ttrss-toolbar>* {
   margin: auto 0;
   display: inline-block;
   vertical-align: middle;
+  position: relative;
 }
+
 .ttrss-toolbar .tb-buttons {
-  /* float: right; */
   margin-left: auto;
 }

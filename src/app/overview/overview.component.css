@@ -26,3 +26,45 @@
 #sidenav {
     max-width: 400px;
 }
+
+.ttrss-toolbar h1 {
+    margin-left: 12px;
+    vertical-align: middle;
+    line-height: 40px;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+  
+  .ttrss-toolbar h1>* {
+    vertical-align: middle;
+  }
+  
+  .ttrss-toolbar h1.menu-indent {
+    margin-left: 50px;  /* width of menu button + margin */
+  }
+  
+  .ttrss-toolbar {
+    height: auto;
+    min-height: 60px; /* height of menu button + margin */
+    flex-wrap: wrap;
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    /* width: 100%; */
+  }
+  
+  .ttrss-toolbar>* {
+    margin: auto 0;
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+  }
+  
+  .ttrss-toolbar .tb-buttons {
+    margin-left: auto;
+  }
+
+  .article-toolbar {
+      position: sticky;
+      bottom: 0px;
+  }
