@@ -65,7 +65,7 @@
           <div role="listitem" *ngFor="let head of headlines" fxLayout="row">
             <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)"
               (change)="onArticleSelect(head)"></mat-checkbox>
-            <div fxLayout="column" fxFlex="1 1 auto">
+            <div fxLayout="column" fxFlex="1 1 auto" [id]="'article' + head.id" >
               <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head"
                 (click)="onArticleSelect(head);" [selected]="selectedHeadline && head===selectedHeadline"
                 fxFlex="1 1 auto"></ttrss-article>

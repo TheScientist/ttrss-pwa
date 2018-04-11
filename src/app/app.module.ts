@@ -32,6 +32,7 @@ import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
 import { SwiperModule } from 'ngx-swiper-wrapper';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ArticleComponent } from './article/article.component';
@@ -72,6 +73,7 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     MaterialModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ScrollToModule.forRoot(),
     FlexLayoutModule,
     TranslateModule.forRoot({
       loader: {

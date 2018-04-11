@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ElementRef } from '@angular/core';
 import { SwiperComponent } from 'ngx-swiper-wrapper';
 import { TtrssClientService } from '../ttrss-client.service';
 
@@ -17,7 +17,7 @@ export class ArticleComponent implements OnInit {
 
   swipeInProgress: boolean = false;
   swipeAction: number = 1;
-  constructor(private client: TtrssClientService) { }
+  constructor(private client: TtrssClientService, private artElement: ElementRef) {}
 
   ngOnInit() {
   }
@@ -56,9 +56,7 @@ export class ArticleComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     const multiSelectEnabled: SimpleChange = changes.multiSelectEnabled;
-    if (multiSelectEnabled === undefined) {
-      return;
-    } else {
+    if (multiSelectEnabled !== undefined) {
       this.multiSelectEnabled = multiSelectEnabled.currentValue;
       if (this.componentRef !== undefined) {
         this.componentRef.directiveRef.update();

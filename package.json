@@ -27,6 +27,7 @@
     "@angular/service-worker": "^5.2.8",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
+    "@nicky-lenaers/ngx-scroll-to": "^0.6.0",
     "core-js": "^2.4.1",
     "crypto-js": "^3.1.9-1",
     "ngx-infinite-scroll": "^0.8.3",

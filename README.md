@@ -1,9 +1,9 @@
 # tt-RSS Progressive Web App
 
 ## TODOs
-- scroll to selected article
 - fix counters (peridic updates + updates on updatearticle/catchupFeed)
 - button from settings to overview + settings layout
+- mark read when scrolling (+ setting)
 - theming:
 -- highlight selected feed +headline (s)
 -- article content
@@ -13,7 +13,7 @@
 - service worker
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
-- different auth
+- different auth options (http auth, insecure ssl)
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.

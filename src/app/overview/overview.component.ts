@@ -7,6 +7,7 @@ import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { MatSidenav, MatDialog, MatToolbar } from '@angular/material';
 import { Category } from '../model/category';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
+import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -14,6 +15,7 @@ import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.compon
 })
 export class OverviewComponent implements OnInit {
   @ViewChild('snav') public snav: MatSidenav;
+  @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
 
   watcher: Subscription;
   activeMediaQuery = "";
@@ -31,7 +33,7 @@ export class OverviewComponent implements OnInit {
 
   private _mobileQueryListener: () => void;
 
-  constructor(media: ObservableMedia, public dialog: MatDialog, private client: TtrssClientService) {
+  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, private client: TtrssClientService) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
       if (change.mqAlias == 'sm' || change.mqAlias == 'xs') {
@@ -82,16 +84,28 @@ export class OverviewComponent implements OnInit {
     }
   }
 
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
   onArticleSelect(headline: Headline) {
     if (!this.multiSelectEnabled) {
       if (headline !== this.selectedHeadline) {
-        this.selectedHeadline = headline;
+        this.selectedHeadline=null;
         if (!headline.content) {
           this.client.getArticle(headline.id).subscribe(article => headline.content = article.content);
         }
+        
+        this.selectedHeadline = headline;
         if (headline.unread) {
           this.client.updateArticle(headline, 2, 0).subscribe(result => headline.unread = !result);
         }
+        const config: ScrollToConfigOptions = {
+          target: 'article' + headline.id,
+          offset: -this.feedtoolbar._elementRef.nativeElement.offsetHeight,
+          duration: 0
+        };    
+        this.sleep(200).then(()=>this._scrollToService.scrollTo(config));
       } else {
         this.selectedHeadline = null;
       }
