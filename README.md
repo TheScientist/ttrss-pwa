@@ -1,7 +1,7 @@
 # tt-RSS Progressive Web App
 
 ## TODOs
-- scroll to selected article +(sticky header)
+- scroll to selected article
 - fix counters (peridic updates + updates on updatearticle/catchupFeed)
 - button from settings to overview + settings layout
 - theming:
