@@ -150,6 +150,7 @@ export class OverviewComponent implements OnInit {
         return;
       }
       let feedOrCat = this.selectedFeed;
+      let isCat = this.is_cat;
       this.client.updateArticle(this.multiSelectedHeadlines, field, mode).subscribe(result => {
         if (result) {
           switch (field) {
@@ -167,10 +168,10 @@ export class OverviewComponent implements OnInit {
                 head.unread = !head.unread;
                 head.unread ? change++ : change--;
               });
-              if (feedOrCat instanceof Category) {
+              if (isCat) {
                 this.updateReadCounters(change, null, feedOrCat.id);
               } else {
-                this.updateReadCounters(change, feedOrCat.id, undefined);
+                this.updateReadCounters(change, feedOrCat.id);
               }
               break;
           }
