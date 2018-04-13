@@ -1,7 +1,6 @@
 # tt-RSS Progressive Web App
 
 ## TODOs
-- fix counters (peridic updates + updates on updatearticle/catchupFeed)
 - button from settings to overview + settings layout
 - mark read when scrolling (+ setting)
 - theming:
