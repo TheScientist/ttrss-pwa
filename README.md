@@ -3,6 +3,8 @@
 ## TODOs
 - button from settings to overview + settings layout
 - mark read when scrolling (+ setting)
+- feedId as parameter
+- relogin on sessiontimeout
 - theming:
 -- highlight selected feed +headline (s)
 -- article content
