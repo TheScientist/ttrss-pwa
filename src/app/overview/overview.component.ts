@@ -8,12 +8,14 @@ import { MatSidenav, MatDialog, MatToolbar } from '@angular/material';
 import { Category } from '../model/category';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+import { CounterResult } from '../model/counter-result';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
 export class OverviewComponent implements OnInit {
+
   @ViewChild('snav') public snav: MatSidenav;
   @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
 
@@ -23,6 +25,7 @@ export class OverviewComponent implements OnInit {
 
   feeds: Feed[];
   categories: Category[];
+  counters: CounterResult[];
   selectedFeed: Feed | Category;
   is_cat: boolean = false;
   multiSelectEnabled: boolean = false;
@@ -53,8 +56,9 @@ export class OverviewComponent implements OnInit {
     this.client.getHeadlines(this.selectedFeed, 20, 0, null, this.is_cat)
       .subscribe(data =>
         this.headlines = data);
-    this.selectedHeadline = null;    
+    this.selectedHeadline = null;
     this.multiSelectedHeadlines.length = 0;
+    this.multiSelectEnabled = false;
   }
 
   ngOnDestroy(): void {
@@ -62,12 +66,20 @@ export class OverviewComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.refreshCounters();
+    setInterval(() => {
+      this.refreshCounters();
+    }, 60000);
     this.client.getAllFeeds().subscribe(
       data => this.feeds = data
     );
     this.client.getCategories().subscribe(
       data => this.categories = data
     );
+  }
+
+  refreshCounters() {
+    this.client.updateCounters().subscribe(data => this.counters = data);
   }
 
   loadHeadlines() {
@@ -91,21 +103,21 @@ export class OverviewComponent implements OnInit {
   onArticleSelect(headline: Headline) {
     if (!this.multiSelectEnabled) {
       if (headline !== this.selectedHeadline) {
-        this.selectedHeadline=null;
+        this.selectedHeadline = null;
         if (!headline.content) {
           this.client.getArticle(headline.id).subscribe(article => headline.content = article.content);
         }
-        
+
         this.selectedHeadline = headline;
         if (headline.unread) {
-          this.client.updateArticle(headline, 2, 0).subscribe(result => headline.unread = !result);
+          this.updateSelected(2, 0);
         }
         const config: ScrollToConfigOptions = {
           target: 'article' + headline.id,
           offset: -this.feedtoolbar._elementRef.nativeElement.offsetHeight,
           duration: 0
-        };    
-        this.sleep(200).then(()=>this._scrollToService.scrollTo(config));
+        };
+        this.sleep(200).then(() => this._scrollToService.scrollTo(config));
       } else {
         this.selectedHeadline = null;
       }
@@ -118,52 +130,91 @@ export class OverviewComponent implements OnInit {
       }
     }
   }
+  catchupFeed() {
+    let dialogRef = this.dialog.open(MarkreaddialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.client.catchupFeed(this.selectedFeed, this.is_cat).subscribe(result => {
+          if (result) {
+            this.headlines.forEach(head => head.unread = false);
+            this.refreshCounters();
+          }
+        });
+      }
+    });
+  }
 
   updateSelected(field: number, mode: number) {
-    // handle mark all read state
-    if (field == 2 &&
-      (!this.selectedHeadline || this.selectedHeadline === null) &&
-      (this.multiSelectedHeadlines === null || this.multiSelectedHeadlines.length === 0)) {
-
-      let dialogRef = this.dialog.open(MarkreaddialogComponent);
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.client.catchupFeed(this.selectedFeed, this.is_cat).subscribe(result => {
-            if (result) {
-              this.headlines.forEach(head => head.unread = false);
-            }
-          });
-        }
-      });
-      return;
-    }
-
     if (this.multiSelectEnabled) {
       if (this.multiSelectedHeadlines.length === 0) {
         return;
       }
+      let feedOrCat = this.selectedFeed;
       this.client.updateArticle(this.multiSelectedHeadlines, field, mode).subscribe(result => {
         if (result) {
           switch (field) {
-            case 0: this.multiSelectedHeadlines.forEach(head => head.marked = !head.marked);
+            case 0:
+              let amount: number = 0;
+              this.multiSelectedHeadlines.forEach(head => {
+                head.marked = !head.marked;
+                head.marked ? amount++ : amount--;
+              });
+              this.updateFavCounter(amount);
               break;
-            case 2: this.multiSelectedHeadlines.forEach(head => head.unread = !head.unread);
+            case 2:
+              let change: number = 0;
+              this.multiSelectedHeadlines.forEach(head => {
+                head.unread = !head.unread;
+                head.unread ? change++ : change--;
+              });
+              if (feedOrCat instanceof Category) {
+                this.updateReadCounters(change, null, feedOrCat.id);
+              } else {
+                this.updateReadCounters(change, feedOrCat.id, undefined);
+              }
               break;
           }
         }
       });
     } else {
-      this.client.updateArticle(this.selectedHeadline, field, mode).subscribe(result => {
+      let head: Headline = this.selectedHeadline;
+      this.client.updateArticle(head, field, mode).subscribe(result => {
         if (result) {
           switch (field) {
-            case 0: this.selectedHeadline.marked = !this.selectedHeadline.marked;
+            case 0:
+              head.marked = !head.marked;
+              this.updateFavCounter(head.marked ? 1 : -1);
               break;
-            case 2: this.selectedHeadline.unread = !this.selectedHeadline.unread;
+            case 2:
+              head.unread = !head.unread;
+              this.updateReadCounters(head.unread ? 1 : -1, head.feed_id);
               break;
           }
         }
       });
     }
+  }
+
+  updateFavCounter(amount: number) {
+    let cntResult: CounterResult = this.counters.find(cnt => cnt.id === "-1" && (!cnt.kind || cnt.kind !== "cat"));
+    if (cntResult) {
+      cntResult.auxcounter += amount;
+    }
+  }
+
+  updateReadCounters(amount: number, feedid: number, catid?: number): void {
+    let arr: string[] = [];
+    if (feedid != null) {
+      arr.push(feedid + "");
+    }
+    arr.push("-3");
+    arr.push("-4");
+    this.counters.forEach(cnt => {
+      if (arr.includes(cnt.id) && (!cnt.kind || cnt.kind !== "cat")
+        || catid && catid + "" === cnt.id && cnt.kind === "cat") {
+        cnt.counter += amount;
+      }
+    });
   }
 
   multiselectChanged(checked: boolean) {

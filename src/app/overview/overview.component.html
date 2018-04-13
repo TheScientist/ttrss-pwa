@@ -6,15 +6,17 @@
     <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
       <mat-nav-list [class.list-indent]="isMobile">
         <div *ngFor="let cat of categories">
-          <h2 mat-subheader (click)="onSelect(cat);">{{cat.title}}</h2>
+          <div mat-subheader>
+            <h2 (click)="onSelect(cat);" fxFlex="1 1 auto">{{cat.title}}</h2>
+            <span mat-list-item>{{counters | counterFilter:cat.id:true}}</span>
+          </div>
           <mat-list-item *ngFor="let feed of feeds | feedFilter:cat.id" (click)="onSelect(feed);" [class.selected]="feed === selectedFeed">
-            <img *ngIf="feed.id>0; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px"
-            />
+            <img mat-list-icon *ngIf="feed.id>0; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
             <ng-template #matIcon>
               <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id) }}</mat-icon>
             </ng-template>
-            <a mat-list-item fxFlex="1 1 auto">{{feed.title}}</a>
-            <span mat-list-item>{{feed.unread}}</span>
+            <a fxFlex="1 1 auto">{{feed.title}}</a>
+            <span>{{counters | counterFilter:feed.id:false}}</span>
           </mat-list-item>
           <mat-divider></mat-divider>
         </div>
@@ -46,7 +48,11 @@
             <mat-icon>star</mat-icon>
           </button>
           <button mat-raised-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(2, 2)" *ngIf="selectedFeed">
+            (click)="updateSelected(2, 2)" *ngIf="multiSelectEnabled">
+            <mat-icon>mail</mat-icon>
+          </button>
+          <button mat-raised-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000"
+            (click)="catchupFeed()" *ngIf="selectedFeed">
             <mat-icon>done_all</mat-icon>
           </button>
           <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">

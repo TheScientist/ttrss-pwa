@@ -6,6 +6,8 @@ import { SettingsService } from './settings.service';
 import { MessagingService } from './messaging.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Category } from './model/category';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { CounterResult } from './model/counter-result';
 
 @Injectable()
 export class TtrssClientService {
@@ -66,7 +68,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => {if(data && data.length>0) this.messages.log("got feeds", data, true)})
+      .do(data => { if (data && data.length > 0) this.messages.log("got feeds", data, true) })
       .catch(err => this.handleError('getAllFeeds', err, []));
   }
 
@@ -83,7 +85,7 @@ export class TtrssClientService {
         }
       })
       .do(data => {
-        if(data && data.length>0) 
+        if (data && data.length > 0)
           this.messages.log("got categories", data, true);
       })
       .map(data => data.map(cat => new Category(cat)))
@@ -103,7 +105,7 @@ export class TtrssClientService {
           return data.content;
         }
       })
-      .do(data => {if(data && data.length>0) this.messages.log("got headlines", data, true)})
+      .do(data => { if (data && data.length > 0) this.messages.log("got headlines", data, true) })
       .catch(err => this.handleError('getHeadlines', err, []));
   }
 
@@ -132,6 +134,21 @@ export class TtrssClientService {
     }
   }
 
+  updateCounters(): Observable<CounterResult[]> {
+    let body = '{"sid":"' + this.settings.sessionKey + '", "op":"getCounters", "output_mode":"fc"}';
+    return this.http.post<ApiResult<ICounterResult[]>>(this.settings.url, body)
+      .map(data => {
+        if (data.status != 0) {
+          this.handleError('getCounters', data, [])
+        } else {
+          return data.content;
+        }
+      })
+      .map(data => data.map(cnt => new CounterResult(cnt)))
+      .do(data => { if (data && data.length > 0) this.messages.log("got counters", data, true) })
+      .catch(err => this.handleError('getCounters', err, []));
+  }
+
   catchupFeed(feed: Feed | Category, is_cat: boolean): Observable<boolean> {
     let body = '{"sid":"' + this.settings.sessionKey + '", "op":"catchupFeed", "feed_id":"' + feed.id + '", "is_cat ": ' + is_cat + ' }';
     let result = this.http.post<ApiResult<UpdateResult>>(this.settings.url, body);
@@ -143,7 +160,7 @@ export class TtrssClientService {
           return true;
         }
       })
-      .do(data => {if(data) this.messages.log("catchupFeed sucessfull", data, true);})
+      .do(data => { if (data) this.messages.log("catchupFeed sucessfull", data, true); })
       .catch(err => this.handleError('catchupFeed', err, false));
   }
 
@@ -158,7 +175,7 @@ export class TtrssClientService {
           return data.content[0];
         }
       })
-      .do(data => {if(data!==null) this.messages.log("got article", data, true)})
+      .do(data => { if (data !== null) this.messages.log("got article", data, true) })
       .catch(err => this.handleError('getArticle', err, null));
   }
 
@@ -166,10 +183,10 @@ export class TtrssClientService {
    * @param field field to operate on (0 - starred, 1 - published, 2 - unread, 3 - article note)
    * @param mode type of operation to perform (0 - set to false, 1 - set to true, 2 - toggle)
    */
-  updateArticle(head: Headline|Headline[], field: number, mode: number): Observable<boolean> {
+  updateArticle(head: Headline | Headline[], field: number, mode: number): Observable<boolean> {
     let ids;
-    if(head instanceof Array) {
-      ids = head.map(head=>head.id+"").join(",");
+    if (head instanceof Array) {
+      ids = head.map(head => head.id + "").join(",");
     } else {
       ids = head.id;
     }
@@ -184,7 +201,7 @@ export class TtrssClientService {
           return data.content.updated >= 1;
         }
       })
-      .do(data => {if(data) this.messages.log("article updated sucessfully", data, true);})
+      .do(data => { if (data) this.messages.log("article updated sucessfully", data, true); })
       .catch(err => this.handleError('updateArticle', err, false));
   }
 
