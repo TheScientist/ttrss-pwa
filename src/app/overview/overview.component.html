@@ -11,9 +11,9 @@
             <span mat-list-item>{{counters | counterFilter:cat.id:true}}</span>
           </div>
           <mat-list-item *ngFor="let feed of feeds | feedFilter:cat.id" (click)="onSelect(feed);" [class.selected]="feed === selectedFeed">
-            <img mat-list-icon *ngIf="feed.id>0; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
+            <img mat-list-icon *ngIf="feed.id>0 && feed.has_icon; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
             <ng-template #matIcon>
-              <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id) }}</mat-icon>
+              <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id, feed.id>0) }}</mat-icon>
             </ng-template>
             <a fxFlex="1 1 auto">{{feed.title}}</a>
             <span>{{counters | counterFilter:feed.id:false}}</span>
@@ -23,7 +23,8 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content role="main" id="feedView">
+    <mat-sidenav-content role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()"
+    [scrollWindow]="false" >
       <mat-toolbar #feedtoolbar class="ttrss-toolbar">
         <!-- <mat-toolbar-row> -->
         <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
@@ -65,8 +66,7 @@
           </a>
         </mat-menu>
       </mat-toolbar>
-      <div #feedList class="clearFloat" *ngIf="selectedFeed;else noFeed" infiniteScroll (scrolled)="loadHeadlines()"
-        [scrollWindow]="false" [infiniteScrollContainer]="'#feedView'" [fromRoot]="true">
+      <div #feedList class="clearFloat" *ngIf="selectedFeed;else noFeed">
         <mat-nav-list id="headlist" role="list" *ngIf="headlines && headlines.length>0;else emtpyList">
           <div role="listitem" *ngFor="let head of headlines" fxLayout="row">
             <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)"

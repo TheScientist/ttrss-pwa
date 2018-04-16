@@ -20,12 +20,12 @@
       <span fxFlex="1 1 auto" style="text-align:right;">{{article.updated | datefix | date:'short'}}</span>
     </div>
     <!-- Bei Kategorien auch anzeigen -->
-    <div matLine *ngIf="feed.id<0 || is_cat">
-      <img [src]="client.getFeedIconURL(article.feed_id)" width="auto" height="16px" style="vertical-align:middle;" />
+    <div matLine *ngIf="showFeedIcons()">
+      <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto" height="16px" style="vertical-align:middle;" />
       <span style="vertical-align:middle;">{{article.feed_title}}</span>
     </div>
     <div matLine class="breakwords feedContent" *ngIf="selected">
-      <div  [innerHTML]="article.content"></div>
+      <div [innerHTML]="article.content"></div>
     </div>
   </mat-list-item>
   <!-- <div fxLayout="row" fxLayoutAlign="start stretch" class="articleAction red">

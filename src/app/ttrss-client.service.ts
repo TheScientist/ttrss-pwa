@@ -110,7 +110,7 @@ export class TtrssClientService {
   }
 
   getFeedIconURL(id: number, is_cat?: boolean) {
-    if (is_cat) {
+    if (is_cat || !id) {
       return "rss_feed";
     }
     if (id <= 0) {

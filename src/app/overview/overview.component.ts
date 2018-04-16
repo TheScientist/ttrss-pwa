@@ -145,12 +145,12 @@ export class OverviewComponent implements OnInit {
   }
 
   updateSelected(field: number, mode: number) {
+    let feedOrCat = this.selectedFeed;
+    let isCat = this.is_cat;
     if (this.multiSelectEnabled) {
       if (this.multiSelectedHeadlines.length === 0) {
         return;
       }
-      let feedOrCat = this.selectedFeed;
-      let isCat = this.is_cat;
       this.client.updateArticle(this.multiSelectedHeadlines, field, mode).subscribe(result => {
         if (result) {
           switch (field) {
@@ -171,7 +171,7 @@ export class OverviewComponent implements OnInit {
               if (isCat) {
                 this.updateReadCounters(change, null, feedOrCat.id);
               } else {
-                this.updateReadCounters(change, feedOrCat.id);
+                this.updateReadCounters(change, feedOrCat.id,(<Feed> feedOrCat).cat_id);
               }
               break;
           }
@@ -187,8 +187,12 @@ export class OverviewComponent implements OnInit {
               this.updateFavCounter(head.marked ? 1 : -1);
               break;
             case 2:
-              head.unread = !head.unread;
-              this.updateReadCounters(head.unread ? 1 : -1, head.feed_id);
+              head.unread = !head.unread;              
+              if (isCat) {
+                this.updateReadCounters(head.unread ? 1 : -1, head.feed_id, feedOrCat.id);
+              } else {
+                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.id,(<Feed> feedOrCat).cat_id);
+              }
               break;
           }
         }
@@ -203,7 +207,7 @@ export class OverviewComponent implements OnInit {
     }
   }
 
-  updateReadCounters(amount: number, feedid: number, catid?: number): void {
+  updateReadCounters(amount: number, feedid: number, catid: number): void {
     let arr: string[] = [];
     if (feedid != null) {
       arr.push(feedid + "");

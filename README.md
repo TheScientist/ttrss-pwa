@@ -1,6 +1,6 @@
 # tt-RSS Progressive Web App
 
-## TODOs
+## 1.0 TODOs
 - button from settings to overview + settings layout
 - mark read when scrolling (+ setting)
 - feedId as parameter
