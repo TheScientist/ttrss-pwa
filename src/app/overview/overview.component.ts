@@ -9,6 +9,7 @@ import { Category } from '../model/category';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { CounterResult } from '../model/counter-result';
+import { SettingsService } from '../settings.service';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -36,7 +37,7 @@ export class OverviewComponent implements OnInit {
 
   private _mobileQueryListener: () => void;
 
-  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, private client: TtrssClientService) {
+  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, private client: TtrssClientService, private settings: SettingsService) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
       if (change.mqAlias == 'sm' || change.mqAlias == 'xs') {
@@ -53,6 +54,8 @@ export class OverviewComponent implements OnInit {
     }
     this.selectedFeed = feed;
     this.is_cat = this.selectedFeed instanceof Category;
+    this.settings.lastFeedId = feed.id;
+    this.settings.lastSelectionIsCat = this.is_cat;
     this.client.getHeadlines(this.selectedFeed, 20, 0, null, this.is_cat)
       .subscribe(data =>
         this.headlines = data);
@@ -71,11 +74,30 @@ export class OverviewComponent implements OnInit {
       this.refreshCounters();
     }, 60000);
     this.client.getAllFeeds().subscribe(
-      data => this.feeds = data
+      data => {
+        this.feeds = data;
+        this.initLastFeed();
+      }
     );
     this.client.getCategories().subscribe(
       data => this.categories = data
     );
+  }
+
+  initLastFeed(): void {
+    let isCat = this.settings.lastSelectionIsCat;
+    let selId = this.settings.lastFeedId;
+    if (isCat) {
+      let cat: Category = this.categories.find(cat => cat.id == selId);
+      if (cat) {
+        this.onSelect(cat);
+      }
+    } else {
+      let feed: Feed = this.feeds.find(feed => feed.id == selId);
+      if (feed) {
+        this.onSelect(feed);
+      }
+    }
   }
 
   refreshCounters() {
@@ -171,7 +193,7 @@ export class OverviewComponent implements OnInit {
               if (isCat) {
                 this.updateReadCounters(change, null, feedOrCat.id);
               } else {
-                this.updateReadCounters(change, feedOrCat.id,(<Feed> feedOrCat).cat_id);
+                this.updateReadCounters(change, feedOrCat.id, (<Feed>feedOrCat).cat_id);
               }
               break;
           }
@@ -187,11 +209,11 @@ export class OverviewComponent implements OnInit {
               this.updateFavCounter(head.marked ? 1 : -1);
               break;
             case 2:
-              head.unread = !head.unread;              
+              head.unread = !head.unread;
               if (isCat) {
                 this.updateReadCounters(head.unread ? 1 : -1, head.feed_id, feedOrCat.id);
               } else {
-                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.id,(<Feed> feedOrCat).cat_id);
+                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.id, (<Feed>feedOrCat).cat_id);
               }
               break;
           }

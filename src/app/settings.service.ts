@@ -21,6 +21,10 @@ export class SettingsService {
   public sessionKey: string;
   @LocalStorage()
   public icons_url: string;
+  @LocalStorage()
+  public lastFeedId: number;
+  @LocalStorage()
+  public lastSelectionIsCat: boolean;
 
   getLanguage(): string {
     if (this.locale === null) {
