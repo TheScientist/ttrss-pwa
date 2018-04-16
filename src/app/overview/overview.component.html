@@ -6,11 +6,11 @@
     <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
       <mat-nav-list [class.list-indent]="isMobile">
         <div *ngFor="let cat of categories">
-          <div mat-subheader>
+          <div mat-subheader [class.feedSelected]="cat === selectedFeed">
             <h2 (click)="onSelect(cat);" fxFlex="1 1 auto">{{cat.title}}</h2>
             <span mat-list-item>{{counters | counterFilter:cat.id:true}}</span>
           </div>
-          <mat-list-item *ngFor="let feed of feeds | feedFilter:cat.id" (click)="onSelect(feed);" [class.selected]="feed === selectedFeed">
+          <mat-list-item *ngFor="let feed of feeds | feedFilter:cat.id" (click)="onSelect(feed);" [class.feedSelected]="feed === selectedFeed">
             <img mat-list-icon *ngIf="feed.id>0 && feed.has_icon; else matIcon" [src]="client.getFeedIconURL(feed.id)" width="auto" height="24px" />
             <ng-template #matIcon>
               <mat-icon mat-list-icon>{{ client.getFeedIconURL(feed.id, feed.id>0) }}</mat-icon>
@@ -74,7 +74,9 @@
             <div fxLayout="column" fxFlex="1 1 auto" [id]="'article' + head.id" >
               <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head"
                 (click)="onArticleSelect(head);" [selected]="selectedHeadline && head===selectedHeadline"
-                fxFlex="1 1 auto"></ttrss-article>
+                fxFlex="1 1 auto"  [class.headSelected]="selectedHeadline && head===selectedHeadline"></ttrss-article>
+              <ttrss-article-content [article]="head" *ngIf="selectedHeadline && head===selectedHeadline">                
+              </ttrss-article-content>
               <mat-toolbar #articletoolbar class="article-toolbar" *ngIf="selectedHeadline && head===selectedHeadline">
                 <button mat-raised-button [matTooltip]="'TB_Unstar' | translate" matTooltipShowDelay="1000"
                   *ngIf="selectedHeadline.marked" (click)="updateSelected(0, 0)">

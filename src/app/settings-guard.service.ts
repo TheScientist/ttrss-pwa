@@ -12,7 +12,20 @@ export class SettingsGuard implements CanActivate {
 
   canActivate() {
     var out = this.settings.sessionKey !== null;
-    if (!out) {
+    if (out) {
+      return this.client.checkLoggedIn().mergeMap(success => {
+        if (!success) {
+          return this.client.login(true)
+          .do(success => {
+            if (!success) {
+              this.router.navigate(['/settings']);
+            }
+          }).first();
+        } else {
+          return of(true);
+        }
+      });
+    } else {
       return this.client.login(false)
         .do(success => {
           if (!success) {
@@ -20,6 +33,5 @@ export class SettingsGuard implements CanActivate {
           }
         }).first();
     }
-    return of(out);
   }
 }

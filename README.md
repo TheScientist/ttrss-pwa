@@ -2,18 +2,11 @@
 
 ## 1.0 TODOs
 - button from settings to overview + settings layout
-- mark read when scrolling (+ setting)
-- feedId as parameter
-- relogin on sessiontimeout
-- theming:
--- highlight selected feed +headline (s)
--- article content
--- feedicons in category head list
--- link to open externally
 
 ## Future TODOs
 - keyboard shortcuts
 - service worker
+- mark read when scrolling (+ setting)
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
 - different auth options (http auth, insecure ssl)

@@ -41,6 +41,20 @@ export class TtrssClientService {
         );
     }
   }
+  checkLoggedIn(): Observable<boolean> {
+    let body = '{"op":"getApiLevel","sid":"' + this.settings.sessionKey + '"}';
+      let result = this.http.post<ApiResult<any>>(this.settings.url, body);
+      return result
+        .map(data => {
+          if (data.status != 0) {
+            this.handleError('checkLoggedIn', data, false)
+          } else {
+            return true;
+          }
+        })
+        .catch(err => this.handleError('checkLoggedIn', err, false)
+        );
+  }  
 
   getConfig() {
     let body = '{"sid":"' + this.settings.sessionKey + '", "op":"getConfig" }';

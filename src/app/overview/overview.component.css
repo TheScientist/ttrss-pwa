@@ -4,6 +4,15 @@
     flex-grow: 1;
 }
 
+.feedSelected {
+    background: rgba(0,0,0,.12);
+}
+
+.headSelected {
+    position: sticky;
+    top: 0px;
+}
+
 .mat-subheader:hover {
     cursor: pointer;
     background: rgba(0,0,0,.04);

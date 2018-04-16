@@ -38,6 +38,7 @@ import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ArticleComponent } from './article/article.component';
 import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.component';
+import { ArticleContentComponent } from './article-content/article-content.component';
 
 
 registerLocaleData(localeDe, 'de');
@@ -63,7 +64,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     CounterFilterPipe,
     DateFixPipe,
     ArticleComponent,
-    MarkreaddialogComponent
+    MarkreaddialogComponent,
+    ArticleContentComponent
   ],
   imports: [
     BrowserModule,

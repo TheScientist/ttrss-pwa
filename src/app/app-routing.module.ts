@@ -8,6 +8,7 @@ import { OverviewComponent } from './overview/overview.component';
 const routes: Routes = [
   { path: 'overview', canActivate: [SettingsGuard], component: OverviewComponent},
   { path: 'settings', component: SettingsComponent },
+  { path: '', redirectTo: 'overview', pathMatch: 'full' },
   { path: '**', redirectTo: 'overview', pathMatch: 'full' }
 ];
 
