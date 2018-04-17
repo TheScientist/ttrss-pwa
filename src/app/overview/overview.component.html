@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="space-between stretch" fxFlex="1 1 auto">
+<div fxFlex="1 1 auto" style="height: 100%;">
   <button id="menu-button" mat-icon-button (click)="snav.toggle()" aria-label="Menu" [style.display]="isMobile ? 'block' : 'none'">
     <mat-icon>menu</mat-icon>
   </button>
-  <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;" fxFlex="1 1 auto">
+  <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;">
     <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
       <mat-nav-list [class.list-indent]="isMobile">
         <div *ngFor="let cat of categories">
@@ -23,9 +23,8 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()"
-    [scrollWindow]="false" >
-      <mat-toolbar #feedtoolbar class="ttrss-toolbar">
+    <mat-sidenav-content role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false">
+      <mat-toolbar #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
         <!-- <mat-toolbar-row> -->
         <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
           <img *ngIf="selectedFeed.id>0 && !is_cat;else matFeedIcon" [src]="client.getFeedIconURL(selectedFeed.id)"

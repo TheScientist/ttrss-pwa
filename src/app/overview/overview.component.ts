@@ -37,7 +37,8 @@ export class OverviewComponent implements OnInit {
 
   private _mobileQueryListener: () => void;
 
-  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, private client: TtrssClientService, private settings: SettingsService) {
+  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, 
+    private client: TtrssClientService, private settings: SettingsService) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
       if (change.mqAlias == 'sm' || change.mqAlias == 'xs') {
@@ -53,6 +54,12 @@ export class OverviewComponent implements OnInit {
       this.snav.close();
     }
     this.selectedFeed = feed;
+    this.headlines = [];
+    this.fetch_more = true;
+    this._scrollToService.scrollTo({
+      target: 'feedtoolbar',
+      duration: 0
+    })
     this.is_cat = this.selectedFeed instanceof Category;
     this.settings.lastFeedId = feed.id;
     this.settings.lastSelectionIsCat = this.is_cat;
@@ -252,5 +259,4 @@ export class OverviewComponent implements OnInit {
       this.multiSelectedHeadlines.length = 0;
     }
   }
-
 }

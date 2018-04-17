@@ -1,6 +1,6 @@
 :host() {
     flex-direction: column;
-    display: flex; 
+    display: inline-flex; 
     flex-grow: 1;
 }
 

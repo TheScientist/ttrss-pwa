@@ -2,10 +2,12 @@
 
 ## 1.0 TODOs
 - button from settings to overview + settings layout
+- ci cd github integration
 
 ## Future TODOs
 - keyboard shortcuts
 - service worker
+- sticky workaround in edge https://github.com/dollarshaveclub/stickybits
 - mark read when scrolling (+ setting)
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
