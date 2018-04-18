@@ -1,4 +1,6 @@
-# tt-RSS Progressive Web App
+# Tiny Tiny RSS Progressive Web App
+
+[![Build Status](https://travis-ci.org/TheScientist/ttrss-pwa.svg?branch=master)](https://travis-ci.org/TheScientist/ttrss-pwa)
 
 ## 1.0 TODOs
 - ci cd github integration

@@ -12,6 +12,6 @@ addons:
   chrome: stable
 
 script:
-  - npm run lint
-  - npm run build
-  - xvfb-run npm run e2e
+  - ng lint
+  - ng build --prod --aot false
+  - xvfb-run ng e2e
