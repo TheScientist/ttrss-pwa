@@ -1,12 +1,12 @@
 # tt-RSS Progressive Web App
 
 ## 1.0 TODOs
-- button from settings to overview + settings layout
 - ci cd github integration
 
 ## Future TODOs
 - keyboard shortcuts
 - service worker
+- content theming (e.g. max size for images)
 - sticky workaround in edge https://github.com/dollarshaveclub/stickybits
 - mark read when scrolling (+ setting)
 - allow mixed content in articles
