@@ -2,14 +2,12 @@
 
 [![Build Status](https://travis-ci.org/TheScientist/ttrss-pwa.svg?branch=master)](https://travis-ci.org/TheScientist/ttrss-pwa)
 
-## 1.0 TODOs
-- ci cd github integration
-
-## Future TODOs
+## TODOs
+- e2e tests
 - keyboard shortcuts
 - service worker
-- content theming (e.g. max size for images)
-- sticky workaround in edge https://github.com/dollarshaveclub/stickybits
+- article content theming (e.g. max size for images)
+- sticky workaround in edge (https://github.com/dollarshaveclub/stickybits)
 - mark read when scrolling (+ setting)
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)

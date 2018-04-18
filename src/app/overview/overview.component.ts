@@ -10,6 +10,8 @@ import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.compon
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { CounterResult } from '../model/counter-result';
 import { SettingsService } from '../settings.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Title } from '@angular/platform-browser';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -38,7 +40,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
   private _mobileQueryListener: () => void;
 
   constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog,
-    private client: TtrssClientService, private settings: SettingsService) {
+    private client: TtrssClientService, private settings: SettingsService,
+    private translate: TranslateService, private titleService: Title) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
@@ -108,7 +111,18 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   refreshCounters() {
-    this.client.updateCounters().subscribe(data => this.counters = data);
+    this.client.updateCounters().subscribe(data => {
+      this.counters = data;
+      const fresh = this.counters.find(cnt => cnt.id === '-3' && !cnt.kind);
+      if (fresh) {
+        let prefix = '';
+        if (fresh.counter > 0) {
+          prefix = '(' + fresh.counter + ') ';
+        }
+        this.translate.get('title').subscribe(result => this.titleService.setTitle(prefix + result));
+      }
+    }
+    );
   }
 
   loadHeadlines() {
