@@ -16,19 +16,31 @@ export class FeedFilterPipe implements PipeTransform {
                 .sort((a, b) => {
                     switch (a.id) {
                         case -1:
-                            if (b.id === -3 || b.id === -4) return 1;
-                            else return -1;
+                            if (b.id === -3 || b.id === -4) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
                         case -2:
-                            if (b.id === -6 || b.id === 0) return -1;
-                            else return 1;
+                            if (b.id === -6 || b.id === 0) {
+                                return -1;
+                            } else {
+                                return 1;
+                            }
                         case -3:
-                            if (b.id === -4) return 1;
-                            else return -1;
+                            if (b.id === -4) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
                         case -4:
                             return -1;
                         case 0:
-                            if (b.id === -6) return 1;
-                            else return -1;
+                            if (b.id === -6) {
+                                return 1;
+                            } else {
+                                return -1;
+                            }
                         case -6:
                             return 1;
                         default: return a.id - b.id;

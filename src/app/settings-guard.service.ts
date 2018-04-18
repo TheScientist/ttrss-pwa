@@ -8,19 +8,20 @@ import { MessagingService } from './messaging.service';
 @Injectable()
 export class SettingsGuard implements CanActivate {
 
-  constructor(private router: Router, private settings: SettingsService, private client: TtrssClientService, private msgs: MessagingService) { }
+  constructor(private router: Router, private settings: SettingsService,
+    private client: TtrssClientService, private msgs: MessagingService) { }
 
   canActivate() {
-    var out = this.settings.sessionKey !== null;
+    const out = this.settings.sessionKey !== null;
     if (out) {
-      return this.client.checkLoggedIn().mergeMap(success => {
-        if (!success) {
+      return this.client.checkLoggedIn().mergeMap(loggedIn => {
+        if (!loggedIn) {
           return this.client.login(true)
-          .do(success => {
-            if (!success) {
-              this.router.navigate(['/settings']);
-            }
-          }).first();
+            .do(success => {
+              if (!success) {
+                this.router.navigate(['/settings']);
+              }
+            }).first();
         } else {
           return of(true);
         }

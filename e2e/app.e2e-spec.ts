@@ -1,4 +1,5 @@
 import { AppPage } from './app.po';
+import { browser } from 'protractor';
 
 describe('ttrss-pwa App', () => {
   let page: AppPage;
@@ -7,8 +8,8 @@ describe('ttrss-pwa App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display title', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to ttrss!');
+    expect(browser.getTitle()).toEqual('Tiny Tiny RSS PWA');
   });
 });

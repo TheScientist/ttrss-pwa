@@ -6,7 +6,7 @@ export class CounterResult {
     kind: string;
 
     constructor(orig: ICounterResult) {
-        this.id = orig.id + "";
+        this.id = orig.id + '';
         this.updated = orig.updated;
         this.counter = orig.counter;
         this.auxcounter = orig.auxcounter;

@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
-import { FormsModule } from '@angular/forms'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Ng2Webstorage } from 'ngx-webstorage';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -21,8 +21,8 @@ import { MessagingComponent } from './messaging/messaging.component';
 import { OverviewComponent } from './overview/overview.component';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import './util/rxjs-operators'
+import { FlexLayoutModule } from '@angular/flex-layout';
+import './util/rxjs-operators';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FeedFilterPipe } from './util/filter-pipe';
 import { CounterFilterPipe } from './util/counter-filter-pipe';
@@ -87,10 +87,10 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       }}),
     SwiperModule
   ],
-  entryComponents:[AppComponent, MarkreaddialogComponent],
+  entryComponents: [AppComponent, MarkreaddialogComponent],
   providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,
    { provide: LOCALE_ID,
-    deps: [SettingsService],   
+    deps: [SettingsService],
     useFactory: (settings) => settings.getLanguage()},
     {
       provide: SWIPER_CONFIG,

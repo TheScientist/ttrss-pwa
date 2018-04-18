@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ElementRef, OnChanges } from '@angular/core';
 import { SwiperComponent } from 'ngx-swiper-wrapper';
 import { TtrssClientService } from '../ttrss-client.service';
 import { Category } from '../model/category';
@@ -8,17 +8,17 @@ import { Category } from '../model/category';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent implements OnInit, OnChanges {
 
   @Input() article: Headline;
   @Input() selected: boolean;
-  @Input() feed: Feed|Category;
+  @Input() feed: Feed | Category;
   @Input() multiSelectEnabled: boolean;
   @ViewChild(SwiperComponent) componentRef: SwiperComponent;
 
-  swipeInProgress: boolean = false;
-  swipeAction: number = 1;
-  constructor(private client: TtrssClientService, private artElement: ElementRef) {}
+  swipeInProgress = false;
+  swipeAction = 1;
+  constructor(private client: TtrssClientService, private artElement: ElementRef) { }
 
   ngOnInit() {
   }
@@ -33,17 +33,17 @@ export class ArticleComponent implements OnInit {
   swipeFinished() {
     this.swipeInProgress = false;
     // slow swipe
-    let action = this.swipeAction;
+    const action = this.swipeAction;
     if (action !== 1) {
-      if(action==0) {
+      if (action === 0) {
         this.client.updateArticle(this.article, 2, 2).subscribe(result => {
-          if(result) {
+          if (result) {
             this.article.unread = !this.article.unread;
           }
         });
       } else {
         this.client.updateArticle(this.article, 0, 2).subscribe(result => {
-          if(result) {
+          if (result) {
             this.article.marked = !this.article.marked;
           }
         });
@@ -66,6 +66,6 @@ export class ArticleComponent implements OnInit {
   }
 
   showFeedIcons() {
-    return this.feed.id<0 || this.feed instanceof Category;
+    return this.feed.id < 0 || this.feed instanceof Category;
   }
 }

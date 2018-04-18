@@ -23,8 +23,7 @@ export class SettingsComponent implements OnInit {
   testConnection() {
     this.client.login(true).toPromise();
   }
-  onLocaleChange(event)
-  {
+  onLocaleChange(event) {
     this.translate.use(event.value);
   }
 }

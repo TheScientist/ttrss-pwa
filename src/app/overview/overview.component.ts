@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
 import { Observable } from 'rxjs/Observable';
@@ -15,33 +15,33 @@ import { SettingsService } from '../settings.service';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit {
+export class OverviewComponent implements OnInit, OnDestroy {
 
   @ViewChild('snav') public snav: MatSidenav;
   @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
 
   watcher: Subscription;
-  activeMediaQuery = "";
-  isMobile: boolean = false;
+  activeMediaQuery = '';
+  isMobile = false;
 
   feeds: Feed[];
   categories: Category[];
   counters: CounterResult[];
   selectedFeed: Feed | Category;
-  is_cat: boolean = false;
-  multiSelectEnabled: boolean = false;
+  is_cat = false;
+  multiSelectEnabled = false;
   headlines: Headline[] = [];
   multiSelectedHeadlines: Headline[] = [];
   selectedHeadline: Headline;
-  fetch_more: boolean = true;
+  fetch_more = true;
 
   private _mobileQueryListener: () => void;
 
-  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog, 
+  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog,
     private client: TtrssClientService, private settings: SettingsService) {
     this.watcher = media.subscribe((change: MediaChange) => {
-      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : "";
-      if (change.mqAlias == 'sm' || change.mqAlias == 'xs') {
+      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+      if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
         this.isMobile = true;
       } else {
         this.isMobile = false;
@@ -59,7 +59,7 @@ export class OverviewComponent implements OnInit {
     this._scrollToService.scrollTo({
       target: 'feedtoolbar',
       duration: 0
-    })
+    });
     this.is_cat = this.selectedFeed instanceof Category;
     this.settings.lastFeedId = feed.id;
     this.settings.lastSelectionIsCat = this.is_cat;
@@ -92,17 +92,17 @@ export class OverviewComponent implements OnInit {
   }
 
   initLastFeed(): void {
-    let isCat = this.settings.lastSelectionIsCat;
-    let selId = this.settings.lastFeedId;
+    const isCat = this.settings.lastSelectionIsCat;
+    const selId = this.settings.lastFeedId;
     if (isCat) {
-      let cat: Category = this.categories.find(cat => cat.id == selId);
-      if (cat) {
-        this.onSelect(cat);
+      const foundCat: Category = this.categories.find(cat => cat.id === selId);
+      if (foundCat) {
+        this.onSelect(foundCat);
       }
     } else {
-      let feed: Feed = this.feeds.find(feed => feed.id == selId);
-      if (feed) {
-        this.onSelect(feed);
+      const foundFeed: Feed = this.feeds.find(feed => feed.id === selId);
+      if (foundFeed) {
+        this.onSelect(foundFeed);
       }
     }
   }
@@ -119,7 +119,7 @@ export class OverviewComponent implements OnInit {
           if (data.length === 0) {
             this.fetch_more = false;
           } else {
-            this.headlines.push(...data)
+            this.headlines.push(...data);
           }
         });
     }
@@ -151,7 +151,7 @@ export class OverviewComponent implements OnInit {
         this.selectedHeadline = null;
       }
     } else {
-      var index = this.multiSelectedHeadlines.indexOf(headline);
+      const index = this.multiSelectedHeadlines.indexOf(headline);
       if (index < 0) {
         this.multiSelectedHeadlines.push(headline);
       } else {
@@ -160,11 +160,11 @@ export class OverviewComponent implements OnInit {
     }
   }
   catchupFeed() {
-    let dialogRef = this.dialog.open(MarkreaddialogComponent);
+    const dialogRef = this.dialog.open(MarkreaddialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.client.catchupFeed(this.selectedFeed, this.is_cat).subscribe(result => {
-          if (result) {
+        this.client.catchupFeed(this.selectedFeed, this.is_cat).subscribe(success => {
+          if (success) {
             this.headlines.forEach(head => head.unread = false);
             this.refreshCounters();
           }
@@ -174,8 +174,8 @@ export class OverviewComponent implements OnInit {
   }
 
   updateSelected(field: number, mode: number) {
-    let feedOrCat = this.selectedFeed;
-    let isCat = this.is_cat;
+    const feedOrCat = this.selectedFeed;
+    const isCat = this.is_cat;
     if (this.multiSelectEnabled) {
       if (this.multiSelectedHeadlines.length === 0) {
         return;
@@ -184,7 +184,7 @@ export class OverviewComponent implements OnInit {
         if (result) {
           switch (field) {
             case 0:
-              let amount: number = 0;
+              let amount = 0;
               this.multiSelectedHeadlines.forEach(head => {
                 head.marked = !head.marked;
                 head.marked ? amount++ : amount--;
@@ -192,7 +192,7 @@ export class OverviewComponent implements OnInit {
               this.updateFavCounter(amount);
               break;
             case 2:
-              let change: number = 0;
+              let change = 0;
               this.multiSelectedHeadlines.forEach(head => {
                 head.unread = !head.unread;
                 head.unread ? change++ : change--;
@@ -207,7 +207,7 @@ export class OverviewComponent implements OnInit {
         }
       });
     } else {
-      let head: Headline = this.selectedHeadline;
+      const head: Headline = this.selectedHeadline;
       this.client.updateArticle(head, field, mode).subscribe(result => {
         if (result) {
           switch (field) {
@@ -230,22 +230,22 @@ export class OverviewComponent implements OnInit {
   }
 
   updateFavCounter(amount: number) {
-    let cntResult: CounterResult = this.counters.find(cnt => cnt.id === "-1" && (!cnt.kind || cnt.kind !== "cat"));
+    const cntResult: CounterResult = this.counters.find(cnt => cnt.id === '-1' && (!cnt.kind || cnt.kind !== 'cat'));
     if (cntResult) {
       cntResult.auxcounter += amount;
     }
   }
 
   updateReadCounters(amount: number, feedid: number, catid: number): void {
-    let arr: string[] = [];
+    const arr: string[] = [];
     if (feedid != null) {
-      arr.push(feedid + "");
+      arr.push(feedid + '');
     }
-    arr.push("-3");
-    arr.push("-4");
+    arr.push('-3');
+    arr.push('-4');
     this.counters.forEach(cnt => {
-      if (arr.includes(cnt.id) && (!cnt.kind || cnt.kind !== "cat")
-        || catid && catid + "" === cnt.id && cnt.kind === "cat") {
+      if (arr.includes(cnt.id) && (!cnt.kind || cnt.kind !== 'cat')
+        || catid && catid + '' === cnt.id && cnt.kind === 'cat') {
         cnt.counter += amount;
       }
     });

@@ -8,7 +8,7 @@ import * as CryptoJS from 'crypto-js';
 export class SettingsService {
 
   constructor() { }
-  public locales: Language[] = [{ key: "en", name: "English" }, { key: "de", name: "Deutsch" }]
+  public locales: Language[] = [{ key: 'en', name: 'English' }, { key: 'de', name: 'Deutsch' }];
   @LocalStorage()
   public url: string;
   @LocalStorage()
@@ -29,20 +29,21 @@ export class SettingsService {
   getLanguage(): string {
     if (this.locale === null) {
       return 'de';
+    } else {
+      return this.locale;
     }
-    else return this.locale;
   }
 
   get password(): string {
-    if(this._password===null) {
+    if (this._password === null) {
       return null;
     }
-    var bytes = CryptoJS.AES.decrypt(this._password, "notsosecretseed_itsopensourced"); 
-    var out = bytes.toString(CryptoJS.enc.Utf8);
+    const bytes = CryptoJS.AES.decrypt(this._password, 'notsosecretseed_itsopensourced');
+    const out = bytes.toString(CryptoJS.enc.Utf8);
     return out;
   }
   set password(newValue: string) {
-    var encrypted = CryptoJS.AES.encrypt(newValue, "notsosecretseed_itsopensourced").toString();
+    const encrypted = CryptoJS.AES.encrypt(newValue, 'notsosecretseed_itsopensourced').toString();
     this._password = encrypted;
   }
 }

@@ -8,31 +8,31 @@ import { CounterResult } from '../model/counter-result';
 export class CounterFilterPipe implements PipeTransform {
     transform(items: CounterResult[], feedid: number, iscat: boolean): string {
         if (!items) {
-            return "";
+            return '';
         }
         let ctResult = null;
         if (iscat) {
-            ctResult = items.find(cntResult => cntResult.id == feedid + "" && cntResult.kind === "cat");
+            ctResult = items.find(cntResult => cntResult.id === feedid + '' && cntResult.kind === 'cat');
         } else {
-            ctResult = items.find(cntResult => cntResult.id == feedid + "");
+            ctResult = items.find(cntResult => cntResult.id === feedid + '');
         }
         if (ctResult == null) {
-            return "";
+            return '';
         }
         if (feedid <= 0 && feedid > -3) {
-            let counter: number = ctResult.auxcounter;
+            const counter: number = ctResult.auxcounter;
 
             if (!counter || counter === 0) {
-                return "";
+                return '';
             } else {
-                return counter + "";
+                return counter + '';
             }
         } else {
-            let counter: number = ctResult.counter;
+            const counter: number = ctResult.counter;
             if (!counter || counter === 0) {
-                return "";
+                return '';
             } else {
-                return counter + "";
+                return counter + '';
             }
         }
     }
