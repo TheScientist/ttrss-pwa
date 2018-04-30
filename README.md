@@ -1,6 +1,5 @@
 # Tiny Tiny RSS Progressive Web App
 
-[![Build Status](https://travis-ci.org/TheScientist/ttrss-pwa.svg?branch=master)](https://travis-ci.org/TheScientist/ttrss-pwa)
 [![Build Status](https://ci.thescientist.eu/buildStatus/icon?job=TT-RSS%20PWA)](https://ci.thescientist.eu/job/TT-RSS%20PWA)
 ## TODOs
 - ci/cd/e2e tests
