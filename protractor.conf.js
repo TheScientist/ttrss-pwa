@@ -11,7 +11,7 @@ exports.config = {
   capabilities: {
     browserName: 'chrome',
     chromeOptions: {
-      args: [ "--headless", "--disable-gpu", "--window-size=800,600" ]
+      args: ["--headless", "--disable-gpu", "--window-size=800,600"]
     }
   },
   directConnect: true,
@@ -20,12 +20,18 @@ exports.config = {
   jasmineNodeOpts: {
     showColors: true,
     defaultTimeoutInterval: 30000,
-    print: function() {}
+    print: function () { }
   },
   onPrepare() {
     require('ts-node').register({
       project: 'e2e/tsconfig.e2e.json'
     });
+    var jasmineReporters = require('jasmine-reporters');
     jasmine.getEnv().addReporter(new SpecReporter({ spec: { displayStacktrace: true } }));
+    jasmine.getEnv().addReporter(new jasmineReporters.JUnitXmlReporter({
+      consolidateAll: true,
+      savePath: 'testresults',
+      filePrefix: 'xmloutput'
+    }));
   }
 };
