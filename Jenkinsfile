@@ -1,11 +1,6 @@
 pipeline {
     agent any 
     stages {
-        stage('Checkout') { 
-            steps {
-                git 'https://github.com/TheScientist/ttrss-pwa.git'
-            }
-        }
         stage('Build') {
             steps {
                 sh 'npm i'
