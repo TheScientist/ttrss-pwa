@@ -5,7 +5,10 @@
 - ci/cd/e2e tests
 - keyboard shortcuts
 - service worker
+  - offline mode
+  - push notification
 - article content theming (e.g. max size for images)
+- rewrite custom css to allow changing the theme
 - sticky workaround in edge (https://github.com/dollarshaveclub/stickybits)
 - mark read when scrolling (+ setting)
 - allow mixed content in articles
@@ -14,20 +17,18 @@
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
-Install NodeJs
-npm i -g @angular/cli
+- Install NodeJs
+- npm install -g @angular/cli (global installation of angular cli)
+- go to checkout directory
+  - npm install  (install projects dependencies)
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build -aot false` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 ## Running end-to-end tests
 
