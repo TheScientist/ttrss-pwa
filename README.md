@@ -1,6 +1,6 @@
 # Tiny Tiny RSS Progressive Web App
 
-[![Build Status](https://ci.thescientist.eu/buildStatus/icon?job=TT-RSS%20Progressive/master)](https://ci.thescientist.eu/blue/organizations/jenkins/TT-RSS%20Progressive/activity/?branch=master)
+[![Build Status](https://ci.thescientist.eu/buildStatus/icon?job=ttrss-pwa/master)](https://ci.thescientist.eu/blue/organizations/jenkins/ttrss-pwa/activity/?branch=master)
 ## TODOs
 - ci/cd/e2e tests
 - keyboard shortcuts
