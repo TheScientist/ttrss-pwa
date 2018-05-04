@@ -36,8 +36,7 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": true,
-              "ngswConfigPath": "/src/ngsw-config.json",
+              "serviceWorker": false,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
