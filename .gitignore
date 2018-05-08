@@ -38,6 +38,7 @@ testem.log
 /e2e/*.js
 /e2e/*.map
 testresults/
+protractor.conf-local.js
 
 # System Files
 .DS_Store

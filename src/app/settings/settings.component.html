@@ -1,4 +1,4 @@
-<a mat-icon-button aria-label="Overview" routerLink="/overiew">
+<a mat-icon-button aria-label="Overview" routerLink="/overiew" id="feedLink">
   <mat-icon>arrow_back</mat-icon>{{'Settings_Leave' | translate }}
 </a>
 <div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
@@ -8,18 +8,18 @@
     </mat-card-header>
     <mat-card-content>
         <mat-form-field class="settings-form-field">
-          <input matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url"
+          <input id="apiurl" matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url"
             type="url">
         </mat-form-field>
         <mat-form-field class="settings-form-field">
-          <input matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username"
+          <input id="username" matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username"
             type="text">
         </mat-form-field>
         <mat-form-field class="settings-form-field">
-          <input matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password"
+          <input id="password" matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password"
             type="password">
         </mat-form-field>
-        <button mat-raised-button (click)="testConnection()" type="submit">{{'Settings Verify' | translate }}</button>
+        <button id="testButton" mat-raised-button (click)="testConnection()" type="submit">{{'Settings Verify' | translate }}</button>
         <br />
         <br />
         <mat-form-field>

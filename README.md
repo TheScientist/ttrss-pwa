@@ -32,6 +32,7 @@ Run `ng build -aot false` to build the project. The build artifacts will be stor
 
 ## Running end-to-end tests
 
+Configure params section in protractor.conf.js with a valid tt-rss connection
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
 ## Further help

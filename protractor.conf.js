@@ -4,6 +4,13 @@
 const { SpecReporter } = require('jasmine-spec-reporter');
 
 exports.config = {
+  params: {
+    login: {
+      url: 'https://some-server.com/api/',
+      user: 'default',
+      password: 'default'
+    }
+  },
   allScriptsTimeout: 11000,
   specs: [
     './e2e/**/*.e2e-spec.ts'
