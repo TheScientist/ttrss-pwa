@@ -2,7 +2,7 @@ import { AppPage } from './app.po';
 import { browser } from 'protractor';
 import { SettingsPage } from './settings.po';
 
-describe('ttrss-pwa Settings page', () => {
+describe('Settings page', () => {
   let page: AppPage;
 
   beforeEach(() => {
