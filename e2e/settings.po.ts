@@ -9,7 +9,7 @@ export class SettingsPage extends AppPage {
   passwordInput = element(by.id('password'));
   testButton = element(by.id('testButton'));
 
-  goBackToFeeds():AppPage {
+  goBackToFeeds(): AppPage {
     this.linkToFeeds.click();
     return new AppPage();
   }

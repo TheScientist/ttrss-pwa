@@ -15,9 +15,9 @@ describe('ttrss-pwa Settings page', () => {
   });
 
   it('should save valid settings', async () => {
-    let settings = new SettingsPage();
+    const settings = new SettingsPage();
     settings.doTestSettings(browser.params.login.url, browser.params.login.user, browser.params.login.password);
-    let logMsgFound = await settings.waitForLastLogMessageText('login successful');
+    const logMsgFound = await settings.waitForLastLogMessageText('login successful');
     expect(logMsgFound).toBe(true);
   });
 });
