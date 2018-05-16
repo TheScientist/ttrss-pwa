@@ -10,7 +10,7 @@
       'starred':article.marked
     }">
     <span class="breakwords" style="padding-right:4px;">{{article.title}}</span>
-    <a *ngIf="selected" [href]="article.link" target="_blank">
+    <a *ngIf="article.link" [href]="article.link" target="_blank">
       <mat-icon style="font-size: 16px" [matTooltip]="'Open_Article' | translate">launch</mat-icon>
     </a>
     <span *ngIf="article.author" style="padding-right:4px;">({{article.author}})</span>
