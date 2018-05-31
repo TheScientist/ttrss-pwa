@@ -39,7 +39,7 @@ import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ArticleComponent } from './article/article.component';
 import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.component';
 import { ArticleContentComponent } from './article-content/article-content.component';
-
+import { NgInviewModule } from 'angular-inport';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -85,7 +85,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }}),
-    SwiperModule
+    SwiperModule,
+    NgInviewModule
   ],
   entryComponents: [AppComponent, MarkreaddialogComponent],
   providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,

@@ -1,10 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { MatSidenav, MatDialog, MatToolbar } from '@angular/material';
+import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent } from '@angular/material';
 import { Category } from '../model/category';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
@@ -17,10 +17,13 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit, OnDestroy {
+export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('snav') public snav: MatSidenav;
   @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
+
+  scrollContainer: HTMLElement;
+  inViewOffset = [];
 
   watcher: Subscription;
   activeMediaQuery = '';
@@ -79,6 +82,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.scrollContainer = document.getElementById("feedView");
+
     this.refreshCounters();
     setInterval(() => {
       this.refreshCounters();
@@ -92,6 +97,10 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.client.getCategories().subscribe(
       data => this.categories = data
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.inViewOffset = [0, 0, this.scrollContainer.offsetHeight / 2, 0];
   }
 
   initLastFeed(): void {
@@ -271,6 +280,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
       this.selectedHeadline = null;
     } else {
       this.multiSelectedHeadlines.length = 0;
+    }
+  }
+
+  inview(event) {
+    if (event.data.unread && !event.parts.top && event.status) {
+      this.client.updateArticle(event.data, 2, 0).subscribe(result => {
+        if (result) {
+          event.data.unread = false;
+        }
+      });
     }
   }
 }

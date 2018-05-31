@@ -1,8 +1,10 @@
 # Tiny Tiny RSS Progressive Web App
 
 [![Build Status](https://ci.thescientist.eu/buildStatus/icon?job=ttrss-pwa/master)](https://ci.thescientist.eu/blue/organizations/jenkins/ttrss-pwa/activity/?branch=master)
+[![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
+[![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 ## TODOs
-- ci/cd/e2e tests
+- e2e tests
 - keyboard shortcuts
 - service worker
   - offline mode
@@ -28,7 +30,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Build
 
-Run `ng build -aot false` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+Run `ng build --aot false` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running end-to-end tests
 
