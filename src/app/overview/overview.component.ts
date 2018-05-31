@@ -82,7 +82,7 @@ export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.scrollContainer = document.getElementById("feedView");
+    this.scrollContainer = document.getElementById('feedView');
 
     this.refreshCounters();
     setInterval(() => {
