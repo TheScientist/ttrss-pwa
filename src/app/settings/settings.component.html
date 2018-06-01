@@ -1,34 +1,36 @@
 <a mat-icon-button aria-label="Overview" routerLink="/overiew" id="feedLink">
   <mat-icon>arrow_back</mat-icon>{{'Settings_Leave' | translate }}
 </a>
-<div fxLayout="row wrap" fxLayoutAlign="space-around stretch">
-  <mat-card id="settings-card">
-    <mat-card-header>
-      <mat-card-title>{{ 'Settings' | translate }}</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <mat-form-field class="settings-form-field">
-          <input id="apiurl" matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url"
-            type="url">
-        </mat-form-field>
-        <mat-form-field class="settings-form-field">
-          <input id="username" matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username"
-            type="text">
-        </mat-form-field>
-        <mat-form-field class="settings-form-field">
-          <input id="password" matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password"
-            type="password">
-        </mat-form-field>
-        <button id="testButton" mat-raised-button (click)="testConnection()" type="submit">{{'Settings Verify' | translate }}</button>
-        <br />
-        <br />
-        <mat-form-field>
-          <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (change)="onLocaleChange($event)">
-            <mat-option *ngFor="let lang of settings.locales" [value]="lang.key">
-              {{ lang.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-tab-group id="settings-card" [dynamicHeight]="true">
+  <mat-tab [label]="'Settings' | translate">
+    <p style="padding: 0 12px;">
+      <mat-form-field class="settings-form-field">
+        <input id="apiurl" matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url"
+          type="url">
+      </mat-form-field>
+      <mat-form-field class="settings-form-field">
+        <input id="username" matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username"
+          type="text">
+      </mat-form-field>
+      <mat-form-field class="settings-form-field">
+        <input id="password" matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password"
+          type="password">
+      </mat-form-field>
+      <button id="testButton" mat-raised-button (click)="testConnection()" type="submit">{{'Settings Verify' | translate }}</button>
+      <br />
+      <br />
+      <mat-form-field>
+        <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (change)="onLocaleChange($event)">
+          <mat-option *ngFor="let lang of settings.locales" [value]="lang.key">
+            {{ lang.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
+  </mat-tab>
+  <mat-tab [label]="'Behaviour' | translate">
+    <p style="padding: 0 12px;">
+      <mat-checkbox [(ngModel)]="settings.markReadOnScroll">{{'Behaviour_MarkRead_OnScroll' | translate }}</mat-checkbox>
+    </p>
+  </mat-tab>
+</mat-tab-group>

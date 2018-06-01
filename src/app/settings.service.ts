@@ -25,6 +25,8 @@ export class SettingsService {
   public lastFeedId: number;
   @LocalStorage()
   public lastSelectionIsCat: boolean;
+  @LocalStorage()
+  public markReadOnScroll: boolean;
 
   getLanguage(): string {
     if (this.locale === null) {

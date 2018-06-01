@@ -4,6 +4,8 @@
     "Actions Mark Feed Read Hint": "Diese Aktion markiert alle Artikel in diesem Feed als gelesen. Bist du dir sicher?",    
     "Actions Mark Read": "Als gelesen markieren",
     "Actions Mark Starred": "Als Favorit markieren",
+    "Behaviour": "Verhalten",
+    "Behaviour_MarkRead_OnScroll": "Durch scrollen als gelesen markieren",
     "Dialog OK": "OK",
     "Dialog Abort": "Abbrechen",
     "Logging": "Logging",

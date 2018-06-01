@@ -23,7 +23,7 @@
       </mat-nav-list>
     </mat-sidenav>
 
-    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false">
+    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false" [infiniteScrollDistance]="1">
       <mat-toolbar #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
         <!-- <mat-toolbar-row> -->
         <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
@@ -71,7 +71,7 @@
             <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)"
               (change)="onArticleSelect(head)"></mat-checkbox>
             <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)" [scrollELement]="scrollContainer" 
-            [offset]="inViewOffset" [data]="head" [id]="'article' + head.id" [throttle]="500">
+              [data]="head" [id]="'article' + head.id" [throttle]="500">
               <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head"
                 (click)="onArticleSelect(head);" [selected]="selectedHeadline && head===selectedHeadline"
                 fxFlex="1 1 auto"  [class.headSelected]="selectedHeadline && head===selectedHeadline"></ttrss-article>

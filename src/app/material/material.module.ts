@@ -18,7 +18,7 @@ import {
   MatExpansionPanel,
   MatExpansionModule,
   MatTooltipModule,
-  MatCardModule
+  MatTabsModule
 } from '@angular/material';
 
 @NgModule({
@@ -40,7 +40,7 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatCardModule
+    MatTabsModule
   ],
   exports: [
     CdkTableModule,
@@ -60,7 +60,7 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatCardModule
+    MatTabsModule
   ]
 })
 export class MaterialModule {}

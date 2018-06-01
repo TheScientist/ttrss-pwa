@@ -1,4 +1,15 @@
+:host {
+    flex-grow: 1;
+    margin: 12px 12px;
+}
+
+#settings-card .mat-tab-body {
+    padding: 0 12px;
+}
+
 .settings-form-field {
     display: block;
     width: 300px;
 }
+
+

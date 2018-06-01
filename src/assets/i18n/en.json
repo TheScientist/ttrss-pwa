@@ -4,6 +4,8 @@
     "Actions Mark Feed Read Hint": "This will mark all articles in this feed or category as read. Are you sure?",
     "Actions Mark Read": "mark as read",
     "Actions Mark Starred": "star article",
+    "Behaviour": "Behaviour",
+    "Behaviour_MarkRead_OnScroll": "Mark articles as read by scrolling",
     "Dialog OK": "OK",
     "Dialog Abort": "Abort",
     "Logging": "Logging",

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
 import { Observable } from 'rxjs/Observable';
@@ -17,13 +17,12 @@ import { Title } from '@angular/platform-browser';
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css']
 })
-export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
+export class OverviewComponent implements OnInit, OnDestroy {
 
   @ViewChild('snav') public snav: MatSidenav;
   @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
 
   scrollContainer: HTMLElement;
-  inViewOffset = [];
 
   watcher: Subscription;
   activeMediaQuery = '';
@@ -99,10 +98,6 @@ export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
 
-  ngAfterViewInit(): void {
-    this.inViewOffset = [0, 0, this.scrollContainer.offsetHeight / 2, 0];
-  }
-
   initLastFeed(): void {
     const isCat = this.settings.lastSelectionIsCat;
     const selId = this.settings.lastFeedId;
@@ -141,6 +136,16 @@ export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
         .subscribe(data => {
           if (data.length === 0) {
             this.fetch_more = false;
+            if (this.settings.markReadOnScroll) {
+              this.headlines.filter(h => h.unread).forEach(h => {
+                this.client.updateArticle(h, 2, 0).subscribe(result => {
+                  if (result) {
+                    h.unread = false;
+                    this.refreshCounters();
+                  }
+                });
+              });
+            }
           } else {
             this.headlines.push(...data);
           }
@@ -284,7 +289,7 @@ export class OverviewComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   inview(event) {
-    if (event.data.unread && !event.parts.top && event.status) {
+    if (this.settings.markReadOnScroll && event.data.unread && !event.parts.top && event.status) {
       this.client.updateArticle(event.data, 2, 0).subscribe(result => {
         if (result) {
           event.data.unread = false;
