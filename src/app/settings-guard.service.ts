@@ -1,8 +1,10 @@
+
+import {mergeMap, first, tap} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { SettingsService } from './settings.service';
 import { TtrssClientService } from './ttrss-client.service';
-import { of } from 'rxjs/observable/of';
+import { of } from 'rxjs';
 import { MessagingService } from './messaging.service';
 
 @Injectable()
@@ -14,25 +16,25 @@ export class SettingsGuard implements CanActivate {
   canActivate() {
     const out = this.settings.sessionKey !== null;
     if (out) {
-      return this.client.checkLoggedIn().mergeMap(loggedIn => {
+      return this.client.checkLoggedIn().pipe(mergeMap(loggedIn => {
         if (!loggedIn) {
-          return this.client.login(true)
-            .do(success => {
+          return this.client.login(true).pipe(
+            tap(success => {
               if (!success) {
                 this.router.navigate(['/settings']);
               }
-            }).first();
+            }), first());
         } else {
           return of(true);
         }
-      });
+      }));
     } else {
-      return this.client.login(false)
-        .do(success => {
+      return this.client.login(false).pipe(
+        tap(success => {
           if (!success) {
             this.router.navigate(['/settings']);
           }
-        }).first();
+        }), first());
     }
   }
 }

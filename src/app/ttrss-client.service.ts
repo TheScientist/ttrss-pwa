@@ -1,12 +1,12 @@
+
+import {catchError, tap, map} from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
+import { Observable ,  of ,  BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
 import { MessagingService } from './messaging.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Category } from './model/category';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { CounterResult } from './model/counter-result';
 
 @Injectable()
@@ -19,15 +19,15 @@ export class TtrssClientService {
     if (force || this.settings.sessionKey === null) {
       const body = '{"op":"login","user":"' + this.settings.username + '","password":"' + this.settings.password + '"}';
       const result = this.http.post<ApiResult<any>>(this.settings.url, body);
-      return result
-        .map(data => {
+      return result.pipe(
+        map(data => {
           if (data.status !== 0) {
             this.handleError('login', data, false);
           } else {
             return data.content;
           }
-        })
-        .do(data => {
+        }),
+        tap(data => {
           if (data.session_id) {
             this.settings.sessionKey = data.session_id;
             this.messages.log('login successful', data, true);
@@ -35,38 +35,38 @@ export class TtrssClientService {
           } else {
             this.handleError('login', data, false);
           }
-        })
-        .map(data => data.session_id !== undefined)
-        .catch(err => this.handleError('login', err, false)
-        );
+        }),
+        map(data => data.session_id !== undefined),
+        catchError(err => this.handleError('login', err, false)
+        ));
     }
   }
   checkLoggedIn(): Observable<boolean> {
     const body = '{"op":"getApiLevel","sid":"' + this.settings.sessionKey + '"}';
     const result = this.http.post<ApiResult<any>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('checkLoggedIn', data, false);
         } else {
           return true;
         }
-      })
-      .catch(err => this.handleError('checkLoggedIn', err, false)
-      );
+      }),
+      catchError(err => this.handleError('checkLoggedIn', err, false)
+      ));
   }
 
   getConfig() {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getConfig" }';
     const result = this.http.post<ApiResult<any>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('config', data);
         } else {
           return data.content;
         }
-      }).subscribe(
+      })).subscribe(
         data => this.settings.icons_url = data.icons_url
       );
   }
@@ -74,54 +74,57 @@ export class TtrssClientService {
   getAllFeeds(): Observable<Feed[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getFeeds", "cat_id":-4 }';
     const result = this.http.post<ApiResult<Feed[]>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('getAllFeeds', data, []);
         } else {
           return data.content;
         }
-      })
-      .do(data => { if (data && data.length > 0) { this.messages.log('got feeds', data, true); } })
-      .catch(err => this.handleError('getAllFeeds', err, []));
+      }),
+      tap(data => { if (data && data.length > 0) { this.messages.log('got feeds', data, true); } }),
+      catchError(err => this.handleError('getAllFeeds', err, []))
+    );
   }
 
   getCategories(): Observable<Category[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", '
       + '"op":"getCategories", "unread_only":false, "enable_nested":false, "include_empty":true }';
     const result = this.http.post<ApiResult<ICategory[]>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('getCategories', data, []);
         } else {
           return data.content;
         }
-      })
-      .do(data => {
+      }),
+      tap(data => {
         if (data && data.length > 0) {
           this.messages.log('got categories', data, true);
         }
-      })
-      .map(data => data.map(cat => new Category(cat)))
-      .map(data => data.filter(cat => cat.id >= -1).sort((a, b) => a.order_id - b.order_id))
-      .catch(err => this.handleError('getCategories', err, []));
+      }),
+      map(data => data.map(cat => new Category(cat))),
+      map(data => data.filter(cat => cat.id >= -1).sort((a, b) => a.order_id - b.order_id)),
+      catchError(err => this.handleError('getCategories', err, []))
+    );
   }
 
   getHeadlines(feed: Feed | Category, limit: number, skip: number, view_mode: string, is_cat: boolean): Observable<Headline[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getHeadlines", "feed_id":' + feed.id +
       ', "limit":' + limit + ', "skip":' + skip + ', "is_cat":' + is_cat + ' }';
     const result = this.http.post<ApiResult<Headline[]>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('getHeadlines', data, []);
         } else {
           return data.content;
         }
-      })
-      .do(data => { if (data && data.length > 0) { this.messages.log('got headlines', data, true); } })
-      .catch(err => this.handleError('getHeadlines', err, []));
+      }),
+      tap(data => { if (data && data.length > 0) { this.messages.log('got headlines', data, true); } }),
+      catchError(err => this.handleError('getHeadlines', err, []))
+    );
   }
 
   getFeedIconURL(id: number, is_cat?: boolean) {
@@ -151,47 +154,50 @@ export class TtrssClientService {
 
   updateCounters(): Observable<CounterResult[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getCounters", "output_mode":"fc"}';
-    return this.http.post<ApiResult<ICounterResult[]>>(this.settings.url, body)
-      .map(data => {
+    return this.http.post<ApiResult<ICounterResult[]>>(this.settings.url, body).pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('getCounters', data, []);
         } else {
           return data.content;
         }
-      })
-      .map(data => data.map(cnt => new CounterResult(cnt)))
-      .do(data => { if (data && data.length > 0) { this.messages.log('got counters', data, true); } })
-      .catch(err => this.handleError('getCounters', err, []));
+      }),
+      map(data => data.map(cnt => new CounterResult(cnt))),
+      tap(data => { if (data && data.length > 0) { this.messages.log('got counters', data, true); } }),
+      catchError(err => this.handleError('getCounters', err, []))
+    );
   }
 
   catchupFeed(feed: Feed | Category, is_cat: boolean): Observable<boolean> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"catchupFeed", "feed_id":"' + feed.id + '", "is_cat ": ' + is_cat + ' }';
     const result = this.http.post<ApiResult<UpdateResult>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('catchupFeed', data, false);
         } else {
           return true;
         }
-      })
-      .do(data => { if (data) { this.messages.log('catchupFeed sucessfull', data, true); } })
-      .catch(err => this.handleError('catchupFeed', err, false));
+      }),
+      tap(data => { if (data) { this.messages.log('catchupFeed sucessfull', data, true); } }),
+      catchError(err => this.handleError('catchupFeed', err, false))
+    );
   }
 
   getArticle(id: number): Observable<Article> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getArticle", "article_id":' + id + ' }';
     const result = this.http.post<ApiResult<Article[]>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0 || data.content.length === 0) {
           this.handleError('getArticle', data, null);
         } else {
           return data.content[0];
         }
-      })
-      .do(data => { if (data !== null) { this.messages.log('got article', data, true); } })
-      .catch(err => this.handleError('getArticle', err, null));
+      }),
+      tap(data => { if (data !== null) { this.messages.log('got article', data, true); } }),
+      catchError(err => this.handleError('getArticle', err, null))
+    );
   }
 
   /**
@@ -208,16 +214,17 @@ export class TtrssClientService {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"updateArticle", "article_ids":"' + ids + '", "mode": ' + mode +
       ', "field": ' + field + ' }';
     const result = this.http.post<ApiResult<UpdateResult>>(this.settings.url, body);
-    return result
-      .map(data => {
+    return result.pipe(
+      map(data => {
         if (data.status !== 0) {
           this.handleError('updateArticle', data, false);
         } else {
           return data.content.updated >= 1;
         }
-      })
-      .do(data => { if (data) { this.messages.log('article updated sucessfully', data, true); } })
-      .catch(err => this.handleError('updateArticle', err, false));
+      }),
+      tap(data => { if (data) { this.messages.log('article updated sucessfully', data, true); } }),
+      catchError(err => this.handleError('updateArticle', err, false))
+    );
   }
 
   /**

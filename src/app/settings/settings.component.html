@@ -20,7 +20,7 @@
       <br />
       <br />
       <mat-form-field>
-        <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (change)="onLocaleChange($event)">
+        <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (selectionChange)="onLocaleChange($event)">
           <mat-option *ngFor="let lang of settings.locales" [value]="lang.key">
             {{ lang.name }}
           </mat-option>

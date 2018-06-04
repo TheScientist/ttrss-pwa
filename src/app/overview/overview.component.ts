@@ -1,8 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent } from '@angular/material';
 import { Category } from '../model/category';
