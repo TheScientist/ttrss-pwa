@@ -1,8 +1,8 @@
 
-import {catchError, tap, map} from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable ,  of ,  BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
 import { MessagingService } from './messaging.service';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';

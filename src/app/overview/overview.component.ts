@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
-import { Observable ,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
 import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent } from '@angular/material';
 import { Category } from '../model/category';
@@ -11,6 +11,7 @@ import { CounterResult } from '../model/counter-result';
 import { SettingsService } from '../settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -135,16 +136,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
         .subscribe(data => {
           if (data.length === 0) {
             this.fetch_more = false;
-            if (this.settings.markReadOnScroll) {
-              this.headlines.filter(h => h.unread).forEach(h => {
-                this.client.updateArticle(h, 2, 0).subscribe(result => {
-                  if (result) {
-                    h.unread = false;
-                    this.refreshCounters();
-                  }
-                });
-              });
-            }
           } else {
             this.headlines.push(...data);
           }
@@ -288,12 +279,20 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   inview(event) {
-    if (this.settings.markReadOnScroll && event.data.unread && !event.parts.top && event.status) {
-      this.client.updateArticle(event.data, 2, 0).subscribe(result => {
-        if (result) {
-          event.data.unread = false;
-        }
-      });
+    if (this.settings.markReadOnScroll && !this.multiSelectEnabled) {
+      let idx = 0;
+      if (this.fetch_more && event.isClipped && !event.parts.top) {
+        idx = this.headlines.indexOf(event.data) + 3;
+      } else if (!this.fetch_more && event.status && this.headlines.indexOf(event.data) === this.headlines.length - 1) {
+        idx = this.headlines.length;
+      }
+      if (idx > 0) {
+        this.client.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0).subscribe(result => {
+          if (result) {
+            this.headlines.slice(0, idx).filter(h => h.unread).forEach(h => h.unread = false);
+          }
+        });
+      }
     }
   }
 }
