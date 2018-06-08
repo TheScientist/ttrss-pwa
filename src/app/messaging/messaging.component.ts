@@ -10,7 +10,7 @@ export class MessagingComponent implements OnInit {
 
   msgService: MessagingService;
 
-  constructor(private messageService: MessagingService) { 
+  constructor(private messageService: MessagingService) {
     this.msgService = messageService;
   }
 

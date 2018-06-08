@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../settings.service';
-import { LocalStorage } from 'ngx-webstorage';
 import { TtrssClientService } from '../ttrss-client.service';
 import { MessagingService } from '../messaging.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,10 +15,9 @@ export class SettingsComponent implements OnInit {
 
   constructor(private settingsSvc: SettingsService,
     private client: TtrssClientService,
-    private msgs: MessagingService,
-    private translate: TranslateService) { 
-      this.settings = settingsSvc;
-    }
+    private translate: TranslateService) {
+    this.settings = settingsSvc;
+  }
 
   ngOnInit() {
   }
