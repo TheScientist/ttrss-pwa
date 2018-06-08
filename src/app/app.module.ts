@@ -18,7 +18,6 @@ import { TtrssClientService } from './ttrss-client.service';
 import { MessagingService } from './messaging.service';
 import { MessagingComponent } from './messaging/messaging.component';
 import { OverviewComponent } from './overview/overview.component';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import './util/rxjs-operators';
@@ -38,6 +37,7 @@ import { ArticleComponent } from './article/article.component';
 import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.component';
 import { ArticleContentComponent } from './article-content/article-content.component';
 import { NgInviewModule } from 'angular-inport';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -82,7 +82,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         deps: [HttpClient]
       }}),
     SwiperModule,
-    NgInviewModule
+    NgInviewModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
   ],
   entryComponents: [AppComponent, MarkreaddialogComponent],
   providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,

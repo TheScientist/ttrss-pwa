@@ -16,8 +16,10 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "serviceWorker": true,
             "assets": [
               "src/assets",
+              "src/manifest.json",
               "src/favicon.ico"
             ],
             "styles": [
@@ -36,7 +38,8 @@
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
-              "serviceWorker": false,
+              "serviceWorker": true,
+              "ngswConfigPath": "src/ngsw-config.json", 
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

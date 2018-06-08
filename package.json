@@ -6,7 +6,6 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
@@ -23,6 +22,7 @@
     "@angular/material": "^6.0.0",
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/pwa": "^0.6.8",
     "@angular/router": "^6.0.3",
     "@angular/service-worker": "^6.0.3",
     "@ngx-translate/core": "^10.0.2",
