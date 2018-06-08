@@ -12,10 +12,14 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor(private settings: SettingsService,
+  settings: SettingsService;
+
+  constructor(private settingsSvc: SettingsService,
     private client: TtrssClientService,
     private msgs: MessagingService,
-    private translate: TranslateService) { }
+    private translate: TranslateService) { 
+      this.settings = settingsSvc;
+    }
 
   ngOnInit() {
   }
