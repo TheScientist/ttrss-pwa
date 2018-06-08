@@ -104,6 +104,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.client.getFeedTree().subscribe(
       data => {
         this.nestedDataSource.data = data;
+        this.initLastFeed();
       }
     );
   }
@@ -111,17 +112,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
   initLastFeed(): void {
     const selId = this.settings.lastFeedId;
     const isCat = this.settings.lastSelectionIsCat;
-    const foundFeed: ICategory = this.nestedDataSource.data.find(function f(cat) {
-      if (isCat && cat.type === 'category' || !isCat && cat.type !== 'category') {
-        if (cat.bare_id === selId) {
-          return true;
-        }
-      }
-      if (cat.items) {
-        return (cat.items = cat.items.filter(f)).length;
-      }
-    });
-    if (foundFeed) {
+    const foundFeed: ICategory = this.recursiveFindICategory(this.nestedDataSource.data, selId, isCat);
+    if (foundFeed !== null) {
       this.onSelect(foundFeed);
     }
   }
@@ -132,10 +124,15 @@ export class OverviewComponent implements OnInit, OnDestroy {
         if (cat.bare_id === id) {
           return cat;
         }
-      } else {
-        return this.recursiveFindICategory(cat.items, id, is_cat);
+      }
+      if (cat.type === 'category') {
+        const sub = this.recursiveFindICategory(cat.items, id, is_cat);
+        if (sub !== null) {
+          return sub;
+        }
       }
     }
+    return null;
   }
 
   refreshCounters() {
