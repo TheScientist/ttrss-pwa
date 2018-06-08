@@ -6,6 +6,9 @@ describe('Settings page', () => {
   let page: AppPage;
 
   beforeEach(() => {
+    browser.get('/');
+    browser.executeScript('window.localStorage.clear()');
+    browser.executeScript('window.sessionStorage.clear()');
     page = new AppPage();
     page.navigateTo();
   });

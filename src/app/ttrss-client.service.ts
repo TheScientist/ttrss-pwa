@@ -5,8 +5,6 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { SettingsService } from './settings.service';
 import { MessagingService } from './messaging.service';
-import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Category } from './model/category';
 import { CounterResult } from './model/counter-result';
 
 @Injectable()
@@ -71,47 +69,29 @@ export class TtrssClientService {
       );
   }
 
-  getAllFeeds(): Observable<Feed[]> {
-    const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getFeeds", "cat_id":-4 }';
-    const result = this.http.post<ApiResult<Feed[]>>(this.settings.url, body);
-    return result.pipe(
-      map(data => {
-        if (data.status !== 0) {
-          this.handleError('getAllFeeds', data, []);
-        } else {
-          return data.content;
-        }
-      }),
-      tap(data => { if (data && data.length > 0) { this.messages.log('got feeds', data, true); } }),
-      catchError(err => this.handleError('getAllFeeds', err, []))
-    );
-  }
-
-  getCategories(): Observable<Category[]> {
+  getFeedTree(): Observable<ICategory[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", '
-      + '"op":"getCategories", "unread_only":false, "enable_nested":false, "include_empty":true }';
-    const result = this.http.post<ApiResult<ICategory[]>>(this.settings.url, body);
+      + '"op":"getFeedTree", "include_empty":true }';
+    const result = this.http.post<ApiResult<IFeedTree>>(this.settings.url, body);
     return result.pipe(
       map(data => {
         if (data.status !== 0) {
-          this.handleError('getCategories', data, []);
+          this.handleError('getFeedTree', data, []);
         } else {
-          return data.content;
+          return data.content.categories.items;
         }
       }),
       tap(data => {
         if (data && data.length > 0) {
-          this.messages.log('got categories', data, true);
+          this.messages.log('got feed tree', data, true);
         }
       }),
-      map(data => data.map(cat => new Category(cat))),
-      map(data => data.filter(cat => cat.id >= -1).sort((a, b) => a.order_id - b.order_id)),
-      catchError(err => this.handleError('getCategories', err, []))
+      catchError(err => this.handleError('getFeedTree', err, []))
     );
   }
 
-  getHeadlines(feed: Feed | Category, limit: number, skip: number, view_mode: string, is_cat: boolean): Observable<Headline[]> {
-    const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getHeadlines", "feed_id":' + feed.id +
+  getHeadlines(feed: ICategory, limit: number, skip: number, view_mode: string, is_cat: boolean): Observable<Headline[]> {
+    const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getHeadlines", "feed_id":' + feed.bare_id +
       ', "limit":' + limit + ', "skip":' + skip + ', "is_cat":' + is_cat + ' }';
     const result = this.http.post<ApiResult<Headline[]>>(this.settings.url, body);
     return result.pipe(
@@ -168,8 +148,9 @@ export class TtrssClientService {
     );
   }
 
-  catchupFeed(feed: Feed | Category, is_cat: boolean): Observable<boolean> {
-    const body = '{"sid":"' + this.settings.sessionKey + '", "op":"catchupFeed", "feed_id":"' + feed.id + '", "is_cat ": ' + is_cat + ' }';
+  catchupFeed(feed: ICategory, is_cat: boolean): Observable<boolean> {
+    const body = '{"sid":"' + this.settings.sessionKey + '", "op":"catchupFeed", "feed_id":"' + feed.bare_id +
+      '", "is_cat ": ' + is_cat + ' }';
     const result = this.http.post<ApiResult<UpdateResult>>(this.settings.url, body);
     return result.pipe(
       map(data => {

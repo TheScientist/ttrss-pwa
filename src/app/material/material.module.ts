@@ -15,10 +15,10 @@ import {
   MatButtonToggleModule,
   MatCheckboxModule,
   MatDialogModule,
-  MatExpansionPanel,
   MatExpansionModule,
   MatTooltipModule,
-  MatTabsModule
+  MatTabsModule,
+  MatTreeModule
 } from '@angular/material';
 
 @NgModule({
@@ -40,7 +40,8 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule
   ],
   exports: [
     CdkTableModule,
@@ -60,7 +61,8 @@ import {
     MatDialogModule,
     MatExpansionModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTreeModule
   ]
 })
 export class MaterialModule {}

@@ -1,17 +1,16 @@
-import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy, NgZone } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, observable, of } from 'rxjs';
 import { ObservableMedia, MediaChange } from '@angular/flex-layout';
-import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent } from '@angular/material';
-import { Category } from '../model/category';
+import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent, MatTreeNestedDataSource } from '@angular/material';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { CounterResult } from '../model/counter-result';
 import { SettingsService } from '../settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NestedTreeControl } from '@angular/cdk/tree';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -22,16 +21,17 @@ export class OverviewComponent implements OnInit, OnDestroy {
   @ViewChild('snav') public snav: MatSidenav;
   @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
 
+  nestedTreeControl: NestedTreeControl<ICategory>;
+  nestedDataSource: MatTreeNestedDataSource<ICategory>;
+
   scrollContainer: HTMLElement;
 
   watcher: Subscription;
   activeMediaQuery = '';
   isMobile = false;
 
-  feeds: Feed[];
-  categories: Category[];
   counters: CounterResult[];
-  selectedFeed: Feed | Category;
+  selectedFeed: ICategory;
   is_cat = false;
   multiSelectEnabled = false;
   headlines: Headline[] = [];
@@ -43,7 +43,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog,
     private client: TtrssClientService, private settings: SettingsService,
-    private translate: TranslateService, private titleService: Title) {
+    private translate: TranslateService, private titleService: Title, private ngZone: NgZone) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
@@ -52,9 +52,19 @@ export class OverviewComponent implements OnInit, OnDestroy {
         this.isMobile = false;
       }
     });
+    this.nestedDataSource = new MatTreeNestedDataSource<ICategory>();
+    this.nestedTreeControl = new NestedTreeControl<ICategory>(this._getChildren);
   }
 
-  onSelect(feed: Feed | Category) {
+  private _getChildren = (node: ICategory) => {
+    return of(node.items);
+  }
+
+  hasNestedChild = (_: number, nodeData: ICategory) => {
+    return nodeData.type === 'category';
+  }
+
+  onSelect(feed: ICategory) {
     if (this.isMobile) {
       this.snav.close();
     }
@@ -65,8 +75,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
       target: 'feedtoolbar',
       duration: 0
     });
-    this.is_cat = this.selectedFeed instanceof Category;
-    this.settings.lastFeedId = feed.id;
+    this.is_cat = this.selectedFeed.type === 'category';
+    this.settings.lastFeedId = feed.bare_id;
     this.settings.lastSelectionIsCat = this.is_cat;
     this.client.getHeadlines(this.selectedFeed, 20, 0, null, this.is_cat)
       .subscribe(data =>
@@ -84,32 +94,46 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.scrollContainer = document.getElementById('feedView');
 
     this.refreshCounters();
-    setInterval(() => {
-      this.refreshCounters();
-    }, 60000);
-    this.client.getAllFeeds().subscribe(
+    this.ngZone.runOutsideAngular(() => {
+      setInterval(() => {
+        this.ngZone.run(() => {
+          this.refreshCounters();
+        });
+      }, 60000);
+    });
+    this.client.getFeedTree().subscribe(
       data => {
-        this.feeds = data;
-        this.initLastFeed();
+        this.nestedDataSource.data = data;
       }
-    );
-    this.client.getCategories().subscribe(
-      data => this.categories = data
     );
   }
 
   initLastFeed(): void {
-    const isCat = this.settings.lastSelectionIsCat;
     const selId = this.settings.lastFeedId;
-    if (isCat) {
-      const foundCat: Category = this.categories.find(cat => cat.id === selId);
-      if (foundCat) {
-        this.onSelect(foundCat);
+    const isCat = this.settings.lastSelectionIsCat;
+    const foundFeed: ICategory = this.nestedDataSource.data.find(function f(cat) {
+      if (isCat && cat.type === 'category' || !isCat && cat.type !== 'category') {
+        if (cat.bare_id === selId) {
+          return true;
+        }
       }
-    } else {
-      const foundFeed: Feed = this.feeds.find(feed => feed.id === selId);
-      if (foundFeed) {
-        this.onSelect(foundFeed);
+      if (cat.items) {
+        return (cat.items = cat.items.filter(f)).length;
+      }
+    });
+    if (foundFeed) {
+      this.onSelect(foundFeed);
+    }
+  }
+
+  recursiveFindICategory(cats: ICategory[], id: number, is_cat: boolean): ICategory {
+    for (const cat of cats) {
+      if (is_cat && cat.type === 'category' || !is_cat && cat.type !== 'category') {
+        if (cat.bare_id === id) {
+          return cat;
+        }
+      } else {
+        return this.recursiveFindICategory(cat.items, id, is_cat);
       }
     }
   }
@@ -216,9 +240,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
                 head.unread ? change++ : change--;
               });
               if (isCat) {
-                this.updateReadCounters(change, null, feedOrCat.id);
+                this.updateReadCounters(change, null, feedOrCat.bare_id);
               } else {
-                this.updateReadCounters(change, feedOrCat.id, (<Feed>feedOrCat).cat_id);
+                this.updateReadCounters(change, feedOrCat.bare_id, null);
               }
               break;
           }
@@ -236,9 +260,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
             case 2:
               head.unread = !head.unread;
               if (isCat) {
-                this.updateReadCounters(head.unread ? 1 : -1, head.feed_id, feedOrCat.id);
+                this.updateReadCounters(head.unread ? 1 : -1, head.feed_id, feedOrCat.bare_id);
               } else {
-                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.id, (<Feed>feedOrCat).cat_id);
+                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.bare_id, null);
               }
               break;
           }

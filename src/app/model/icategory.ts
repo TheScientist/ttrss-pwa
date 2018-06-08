@@ -1,6 +1,8 @@
 interface ICategory {
     id: string;
-    title: string;
+    name: string;
     unread: number;
-    order_id: number;
+    bare_id: number;
+    items: ICategory[];
+    type: string;
 }

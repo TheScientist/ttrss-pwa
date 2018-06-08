@@ -13,15 +13,10 @@
     top: 0px;
 }
 
-.mat-subheader:hover {
+.mat-tree-node:hover {
     cursor: pointer;
     background: rgba(0,0,0,.04);
-}
-.mat-subheader {
     cursor: pointer;
-}
-.mat-nav-list .mat-subheader:first-child {
-    margin:0;
 }
 #menu-button {
     position: absolute;
@@ -34,6 +29,24 @@
 }
 #sidenav {
     max-width: 400px;
+    padding: 0 8px;
+}
+
+#feedTree ul {
+    padding-left: 20px;
+    margin: 0;
+}
+#feedTree li {
+    list-style: none;
+}
+
+#feedTree mat-tree-node a,
+#feedTree mat-tree-node span {
+    font-size: 16px;
+}
+
+#feedTree div.mat-tree-node {
+    color: rgba(0,0,0,.54);
 }
 
 .ttrss-toolbar h1 {

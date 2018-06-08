@@ -1,0 +1,3 @@
+interface IFeedTree {
+    categories: ICategories;
+}

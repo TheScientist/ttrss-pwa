@@ -5,14 +5,12 @@
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
 ## TODOs
 - e2e tests
-- keyboard shortcuts
 - service worker
   - offline mode
   - push notification
-- article content theming (e.g. max size for images)
 - rewrite custom css to allow changing the theme
-- sticky workaround in edge (https://github.com/dollarshaveclub/stickybits)
-- mark read when scrolling (+ setting)
+- article content theming (e.g. max size for images)
+- keyboard shortcuts
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
 - different auth options (http auth, insecure ssl)

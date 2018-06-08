@@ -19,7 +19,7 @@
   <!-- Bei Kategorien auch anzeigen -->
   <div matLine *ngIf="showFeedIcons()">
     <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'"
-      width="auto" height="16px" style="vertical-align:middle;" />
+      width="auto" height="16px" style="vertical-align:middle;padding-right:4px;" />
     <span style="vertical-align:middle;">{{article.feed_title}}</span>
   </div>
 </mat-list-item>

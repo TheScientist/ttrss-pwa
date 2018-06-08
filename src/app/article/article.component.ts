@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ElementRef, OnChanges } from '@angular/core';
 import { SwiperComponent } from 'ngx-swiper-wrapper';
 import { TtrssClientService } from '../ttrss-client.service';
-import { Category } from '../model/category';
 
 @Component({
   selector: 'ttrss-article',
@@ -12,7 +11,7 @@ export class ArticleComponent implements OnInit, OnChanges {
 
   @Input() article: Headline;
   @Input() selected: boolean;
-  @Input() feed: Feed | Category;
+  @Input() feed: ICategory;
   @Input() multiSelectEnabled: boolean;
   @ViewChild(SwiperComponent) componentRef: SwiperComponent;
 
@@ -66,6 +65,6 @@ export class ArticleComponent implements OnInit, OnChanges {
   }
 
   showFeedIcons() {
-    return this.feed.id < 0 || this.feed instanceof Category;
+    return this.feed.bare_id < 0 || this.feed.type === 'category';
   }
 }

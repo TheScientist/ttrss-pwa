@@ -24,7 +24,6 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import './util/rxjs-operators';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { FeedFilterPipe } from './util/filter-pipe';
 import { CounterFilterPipe } from './util/counter-filter-pipe';
 import { DateFixPipe } from './util/datefix-pipe';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -60,7 +59,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
     SettingsComponent,
     MessagingComponent,
     OverviewComponent,
-    FeedFilterPipe,
     CounterFilterPipe,
     DateFixPipe,
     ArticleComponent,

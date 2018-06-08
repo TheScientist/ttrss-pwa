@@ -1,5 +1,6 @@
 import { browser, by, element } from 'protractor';
 import { AppPage } from './app.po';
+import { OverviewPage } from './overview.po';
 
 export class SettingsPage extends AppPage {
 
@@ -9,9 +10,9 @@ export class SettingsPage extends AppPage {
   passwordInput = element(by.id('password'));
   testButton = element(by.id('testButton'));
 
-  goBackToFeeds(): AppPage {
+  goBackToFeeds(): OverviewPage {
     this.linkToFeeds.click();
-    return new AppPage();
+    return new OverviewPage();
   }
 
   doTestSettings(url: string, user: string, pw: string) {
