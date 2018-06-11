@@ -4,5 +4,17 @@
   "start_url": "/overview",
   "background_color": "#d8751e",
   "display": "standalone",
-  "theme_color": "#d8751e"
+  "theme_color": "#3f51b5",
+  "icons": [
+    {
+      "src": "/assets/app-icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/assets/app-icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
 }
