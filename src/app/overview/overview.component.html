@@ -55,11 +55,11 @@
             <mat-icon>list</mat-icon>
           </mat-button-toggle>
           <button mat-raised-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(0, 2)" *ngIf="multiSelectEnabled">
+            (click)="updateSelected(0)" *ngIf="multiSelectEnabled">
             <mat-icon>star</mat-icon>
           </button>
           <button mat-raised-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(2, 2)" *ngIf="multiSelectEnabled">
+            (click)="updateSelected(2)" *ngIf="multiSelectEnabled">
             <mat-icon>mail</mat-icon>
           </button>
           <button mat-raised-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000"
@@ -90,11 +90,11 @@
               </ttrss-article-content>
               <mat-toolbar #articletoolbar class="article-toolbar" *ngIf="selectedHeadline && head===selectedHeadline">
                 <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
-                  (click)="updateSelected(0, 2)" [checked]="selectedHeadline.marked">
+                  (click)="updateSelected(0)" [checked]="selectedHeadline.marked">
                   <mat-icon>star</mat-icon>
                 </mat-button-toggle>
                 <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-                  (click)="updateSelected(2, 2)" [checked]="selectedHeadline.unread">
+                  (click)="updateSelected(2)" [checked]="selectedHeadline.unread">
                   <mat-icon>email</mat-icon>
                 </mat-button-toggle>
               </mat-toolbar>

@@ -9,6 +9,7 @@
   - offline mode
   - push notification
 - rewrite custom css to allow changing the theme
+- parameter for fresh article age + counter fix
 - article content theming (e.g. max size for images)
 - keyboard shortcuts
 - allow mixed content in articles

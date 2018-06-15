@@ -178,7 +178,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
         this.selectedHeadline = headline;
         if (headline.unread) {
-          this.updateSelected(2, 0);
+          this.updateSelected(2);
         }
         const config: ScrollToConfigOptions = {
           target: 'article' + headline.id,
@@ -212,59 +212,87 @@ export class OverviewComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateSelected(field: number, mode: number) {
+  updateArticle(heads: Headline[], field: number, mode: number) {
     const feedOrCat = this.selectedFeed;
     const isCat = this.is_cat;
-    if (this.multiSelectEnabled) {
-      if (this.multiSelectedHeadlines.length === 0) {
-        return;
+    if (heads.length === 0) {
+      return;
+    }
+    this.client.updateArticle(heads, field, mode).subscribe(result => {
+      if (result) {
+        switch (field) {
+          case 0:
+            let amount = 0;
+            heads.forEach(head => {
+              switch (mode) {
+                case 0:
+                  if (head.marked) {
+                    head.marked = false;
+                    amount--;
+                  }
+                  break;
+                case 1:
+                  if (!head.marked) {
+                    head.marked = true;
+                    amount++;
+                  }
+                  break;
+                default:
+                  head.marked = !head.marked;
+                  head.marked ? amount++ : amount--;
+                  break;
+              }
+            });
+            this.updateFavCounter(amount);
+            break;
+          case 2:
+            let change = 0;
+            heads.forEach(head => {
+              switch (mode) {
+                case 0:
+                  if (head.unread) {
+                    head.unread = false;
+                    change--;
+                  }
+                  break;
+                case 1:
+                  if (!head.unread) {
+                    head.unread = true;
+                    change++;
+                  }
+                  break;
+                default:
+                  head.unread = !head.unread;
+                  head.unread ? change++ : change--;
+                  break;
+              }
+            });
+            if (isCat) {
+              this.updateReadCounters(change, null, feedOrCat.bare_id);
+            } else {
+              this.updateReadCounters(change, feedOrCat.bare_id, null);
+            }
+            break;
+        }
       }
-      this.client.updateArticle(this.multiSelectedHeadlines, field, mode).subscribe(result => {
-        if (result) {
-          switch (field) {
-            case 0:
-              let amount = 0;
-              this.multiSelectedHeadlines.forEach(head => {
-                head.marked = !head.marked;
-                head.marked ? amount++ : amount--;
-              });
-              this.updateFavCounter(amount);
-              break;
-            case 2:
-              let change = 0;
-              this.multiSelectedHeadlines.forEach(head => {
-                head.unread = !head.unread;
-                head.unread ? change++ : change--;
-              });
-              if (isCat) {
-                this.updateReadCounters(change, null, feedOrCat.bare_id);
-              } else {
-                this.updateReadCounters(change, feedOrCat.bare_id, null);
-              }
-              break;
-          }
-        }
-      });
+    });
+  }
+
+  updateSelected(field: number) {
+    if (this.multiSelectEnabled) {
+      this.updateArticle(this.multiSelectedHeadlines, field, 2);
     } else {
-      const head: Headline = this.selectedHeadline;
-      this.client.updateArticle(head, field, mode).subscribe(result => {
-        if (result) {
-          switch (field) {
-            case 0:
-              head.marked = !head.marked;
-              this.updateFavCounter(head.marked ? 1 : -1);
-              break;
-            case 2:
-              head.unread = !head.unread;
-              if (isCat) {
-                this.updateReadCounters(head.unread ? 1 : -1, head.feed_id, feedOrCat.bare_id);
-              } else {
-                this.updateReadCounters(head.unread ? 1 : -1, feedOrCat.bare_id, null);
-              }
-              break;
-          }
-        }
-      });
+      let mode = 2;
+      switch (field) {
+        case 0:
+          mode = this.selectedHeadline.marked ? 0 : 1;
+          break;
+        case 2:
+          mode = this.selectedHeadline.unread ? 0 : 1;
+          break;
+      }
+
+      this.updateArticle(new Array(this.selectedHeadline), field, mode);
     }
   }
 
@@ -308,11 +336,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         idx = this.headlines.length;
       }
       if (idx > 0) {
-        this.client.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0).subscribe(result => {
-          if (result) {
-            this.headlines.slice(0, idx).filter(h => h.unread).forEach(h => h.unread = false);
-          }
-        });
+        this.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0);
       }
     }
   }
