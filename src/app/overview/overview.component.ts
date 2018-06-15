@@ -152,8 +152,14 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   loadHeadlines() {
     if (this.fetch_more) {
+      let skip = this.headlines.length;
+      if (this.selectedFeed.bare_id === -3) {
+        skip = this.headlines.filter(h => h.unread).length;
+      } else if (this.selectedFeed.bare_id === -1) {
+        skip = this.headlines.filter(h => h.marked).length;
+      }
       // probably we need more logic here.
-      this.client.getHeadlines(this.selectedFeed, 20, this.headlines.length, null, this.is_cat)
+      this.client.getHeadlines(this.selectedFeed, 20, skip, null, this.is_cat)
         .subscribe(data => {
           if (data.length === 0) {
             this.fetch_more = false;
