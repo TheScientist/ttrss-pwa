@@ -150,7 +150,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     );
   }
 
-  elementExistsInHeadlines(h: Headline, orig: Headline[]):boolean {
+  elementExistsInHeadlines(h: Headline, orig: Headline[]): boolean {
     return typeof this.headlines.find(existing => existing.id === h.id) === 'undefined';
   }
 
@@ -158,12 +158,12 @@ export class OverviewComponent implements OnInit, OnDestroy {
     if (this.fetch_more) {
       // Get new articles that may came in
       this.client.getHeadlines(this.selectedFeed, 20, 0, null, this.is_cat)
-      .subscribe(data => {
-        if (data.length !== 0) {
-          data = data.filter(h=>this.elementExistsInHeadlines(h, this.headlines));
-          this.headlines.push(...data);
-        }
-      });
+        .subscribe(data => {
+          if (data.length !== 0) {
+            data = data.filter(h => this.elementExistsInHeadlines(h, this.headlines));
+            this.headlines.push(...data);
+          }
+        });
 
       let skip = this.headlines.length;
       if (this.selectedFeed.bare_id === -3) {
@@ -176,7 +176,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
           if (data.length === 0) {
             this.fetch_more = false;
           } else {
-            data = data.filter(h=>this.elementExistsInHeadlines(h, this.headlines));
+            data = data.filter(h => this.elementExistsInHeadlines(h, this.headlines));
             this.headlines.push(...data);
           }
         });
