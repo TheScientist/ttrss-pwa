@@ -150,20 +150,33 @@ export class OverviewComponent implements OnInit, OnDestroy {
     );
   }
 
+  elementExistsInHeadlines(h: Headline, orig: Headline[]):boolean {
+    return typeof this.headlines.find(existing => existing.id === h.id) === 'undefined';
+  }
+
   loadHeadlines() {
     if (this.fetch_more) {
+      // Get new articles that may came in
+      this.client.getHeadlines(this.selectedFeed, 20, 0, null, this.is_cat)
+      .subscribe(data => {
+        if (data.length !== 0) {
+          data = data.filter(h=>this.elementExistsInHeadlines(h, this.headlines));
+          this.headlines.push(...data);
+        }
+      });
+
       let skip = this.headlines.length;
       if (this.selectedFeed.bare_id === -3) {
         skip = this.headlines.filter(h => h.unread).length;
       } else if (this.selectedFeed.bare_id === -1) {
         skip = this.headlines.filter(h => h.marked).length;
       }
-      // probably we need more logic here.
       this.client.getHeadlines(this.selectedFeed, 20, skip, null, this.is_cat)
         .subscribe(data => {
           if (data.length === 0) {
             this.fetch_more = false;
           } else {
+            data = data.filter(h=>this.elementExistsInHeadlines(h, this.headlines));
             this.headlines.push(...data);
           }
         });
