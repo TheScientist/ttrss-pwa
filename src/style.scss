@@ -1,0 +1,45 @@
+@import '~@angular/material/theming';
+// always include only once per project
+@include mat-core();
+
+$ttrss-theme-primary: mat-palette($mat-orange, 700, 300, 900);
+$ttrss-theme-accent: mat-palette($mat-indigo);
+$ttrss-theme-warn: mat-palette($mat-red, A200);
+
+$ttrss-light-theme: mat-light-theme(
+    $ttrss-theme-primary,
+    $ttrss-theme-accent,
+    $ttrss-theme-warn
+);
+
+$ttrss-dark-theme: mat-dark-theme(
+    $ttrss-theme-primary,
+    $ttrss-theme-accent,
+    $ttrss-theme-warn
+);
+
+@import 'globalmixin';
+
+@mixin custom-components-theme($theme) {
+    @include global-mixin($theme);
+}
+
+@include angular-material-theme($ttrss-light-theme);
+@include custom-components-theme($ttrss-light-theme);
+
+.ttrss-dark-theme {
+  @include angular-material-theme($ttrss-dark-theme);
+  @include custom-components-theme($ttrss-dark-theme);
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+}
+
+.feedContent *, .feedContent {
+    max-width: 100% !important;
+    white-space: normal !important;
+    word-wrap: break-word !important;
+}

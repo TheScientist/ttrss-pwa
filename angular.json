@@ -23,7 +23,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "src/styles.css"
+              "src/style.scss",
+              "src/globalmixin.scss"
             ],
             "scripts": []
           },
@@ -110,7 +111,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "ttrss",
-      "styleext": "css"
+      "styleext": "scss"
     },
     "@schematics/angular:directive": {
       "prefix": "ttrss"

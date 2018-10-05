@@ -3,6 +3,7 @@ import { LocalStorage } from 'ngx-webstorage';
 import { SessionStorage } from 'ngx-webstorage';
 import { Language } from './model/language';
 import * as CryptoJS from 'crypto-js';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SettingsService {
@@ -16,7 +17,7 @@ export class SettingsService {
   @LocalStorage()
   public username: string;
   @LocalStorage()
-  public _password: string;
+  private _password: string;
   @SessionStorage()
   public sessionKey: string;
   @LocalStorage()
@@ -27,6 +28,11 @@ export class SettingsService {
   public lastSelectionIsCat: boolean;
   @LocalStorage()
   public markReadOnScroll: boolean;
+  @LocalStorage()
+  private _darkDesign: boolean;
+
+  private designSource = new Subject<void>();
+  public darkDesign$ = this.designSource.asObservable();
 
   getLanguage(): string {
     if (this.locale === null) {
@@ -47,5 +53,13 @@ export class SettingsService {
   set password(newValue: string) {
     const encrypted = CryptoJS.AES.encrypt(newValue, 'notsosecretseed_itsopensourced').toString();
     this._password = encrypted;
+  }
+
+  get darkDesign(): boolean {
+    return this._darkDesign;
+  }
+  set darkDesign(newValue: boolean) {
+    this._darkDesign = newValue;
+    this.designSource.next();
   }
 }

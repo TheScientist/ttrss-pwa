@@ -18,7 +18,8 @@ import {
   MatExpansionModule,
   MatTooltipModule,
   MatTabsModule,
-  MatTreeModule
+  MatTreeModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 @NgModule({
@@ -41,7 +42,8 @@ import {
     MatExpansionModule,
     MatTooltipModule,
     MatTabsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatSlideToggleModule
   ],
   exports: [
     CdkTableModule,
@@ -62,7 +64,8 @@ import {
     MatExpansionModule,
     MatTooltipModule,
     MatTabsModule,
-    MatTreeModule
+    MatTreeModule,
+    MatSlideToggleModule
   ]
 })
 export class MaterialModule {}

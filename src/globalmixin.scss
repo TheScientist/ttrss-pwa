@@ -1,0 +1,29 @@
+@import '~@angular/material/theming';
+
+@mixin global-mixin($theme) {
+    $background: map-get($theme, background);
+    $primary: map-get($theme, primary);
+    .tree-item:hover {
+        background-color: mat-color($background, hover);
+    }
+    .feedSelected {
+        background-color: mat-color($background, selected-button);
+    }
+    mat-toolbar.mat-primary .mat-button-toggle-checked {
+        background-color: mat-color($primary, darker);
+    }
+    mat-toolbar .mat-button-toggle-checked {
+        background-color: mat-color($background, disabled-button);
+    }
+    mat-toolbar .mat-raised-button {
+        background-color: mat-color($primary);
+    }
+
+    ttrss-article-content {
+        background-color: mat-color($background, hover);
+    }
+    ttrss-settings {
+        background-color: mat-color($background, background);
+    }
+
+}

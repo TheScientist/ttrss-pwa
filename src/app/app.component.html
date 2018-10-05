@@ -1,4 +1,5 @@
-<div fxLayout="column" fxLayoutAlign="space-between stretch" style="height:100%;">
+<div fxLayout="column" fxLayoutAlign="space-between stretch" style="height:100%;"
+ [ngClass]="{'ttrss-dark-theme': isDarkTheme}" class="mat-drawer-container">
     <div fxFlex="1 1 auto" class="router-container"><router-outlet></router-outlet></div>
     <ttrss-messaging></ttrss-messaging>
 </div>

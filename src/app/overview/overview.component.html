@@ -5,7 +5,7 @@
   <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;">
     <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
       <mat-tree [class.list-indent]="isMobile" id="feedTree" [dataSource]="nestedDataSource" [treeControl]="nestedTreeControl">
-        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="tree-item">
           <li [id]="'feed' + node.bare_id" [class.feedSelected]="node === selectedFeed">
             <div class="mat-tree-node" (click)="onSelect(node);">
               <img mat-list-icon *ngIf="node.bare_id>0 && node.icon; else matIcon" [src]="client.getFeedIconURL(node.bare_id)"
@@ -14,17 +14,23 @@
                 <mat-icon mat-list-icon style="margin-right: 4px;">{{ client.getFeedIconURL(node.bare_id, node.bare_id>0) }}</mat-icon>
               </ng-template>
               <span fxFlex="1 1 auto" style="margin-right: 8px;">{{node.name}}</span>
-              <span style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:false}}</span>
+              <!-- <span style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:false}}</span> -->
+              <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:false;else noChip">
+                <mat-chip>{{counters | counterFilter:node.bare_id:false}}</mat-chip>
+              </mat-chip-list>
             </div>
           </li>
         </mat-tree-node>
-
+        <ng-template #noChip></ng-template>
         <mat-nested-tree-node *matTreeNodeDef="let node; when: hasNestedChild">
           <mat-divider></mat-divider>
           <li>
-            <div (click)="onSelect(node);" class="mat-tree-node tree-category" [class.feedSelected]="node === selectedFeed">
+            <div (click)="onSelect(node);" class="mat-tree-node tree-category tree-item" [class.feedSelected]="node === selectedFeed">
               <h2 fxFlex="1 1 auto" style="margin-right: 4px;">{{node.name}}</h2>
-              <span mat-list-item style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:true}}</span>
+              <!-- <span mat-list-item style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:true}}</span> -->
+              <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:true;else noChip">
+                <mat-chip>{{counters | counterFilter:node.bare_id:true}}</mat-chip>
+              </mat-chip-list>
             </div>
             <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
               <ng-container matTreeNodeOutlet></ng-container>
@@ -36,7 +42,7 @@
 
     <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()"
       [scrollWindow]="false" [infiniteScrollDistance]="1">
-      <mat-toolbar #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
+      <mat-toolbar color="primary" #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
         <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
           <img *ngIf="selectedFeed.bare_id>0 && !is_cat;else matFeedIcon" [src]="client.getFeedIconURL(selectedFeed.bare_id)"
             width="auto" height="24px" />
