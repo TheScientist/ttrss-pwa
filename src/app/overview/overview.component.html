@@ -16,7 +16,7 @@
               <span fxFlex="1 1 auto" style="margin-right: 8px;">{{node.name}}</span>
               <!-- <span style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:false}}</span> -->
               <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:false;else noChip">
-                <mat-chip>{{counters | counterFilter:node.bare_id:false}}</mat-chip>
+                <mat-chip selected color="accent">{{counters | counterFilter:node.bare_id:false}}</mat-chip>
               </mat-chip-list>
             </div>
           </li>
@@ -29,7 +29,7 @@
               <h2 fxFlex="1 1 auto" style="margin-right: 4px;">{{node.name}}</h2>
               <!-- <span mat-list-item style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:true}}</span> -->
               <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:true;else noChip">
-                <mat-chip>{{counters | counterFilter:node.bare_id:true}}</mat-chip>
+                <mat-chip selected color="accent">{{counters | counterFilter:node.bare_id:true}}</mat-chip>
               </mat-chip-list>
             </div>
             <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
