@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../settings.service';
 import { TtrssClientService } from '../ttrss-client.service';
-import { MessagingService } from '../messaging.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ttrss-settings',
@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class SettingsComponent implements OnInit {
 
   settings: SettingsService;
+  version: string = environment.VERSION;
 
   constructor(private settingsSvc: SettingsService,
     private client: TtrssClientService,
