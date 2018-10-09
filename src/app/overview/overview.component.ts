@@ -11,6 +11,7 @@ import { SettingsService } from '../settings.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { NestedTreeControl } from '@angular/cdk/tree';
+import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -43,7 +44,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog,
     private client: TtrssClientService, private settings: SettingsService,
-    private translate: TranslateService, private titleService: Title, private ngZone: NgZone) {
+    private translate: TranslateService, private titleService: Title, private ngZone: NgZone,
+    private _hotkeysService: HotkeysService) {
     this.watcher = media.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
@@ -54,6 +56,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     });
     this.nestedDataSource = new MatTreeNestedDataSource<ICategory>();
     this.nestedTreeControl = new NestedTreeControl<ICategory>(this._getChildren);
+    this.registerHotKeys();
   }
 
   private _getChildren = (node: ICategory) => {
@@ -358,5 +361,32 @@ export class OverviewComponent implements OnInit, OnDestroy {
         this.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0);
       }
     }
+  }
+
+  registerHotKeys() {
+    this._hotkeysService.hotkeys.length = 1;
+    this._hotkeysService.add(new Hotkey('n', (event: KeyboardEvent): boolean => {
+      let current = -1;
+      if (this.selectedHeadline != null) {
+        current = this.headlines.indexOf(this.selectedHeadline);
+      }
+      ++current;
+      if (this.headlines.length > current) {
+        this.onArticleSelect(this.headlines[current]);
+      }
+      return false;
+    }, undefined, this.translate.instant('Shortcut_Next_Article')));
+
+    this._hotkeysService.add(new Hotkey('p', (event: KeyboardEvent): boolean => {
+      let current = this.headlines.length;
+      if (this.selectedHeadline != null) {
+        current = this.headlines.indexOf(this.selectedHeadline);
+      }
+      current--;
+      if (current >= 0) {
+        this.onArticleSelect(this.headlines[current]);
+      }
+      return false;
+    }, undefined, this.translate.instant('Shortcut_Previous_Article')));
   }
 }

@@ -38,6 +38,8 @@ import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.compone
 import { ArticleContentComponent } from './article-content/article-content.component';
 import { NgInviewModule } from 'angular-inport';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { HotkeyModule } from 'angular2-hotkeys';
+
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -80,16 +82,20 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
-      }}),
+      }
+    }),
     SwiperModule,
     NgInviewModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    HotkeyModule.forRoot()
   ],
   entryComponents: [AppComponent, MarkreaddialogComponent],
   providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,
-   { provide: LOCALE_ID,
-    deps: [SettingsService],
-    useFactory: (settings) => settings.getLanguage()},
+    {
+      provide: LOCALE_ID,
+      deps: [SettingsService],
+      useFactory: (settings) => settings.getLanguage()
+    },
     {
       provide: SWIPER_CONFIG,
       useValue: DEFAULT_SWIPER_CONFIG
