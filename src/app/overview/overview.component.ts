@@ -388,5 +388,38 @@ export class OverviewComponent implements OnInit, OnDestroy {
       }
       return false;
     }, undefined, this.translate.instant('Shortcut_Previous_Article')));
+
+    this._hotkeysService.add(new Hotkey('s', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null || this.multiSelectedHeadlines.length>0) {
+        this.updateSelected(0);
+      }
+      return false;
+    }, undefined, this.translate.instant('TB_ToggleStar')));
+
+    this._hotkeysService.add(new Hotkey('u', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null || this.multiSelectedHeadlines.length>0) {
+        this.updateSelected(2);
+      }
+      return false;
+    }, undefined, this.translate.instant('TB_ToggleRead')));
+
+    this._hotkeysService.add(new Hotkey('v', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null) {
+        window.open(this.selectedHeadline.link, "_blank");
+      }
+      return false;
+    }, undefined, this.translate.instant('Open_Article')));
+
+    this._hotkeysService.add(new Hotkey('q', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null) {
+        this.selectedHeadline = null;
+      }
+      return false;
+    }, undefined, this.translate.instant('Shortcut_Close_Article')));
+
+    this._hotkeysService.add(new Hotkey('m', (event: KeyboardEvent): boolean => {
+      this.multiselectChanged(!this.multiSelectEnabled);
+      return false;
+    }, undefined, this.translate.instant('TB_Multiselect')));
   }
 }

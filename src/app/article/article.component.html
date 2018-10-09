@@ -14,7 +14,6 @@
     <span *ngIf="article.author" style="padding-right:4px;">({{article.author}})</span>
     <span fxFlex="1 1 auto" style="text-align:right;">{{article.updated | datefix | date:'short'}}</span>
   </div>
-  <!-- Bei Kategorien auch anzeigen -->
   <div matLine *ngIf="showFeedIcons()">
     <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto" height="16px"
       style="vertical-align:middle;padding-right:4px;" />

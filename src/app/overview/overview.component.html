@@ -11,7 +11,8 @@
               <img mat-list-icon *ngIf="node.bare_id>0 && node.icon; else matIcon" [src]="client.getFeedIconURL(node.bare_id)"
                 width="auto" height="24px" style="margin-right: 4px;" />
               <ng-template #matIcon>
-                <mat-icon mat-list-icon style="margin-right: 4px;">{{ client.getFeedIconURL(node.bare_id, node.bare_id>0) }}</mat-icon>
+                <mat-icon mat-list-icon style="margin-right: 4px;">{{ client.getFeedIconURL(node.bare_id,
+                  node.bare_id>0) }}</mat-icon>
               </ng-template>
               <span fxFlex="1 1 auto" style="margin-right: 8px;">{{node.name}}</span>
               <!-- <span style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:false}}</span> -->
@@ -40,8 +41,8 @@
       </mat-tree>
     </mat-sidenav>
 
-    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()"
-      [scrollWindow]="false" [infiniteScrollDistance]="1">
+    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()" [scrollWindow]="false"
+      [infiniteScrollDistance]="1">
       <mat-toolbar color="primary" #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
         <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
           <img *ngIf="selectedFeed.bare_id>0 && !is_cat;else matFeedIcon" [src]="client.getFeedIconURL(selectedFeed.bare_id)"
@@ -56,20 +57,19 @@
         </ng-template>
         <div class="tb-buttons">
           <mat-button-toggle mat-icon-button [matTooltip]="'TB_Multiselect' | translate" matTooltipShowDelay="1000"
-            style="vertical-align: middle;" *ngIf="selectedFeed" [checked]="multiSelectEnabled"
-            (change)="multiselectChanged($event.source.checked)">
+            style="vertical-align: middle;" *ngIf="selectedFeed" [checked]="multiSelectEnabled" (change)="multiselectChanged($event.source.checked)">
             <mat-icon>list</mat-icon>
           </mat-button-toggle>
-          <button mat-raised-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(0)" *ngIf="multiSelectEnabled">
+          <button mat-raised-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000" (click)="updateSelected(0)"
+            *ngIf="multiSelectEnabled">
             <mat-icon>star</mat-icon>
           </button>
-          <button mat-raised-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(2)" *ngIf="multiSelectEnabled">
+          <button mat-raised-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000" (click)="updateSelected(2)"
+            *ngIf="multiSelectEnabled">
             <mat-icon>mail</mat-icon>
           </button>
-          <button mat-raised-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000"
-            (click)="catchupFeed()" *ngIf="selectedFeed">
+          <button mat-raised-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000" (click)="catchupFeed()"
+            *ngIf="selectedFeed">
             <mat-icon>done_all</mat-icon>
           </button>
           <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">
@@ -84,28 +84,29 @@
       </mat-toolbar>
       <div #feedList class="clearFloat" *ngIf="selectedFeed;else noFeed">
         <mat-nav-list id="headlist" role="list" *ngIf="headlines && headlines.length>0;else emtpyList">
-          <div role="listitem" *ngFor="let head of headlines" fxLayout="row">
-            <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)"
-              (change)="onArticleSelect(head)"></mat-checkbox>
-            <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)" [scrollELement]="scrollContainer"
-              [data]="head" [id]="'article' + head.id" [throttle]="500">
-              <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head"
-                (click)="onArticleSelect(head);" [selected]="selectedHeadline && head===selectedHeadline"
-                fxFlex="1 1 auto" [class.headSelected]="selectedHeadline && head===selectedHeadline"></ttrss-article>
-              <ttrss-article-content [article]="head" *ngIf="selectedHeadline && head===selectedHeadline">
-              </ttrss-article-content>
-              <mat-toolbar #articletoolbar class="article-toolbar" *ngIf="selectedHeadline && head===selectedHeadline">
-                <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
-                  (click)="updateSelected(0)" [checked]="selectedHeadline.marked">
-                  <mat-icon>star</mat-icon>
-                </mat-button-toggle>
-                <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-                  (click)="updateSelected(2)" [checked]="selectedHeadline.unread">
-                  <mat-icon>email</mat-icon>
-                </mat-button-toggle>
-              </mat-toolbar>
-              <mat-divider></mat-divider>
+          <div role="listitem" *ngFor="let head of headlines">
+            <div fxLayout="row">
+              <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center" [checked]="multiSelectedHeadlines.includes(head)"
+                (change)="onArticleSelect(head)" style="padding-left:16px"></mat-checkbox>
+              <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)" [scrollELement]="scrollContainer"
+                [data]="head" [id]="'article' + head.id" [throttle]="500">
+                <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head" (click)="onArticleSelect(head);"
+                  [selected]="selectedHeadline && head===selectedHeadline" fxFlex="1 1 auto" [class.headSelected]="selectedHeadline && head===selectedHeadline"></ttrss-article>
+                <ttrss-article-content [article]="head" *ngIf="selectedHeadline && head===selectedHeadline">
+                </ttrss-article-content>
+                <mat-toolbar #articletoolbar class="article-toolbar" *ngIf="selectedHeadline && head===selectedHeadline">
+                  <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
+                    (click)="updateSelected(0)" [checked]="selectedHeadline.marked">
+                    <mat-icon>star</mat-icon>
+                  </mat-button-toggle>
+                  <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
+                    (click)="updateSelected(2)" [checked]="selectedHeadline.unread">
+                    <mat-icon>email</mat-icon>
+                  </mat-button-toggle>
+                </mat-toolbar>
+              </div>
             </div>
+            <mat-divider></mat-divider>
           </div>
         </mat-nav-list>
         <ng-template #emtpyList>
