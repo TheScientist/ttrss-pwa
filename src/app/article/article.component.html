@@ -5,7 +5,7 @@
     <p>{{'Actions Mark Read' | translate }}</p>
     <mat-icon>drafts</mat-icon>
   </div> -->
-<mat-list-item [class.swiper-no-swiping]="multiSelectEnabled" class="articleList" fxFlex="1 1 auto">
+<div [class.swiper-no-swiping]="multiSelectEnabled" class="articleList" fxFlex="1 1 auto">
   <div matLine fxLayout="row wrap" fxLayoutAlign="space-between" [ngClass]="{
       'unread':article.unread,
       'starred':article.marked
@@ -19,10 +19,7 @@
       style="vertical-align:middle;padding-right:4px;" />
     <span style="vertical-align:middle;">{{article.feed_title}}</span>
   </div>
-</mat-list-item>
-<a *ngIf="article.link" [href]="article.link" target="_blank" fxFlexAlign="center" style="margin-right: 4px;">
-  <mat-icon [matTooltip]="'Open_Article' | translate">launch</mat-icon>
-</a>
+</div>
 <!-- <div fxLayout="row" fxLayoutAlign="start stretch" class="articleAction red">
       <mat-icon>star</mat-icon>
       <p>{{'Actions Mark Starred' | translate }}</p>

@@ -363,6 +363,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  openArticleLink(head: Headline, foreground: boolean) {
+    window.open(head.link, '_blank');
+    if (!foreground) {
+      self.focus();
+    }
+    if (head === this.selectedHeadline) {
+      this.selectedHeadline = null;
+    }
+  }
+
   registerHotKeys() {
     this._hotkeysService.hotkeys.length = 1;
     this._hotkeysService.add(new Hotkey('n', (event: KeyboardEvent): boolean => {
@@ -405,7 +415,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     this._hotkeysService.add(new Hotkey('v', (event: KeyboardEvent): boolean => {
       if (this.selectedHeadline != null) {
-        window.open(this.selectedHeadline.link, '_blank');
+        this.openArticleLink(this.selectedHeadline, true);
       }
       return false;
     }, undefined, this.translate.instant('Open_Article')));

@@ -9,6 +9,10 @@
     top: 0px;
 }
 
+.mat-nav-list .mat-list-item {    
+    height: auto;
+}
+
 mat-tree-node.mat-tree-node:hover {
     cursor: pointer;
 }

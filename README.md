@@ -4,14 +4,11 @@
 [![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
 ## TODOs
-- e2e tests
+- more e2e tests
 - service worker
-  - offline mode
-  - push notification
-- rewrite custom css to allow changing the theme
+  - offline mode (caching of starred and fresh articles)
+  - push notifications / badges
 - parameter for fresh article age + counter fix
-- article content theming (e.g. max size for images)
-- keyboard shortcuts
 - allow mixed content in articles
 - messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
 - different auth options (http auth, insecure ssl)

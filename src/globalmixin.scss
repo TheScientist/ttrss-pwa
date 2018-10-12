@@ -18,10 +18,7 @@
     mat-toolbar .mat-raised-button {
         background-color: mat-color($primary);
     }
-
-    ttrss-article-content {
-        background-color: mat-color($background, hover);
-    }
+    
     ttrss-settings {
         background-color: mat-color($background, background);
     }
