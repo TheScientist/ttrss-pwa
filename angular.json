@@ -23,6 +23,7 @@
               "src/favicon.ico"
             ],
             "styles": [
+              "src/style-initial.scss",
               "src/style.scss",
               "src/globalmixin.scss"
             ],

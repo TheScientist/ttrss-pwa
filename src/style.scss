@@ -43,3 +43,7 @@ body {
     white-space: normal !important;
     word-wrap: break-word !important;
 }
+
+#headlist.mat-nav-list .mat-list-item .mat-list-item-content {
+    padding: 0 12px;
+}

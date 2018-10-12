@@ -13,6 +13,11 @@
     height: auto;
 }
 
+.mat-list-item .extOpen {
+    padding-left: 8px;
+    width: auto;
+}
+
 mat-tree-node.mat-tree-node:hover {
     cursor: pointer;
 }

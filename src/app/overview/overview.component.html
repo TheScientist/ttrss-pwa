@@ -95,7 +95,7 @@
                     <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed" [article]="head"
                       (click)="onArticleSelect(head);" [selected]="selectedHeadline && head===selectedHeadline" fxFlex="1 1 auto"
                       ></ttrss-article>
-                    <button mat-icon-button (click)="openArticleLink(head, true)" (auxclick)="openArticleLink(head, false)" fxFlexAlign="center" style="margin: 0 8px;">
+                    <button mat-icon-button (click)="openArticleLink(head, true)" (auxclick)="openArticleLink(head, false)" fxFlexAlign="center" class="extOpen">
                       <mat-icon [matTooltip]="'Open_Article' | translate">launch</mat-icon>
                     </button>
                   </div>
