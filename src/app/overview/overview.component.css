@@ -13,6 +13,11 @@
     height: auto;
 }
 
+.mat-nav-list mat-checkbox {
+    padding-left: 12px;
+    padding-right: 0px;
+}
+
 .mat-list-item .extOpen {
     padding-left: 8px;
     width: auto;
