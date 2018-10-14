@@ -2,6 +2,7 @@
 
 @mixin global-mixin($theme) {
     $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
     $primary: map-get($theme, primary);
     .tree-item:hover {
         background-color: mat-color($background, hover);
@@ -9,6 +10,13 @@
     .feedSelected {
         background-color: mat-color($background, selected-button);
     }
+
+    .ttrss-dark-theme {        
+        .mat-button-toggle-button, mat-toolbar.mat-primary .mat-raised-button {
+            color: mat-color($foreground, text);
+        }
+    }
+
     mat-toolbar.mat-primary .mat-button-toggle-checked {
         background-color: mat-color($primary, darker);
     }
