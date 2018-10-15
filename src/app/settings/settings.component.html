@@ -1,39 +1,37 @@
-<div class="mat-drawer-container">
+<div class="mat-drawer-container" fxLayout="column" style="height: 100%">
   <a mat-icon-button aria-label="Overview" routerLink="/overiew" id="feedLink">
     <mat-icon>arrow_back</mat-icon>{{'Settings_Leave' | translate }}
   </a>
-  <mat-tab-group id="settings-card" [dynamicHeight]="true">
-    <mat-tab [label]="'Settings' | translate">
+  <mat-tab-group id="settings-card" [dynamicHeight]="true" fxFlex="1 1 auto">
+    <mat-tab [label]="'Settings_Connection' | translate">
       <p style="padding: 0 12px;">
         <mat-form-field class="settings-form-field">
-          <input id="apiurl" matInput [placeholder]="'Settings Server URL' | translate" [(ngModel)]="settings.url" type="url">
+          <input id="apiurl" matInput [placeholder]="'Settings_Server_URL' | translate" [(ngModel)]="settings.url" type="url">
         </mat-form-field>
         <mat-form-field class="settings-form-field">
-          <input id="username" matInput [placeholder]="'Settings Username' | translate" [(ngModel)]="settings.username"
+          <input id="username" matInput [placeholder]="'Settings_Username' | translate" [(ngModel)]="settings.username"
             type="text">
         </mat-form-field>
         <mat-form-field class="settings-form-field">
-          <input id="password" matInput [placeholder]="'Settings Password' | translate" [(ngModel)]="settings.password"
+          <input id="password" matInput [placeholder]="'Settings_Password' | translate" [(ngModel)]="settings.password"
             type="password">
         </mat-form-field>
-        <button id="testButton" mat-raised-button (click)="testConnection()" type="submit">{{'Settings Verify' |
+        <button id="testButton" mat-raised-button (click)="testConnection()" type="submit">{{'Settings_Verify' |
           translate }}</button>
-        <br />
-        <br />
+      </p>
+    </mat-tab>
+    <mat-tab [label]="'Settings' | translate">
+      <p style="padding: 0 12px;">        
         <mat-form-field>
-          <mat-select [placeholder]="'Settings Language' | translate" [(value)]="settings.locale" (selectionChange)="onLocaleChange($event)">
+          <mat-select [placeholder]="'Settings_Language' | translate" [(value)]="settings.locale" (selectionChange)="onLocaleChange($event)">
             <mat-option *ngFor="let lang of settings.locales" [value]="lang.key">
               {{ lang.name }}
             </mat-option>
           </mat-select>
-        </mat-form-field>
-      </p>
-    </mat-tab>
-    <mat-tab [label]="'Behaviour' | translate">
-      <p style="padding: 0 12px;">
-        <mat-slide-toggle color='primary' [(ngModel)]="settings.markReadOnScroll">{{'Behaviour_MarkRead_OnScroll' |
+        </mat-form-field><br />
+        <mat-slide-toggle color='primary' [(ngModel)]="settings.markReadOnScroll">{{'Settings_MarkRead_OnScroll' |
           translate }}</mat-slide-toggle> <br />
-        <mat-slide-toggle color='primary' [(ngModel)]="settings.darkDesign">{{'Behaviour_Use_DarkDesign' | translate }}</mat-slide-toggle>
+        <mat-slide-toggle color='primary' [(ngModel)]="settings.darkDesign">{{'Settings_Use_DarkDesign' | translate }}</mat-slide-toggle>
       </p>
     </mat-tab>
   </mat-tab-group>

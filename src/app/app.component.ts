@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     // this language will be used as a fallback when a translation isn't found in the current language
     this.translate.setDefaultLang('en');
     this.translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.translate.get('title').subscribe((res: string) => {
+      this.translate.get('App_Title').subscribe((res: string) => {
         this.titleService.setTitle(res);
       });
     });

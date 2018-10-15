@@ -147,7 +147,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         if (fresh.counter > 0) {
           prefix = '(' + fresh.counter + ') ';
         }
-        this.translate.get('title').subscribe(result => this.titleService.setTitle(prefix + result));
+        this.translate.get('App_Title').subscribe(result => this.titleService.setTitle(prefix + result));
       }
     }
     );
