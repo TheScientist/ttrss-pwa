@@ -12,7 +12,7 @@
     }
 
     .ttrss-dark-theme {        
-        .mat-button-toggle-button, mat-toolbar.mat-primary .mat-raised-button {
+        mat-toolbar.mat-primary .mat-button-toggle-button, mat-toolbar.mat-primary .mat-raised-button {
             color: mat-color($foreground, text);
         }
     }
