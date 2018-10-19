@@ -29,10 +29,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
-import { SwiperModule } from 'ngx-swiper-wrapper';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
-import { SWIPER_CONFIG } from 'ngx-swiper-wrapper';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { ArticleComponent } from './article/article.component';
 import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.component';
 import { ArticleContentComponent } from './article-content/article-content.component';
@@ -47,13 +44,6 @@ registerLocaleData(localeEn, 'en');
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
-const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
-  direction: 'horizontal',
-  slidesPerView: 'auto',
-  spaceBetween: 1,
-  threshold: 100,
-  shortSwipes: false
-};
 
 @NgModule({
   declarations: [
@@ -85,7 +75,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
         deps: [HttpClient]
       }
     }),
-    SwiperModule,
     NgInviewModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     HotkeyModule.forRoot()
@@ -96,10 +85,6 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
       provide: LOCALE_ID,
       deps: [SettingsService],
       useFactory: (settings) => settings.getLanguage()
-    },
-    {
-      provide: SWIPER_CONFIG,
-      useValue: DEFAULT_SWIPER_CONFIG
     }
   ],
   bootstrap: [AppComponent]
