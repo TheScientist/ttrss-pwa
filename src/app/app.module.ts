@@ -51,7 +51,8 @@ const DEFAULT_SWIPER_CONFIG: SwiperConfigInterface = {
   direction: 'horizontal',
   slidesPerView: 'auto',
   spaceBetween: 1,
-  threshold: 30
+  threshold: 100,
+  shortSwipes: false
 };
 
 @NgModule({

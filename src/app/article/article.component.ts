@@ -15,26 +15,14 @@ export class ArticleComponent implements OnInit, OnChanges {
   @Input() multiSelectEnabled: boolean;
   @ViewChild(SwiperComponent) componentRef: SwiperComponent;
 
-  swipeInProgress = false;
-  swipeAction = 1;
   constructor(private client: TtrssClientService, private artElement: ElementRef) { }
 
   ngOnInit() {
   }
 
   elementSwiped(index: number) {
-    this.swipeAction = index;
-    // fast swipe
-    if (index !== 1 && !this.swipeInProgress) {
-      this.componentRef.directiveRef.setIndex(1);
-    }
-  }
-  swipeFinished() {
-    this.swipeInProgress = false;
-    // slow swipe
-    const action = this.swipeAction;
-    if (action !== 1) {
-      if (action === 0) {
+    if (index !== 1) {
+      if (index === 0) {
         this.client.updateArticle(this.article, 2, 2).subscribe(result => {
           if (result) {
             this.article.unread = !this.article.unread;
@@ -47,11 +35,11 @@ export class ArticleComponent implements OnInit, OnChanges {
           }
         });
       }
+    }
+    this.componentRef.directiveRef.setIndex(1);
+    if (index !== 1) {
       this.componentRef.directiveRef.setIndex(1);
     }
-  }
-  swipeStarted() {
-    this.swipeInProgress = true;
   }
 
   ngOnChanges(changes: SimpleChanges) {
