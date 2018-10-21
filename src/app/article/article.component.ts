@@ -32,7 +32,7 @@ export class ArticleComponent implements OnInit {
   }
 
   startAnimation(state) {
-    console.log(state)
+    console.log(state);
     if (!this.animationState) {
       this.animationState = state;
     }
