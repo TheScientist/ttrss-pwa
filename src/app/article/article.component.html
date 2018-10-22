@@ -1,14 +1,12 @@
-<div fxLayout="row" fxLayoutAlign="start stretch">
-  <div class="articleList">
-    <div matLine fxLayout="row wrap" fxLayoutAlign="space-between" [ngClass]="{'unread':article.unread,'starred':article.marked}">
-      <span class="breakwords" style="padding-right:4px;">{{article.title}}</span>
-      <span *ngIf="article.author" style="padding-right:4px;">({{article.author}})</span>
-      <span fxFlex="1 1 auto" style="text-align:right;">{{article.updated | datefix | date:'short'}}</span>
-    </div>
-    <div matLine *ngIf="showFeedIcons()">
-      <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto"
-        height="16px" style="vertical-align:middle;padding-right:4px;" />
-      <span style="vertical-align:middle;">{{article.feed_title}}</span>
-    </div>
+<div fxLayout="row" fxLayoutAlign="start stretch" class="articleList">
+  <div matLine fxLayout="row wrap" fxLayoutAlign="space-between" [ngClass]="{'unread':article.unread,'starred':article.marked}">
+    <span class="breakwords" style="padding-right:4px;">{{article.title}}</span>
+    <span *ngIf="article.author" style="padding-right:4px;">({{article.author}})</span>
+    <span fxFlex="1 1 auto" style="text-align:right;">{{article.updated | datefix | date:'short'}}</span>
+  </div>
+  <div matLine *ngIf="showFeedIcons()">
+    <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto" height="16px"
+      style="vertical-align:middle;padding-right:4px;" />
+    <span style="vertical-align:middle;">{{article.feed_title}}</span>
   </div>
 </div>
