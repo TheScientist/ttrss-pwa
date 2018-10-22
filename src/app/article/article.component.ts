@@ -6,12 +6,7 @@ import * as kf from './keyframes';
 @Component({
   selector: 'ttrss-article',
   templateUrl: './article.component.html',
-  styleUrls: ['./article.component.css'],
-  animations: [
-    trigger('cardAnimator', [
-      transition('* => slideOutLeft', animate(1000, keyframes(kf.slideInOutLeft))),
-    ])
-  ]
+  styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
 

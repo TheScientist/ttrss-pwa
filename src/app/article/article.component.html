@@ -1,6 +1,4 @@
 <div fxLayout="row" fxLayoutAlign="start stretch">
-  <!-- [@cardAnimator]="animationState" (@cardAnimator.done)="resetAnimationState()"
-  (swipeleft)="startAnimation('slideOutLeft')" -->
   <div class="articleList">
     <div matLine fxLayout="row wrap" fxLayoutAlign="space-between" [ngClass]="{'unread':article.unread,'starred':article.marked}">
       <span class="breakwords" style="padding-right:4px;">{{article.title}}</span>
