@@ -3,15 +3,15 @@
 [![Build Status](https://ci.thescientist.eu/job/ttrss/job/master/badge/icon)](https://ci.thescientist.eu/job/ttrss/job/master/)
 [![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
-## TODOs
-- more e2e tests
-- service worker
-  - offline mode (caching of starred and fresh articles)
-  - push notifications / badges
-- parameter for fresh article age + counter fix
-- allow mixed content in articles
-- messaging + httpclient progressbar (https://blog.jonrshar.pe/2017/Jul/15/angular-http-client.html)
-- different auth options (http auth, insecure ssl)
+
+## Usage
+A sample installation is installed at https://ttrss.thescientist.eu/
+You will redirected to the settings page. Put your tt-rss server credentials into the fields and click on 'Verify'. Login successful should be written at the bottom. Click ob 'Back to feeds' and use the app.
+Don't worry your credentials will stay on your device.
+
+### CORS header
+Your tt-rss server will probably block this app's api queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
+TODO Sample server configuration
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
@@ -26,7 +26,7 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 ## Build
 
-Run `ng build --aot false` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Running end-to-end tests
 

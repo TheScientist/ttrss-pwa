@@ -24,6 +24,13 @@ export class SettingsComponent implements OnInit {
   }
 
   testConnection() {
+    if (!this.settings.url.endsWith('/')) {
+      this.settings.url = this.settings.url + '/';
+    }
+    if (!this.settings.url.endsWith('api/')) {
+      this.settings.url = this.settings.url + 'api/';
+    }
+
     this.client.login(true).toPromise();
   }
   onLocaleChange(event) {
