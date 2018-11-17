@@ -340,8 +340,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
     });
   }
 
-  multiselectChanged(checked: boolean) {
-    this.multiSelectEnabled = checked;
+  multiselectChanged() {
+    this.multiSelectEnabled = !this.multiSelectEnabled;
     if (this.multiSelectEnabled) {
       this.selectedHeadline = null;
     } else {
@@ -428,7 +428,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }, undefined, this.translate.instant('Shortcut_Close_Article')));
 
     this._hotkeysService.add(new Hotkey('m', (event: KeyboardEvent): boolean => {
-      this.multiselectChanged(!this.multiSelectEnabled);
+      this.multiselectChanged();
       return false;
     }, undefined, this.translate.instant('TB_Multiselect')));
   }

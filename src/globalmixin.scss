@@ -10,22 +10,25 @@
     .feedSelected {
         background-color: mat-color($background, selected-button);
     }
-
-    .ttrss-dark-theme {        
-        mat-toolbar.mat-primary .mat-button-toggle-button, mat-toolbar.mat-primary .mat-raised-button {
-            color: mat-color($foreground, text);
-        }
-    }
-
-    mat-toolbar.mat-primary .mat-button-toggle-checked {
+    .multiselect {        
         background-color: mat-color($primary, darker);
     }
+
+    // .ttrss-dark-theme {        
+    //     mat-toolbar.mat-primary .mat-button-toggle-button, mat-toolbar.mat-primary .mat-raised-button {
+    //         color: mat-color($foreground, text);
+    //     }
+    // }
+
+    // mat-toolbar.mat-primary .mat-button-toggle-checked {
+    //     background-color: mat-color($primary, darker);
+    // }
     mat-toolbar .mat-button-toggle-checked {
         background-color: mat-color($background, disabled-button);
     }
-    mat-toolbar .mat-raised-button {
-        background-color: mat-color($primary);
-    }
+    // mat-toolbar .mat-raised-button {
+    //     background-color: mat-color($primary);
+    // }
     
     ttrss-settings {
         background-color: mat-color($background, background);

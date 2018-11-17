@@ -56,20 +56,20 @@
           <h1 class="ttrss-app-name" [class.menu-indent]="isMobile">{{'App_Title' | translate}}</h1>
         </ng-template>
         <div class="tb-buttons">
-          <mat-button-toggle mat-icon-button [matTooltip]="'TB_Multiselect' | translate" matTooltipShowDelay="1000"
-            style="vertical-align: middle;" *ngIf="selectedFeed" [checked]="multiSelectEnabled" (change)="multiselectChanged($event.source.checked)">
+          <button mat-icon-button [matTooltip]="'TB_Multiselect' | translate" matTooltipShowDelay="1000" 
+            style="vertical-align: middle;" *ngIf="selectedFeed"  (click)="multiselectChanged()" [class.multiselect]="multiSelectEnabled">
             <mat-icon>list</mat-icon>
-          </mat-button-toggle>
-          <button mat-raised-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000" (click)="updateSelected(0)"
+          </button>
+          <button mat-icon-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000" (click)="updateSelected(0)"
             *ngIf="multiSelectEnabled">
             <mat-icon>star</mat-icon>
           </button>
-          <button mat-raised-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000" (click)="updateSelected(2)"
+          <button mat-icon-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000" (click)="updateSelected(2)"
             *ngIf="multiSelectEnabled">
             <mat-icon>mail</mat-icon>
           </button>
-          <button mat-raised-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000" (click)="catchupFeed()"
-            *ngIf="selectedFeed">
+          <button mat-icon-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000" (click)="catchupFeed()"
+            *ngIf="selectedFeed && !multiSelectEnabled">
             <mat-icon>done_all</mat-icon>
           </button>
           <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">
