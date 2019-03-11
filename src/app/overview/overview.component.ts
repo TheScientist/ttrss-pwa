@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, OnDestroy, NgZone } fr
 import { MediaMatcher } from '@angular/cdk/layout';
 import { TtrssClientService } from '../ttrss-client.service';
 import { Observable, Subscription, observable, of } from 'rxjs';
-import { ObservableMedia, MediaChange } from '@angular/flex-layout';
+import { MediaObserver, MediaChange } from '@angular/flex-layout';
 import { MatSidenav, MatDialog, MatToolbar, MatSidenavContent, MatTreeNestedDataSource } from '@angular/material';
 import { MarkreaddialogComponent } from '../markreaddialog/markreaddialog.component';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
@@ -42,11 +42,11 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   private _mobileQueryListener: () => void;
 
-  constructor(private _scrollToService: ScrollToService, media: ObservableMedia, public dialog: MatDialog,
+  constructor(private _scrollToService: ScrollToService, media: MediaObserver, public dialog: MatDialog,
     private client: TtrssClientService, private settings: SettingsService,
     private translate: TranslateService, private titleService: Title, private ngZone: NgZone,
     private _hotkeysService: HotkeysService) {
-    this.watcher = media.subscribe((change: MediaChange) => {
+    this.watcher = media.media$.subscribe((change: MediaChange) => {
       this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
       if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
         this.isMobile = true;
