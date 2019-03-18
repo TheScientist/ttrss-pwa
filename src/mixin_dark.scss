@@ -1,0 +1,13 @@
+@import '~@angular/material/theming';
+
+@mixin dark-mixin($theme) {
+    $background: map-get($theme, background);
+    // $foreground: map-get($theme, foreground);
+    // $primary: map-get($theme, primary);
+    .article-toolbar .mat-button-toggle-appearance-standard {
+        background-color:  mat-color($background, selected-button);
+    }
+    .article-toolbar .mat-button-toggle-checked {
+        background-color:  mat-color($background, card);
+    }
+}

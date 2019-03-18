@@ -18,18 +18,16 @@ $ttrss-dark-theme: mat-dark-theme(
     $ttrss-theme-warn
 );
 
-@import 'globalmixin';
-
-@mixin custom-components-theme($theme) {
-    @include global-mixin($theme);
-}
+@import 'mixin_global';
+@import 'mixin_dark';
 
 @include angular-material-theme($ttrss-light-theme);
-@include custom-components-theme($ttrss-light-theme);
+@include global-mixin($ttrss-light-theme);
 
 .ttrss-dark-theme {
   @include angular-material-theme($ttrss-dark-theme);
-  @include custom-components-theme($ttrss-dark-theme);
+  @include global-mixin($ttrss-dark-theme);
+  @include dark-mixin($ttrss-dark-theme);
 }
 
 body {

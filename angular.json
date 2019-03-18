@@ -25,7 +25,8 @@
             "styles": [
               "src/style-initial.scss",
               "src/style.scss",
-              "src/globalmixin.scss"
+              "src/mixin_global.scss",
+              "src/mixin_dark.scss"
             ],
             "scripts": []
           },
