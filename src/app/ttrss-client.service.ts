@@ -12,8 +12,8 @@ import { TranslateService } from '@ngx-translate/core';
 @Injectable()
 export class TtrssClientService {
 
-  constructor(private http: HttpClient, 
-    private settings: SettingsService, 
+  constructor(private http: HttpClient,
+    private settings: SettingsService,
     private messages: MessagingService,
     private translate: TranslateService) {
   }
@@ -107,8 +107,11 @@ export class TtrssClientService {
           return data.content;
         }
       }),
-      tap(data => { if (data && data.length > 0) { 
-        this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Headlines')), data); } }),
+      tap(data => {
+        if (data && data.length > 0) {
+          this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Headlines')), data);
+        }
+      }),
       catchError(err => this.handleError('getHeadlines', err, []))
     );
   }
@@ -149,8 +152,11 @@ export class TtrssClientService {
         }
       }),
       map(data => data.map(cnt => new CounterResult(cnt))),
-      tap(data => { if (data && data.length > 0) { 
-        this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Counters')), data); } }),
+      tap(data => {
+        if (data && data.length > 0) {
+          this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Counters')), data);
+        }
+      }),
       catchError(err => this.handleError('getCounters', err, []))
     );
   }
@@ -167,8 +173,11 @@ export class TtrssClientService {
           return true;
         }
       }),
-      tap(data => { if (data) { 
-        this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Catchup')), data); } }),
+      tap(data => {
+        if (data) {
+          this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Catchup')), data);
+        }
+      }),
       catchError(err => this.handleError('catchupFeed', err, false))
     );
   }
@@ -184,8 +193,11 @@ export class TtrssClientService {
           return data.content[0];
         }
       }),
-      tap(data => { if (data !== null) { 
-        this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Article')), data); } }),
+      tap(data => {
+        if (data !== null) {
+          this.messages.log(new LogMessage('INFO', this.translate.instant('Log_Article')), data);
+        }
+      }),
       catchError(err => this.handleError('getArticle', err, null))
     );
   }

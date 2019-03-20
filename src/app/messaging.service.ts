@@ -15,7 +15,7 @@ export class MessagingService {
   }
 
   private appendToUI(message: LogMessage): void {
-    if (message.level === "DEBUG") {
+    if (message.level === 'DEBUG') {
       return;
     }
     if (this.uimessages.length > 4) {

@@ -10,7 +10,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
 export class MessagingComponent implements OnInit {
 
   msgService: MessagingService;
-  loaderService: LoadingBarService
+  loaderService: LoadingBarService;
 
   constructor(private messageService: MessagingService, private loader: LoadingBarService) {
     this.msgService = messageService;
