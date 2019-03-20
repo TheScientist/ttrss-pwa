@@ -13,6 +13,10 @@
     .multiselect {        
         background-color: mat-color($primary, darker);
     }
+    .mat-progress-bar.mat-accent .mat-progress-bar-buffer {
+        background-color: mat-color($background, card);
+    }
+    
     
     ttrss-settings {
         background-color: mat-color($background, background);

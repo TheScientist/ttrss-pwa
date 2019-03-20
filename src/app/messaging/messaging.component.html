@@ -1,11 +1,16 @@
+<mat-progress-bar mode="determinate" [value]="loaderService.progress$|async" color="accent"></mat-progress-bar>
 <mat-expansion-panel *ngIf="msgService.uimessages.length" style="width: 100%;">
   <mat-expansion-panel-header>
     <mat-panel-title fxFlex="0 1 auto">
       {{'Logging' | translate }}
     </mat-panel-title>
     <mat-panel-description fxFlex="1 1 auto">
-      {{msgService.uimessages[0]}}
+      {{msgService.uimessages[0].message}}
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <div *ngFor='let message of msgService.uimessages'> {{message}} </div>
+  <div *ngFor='let message of msgService.uimessages'> 
+    <span>{{message.localTime}}</span>
+    <span> [{{message.level}}] </span>
+    <span>{{message.message}}</span>
+  </div>
 </mat-expansion-panel>

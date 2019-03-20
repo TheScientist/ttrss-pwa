@@ -25,6 +25,8 @@
     "@angular/pwa": "^0.13.5",
     "@angular/router": "^7.2.8",
     "@angular/service-worker": "^7.2.8",
+    "@ngx-loading-bar/core": "^4.2.0",
+    "@ngx-loading-bar/http-client": "^4.2.0",
     "@ngx-translate/core": "^11.0.1",
     "@ngx-translate/http-loader": "^4.0.0",
     "@nicky-lenaers/ngx-scroll-to": "^2.0.0",

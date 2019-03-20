@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagingService } from '../messaging.service';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 
 @Component({
   selector: 'ttrss-messaging',
@@ -9,9 +10,11 @@ import { MessagingService } from '../messaging.service';
 export class MessagingComponent implements OnInit {
 
   msgService: MessagingService;
+  loaderService: LoadingBarService;
 
-  constructor(private messageService: MessagingService) {
+  constructor(private messageService: MessagingService, private loader: LoadingBarService) {
     this.msgService = messageService;
+    this.loaderService = loader;
   }
 
   ngOnInit() {
