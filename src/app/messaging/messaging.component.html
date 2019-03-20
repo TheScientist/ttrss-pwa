@@ -1,3 +1,4 @@
+<mat-progress-bar mode="determinate" [value]="loader.progress$|async" color="accent"></mat-progress-bar>
 <mat-expansion-panel *ngIf="msgService.uimessages.length" style="width: 100%;">
   <mat-expansion-panel-header>
     <mat-panel-title fxFlex="0 1 auto">

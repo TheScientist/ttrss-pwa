@@ -36,7 +36,7 @@ import { ArticleContentComponent } from './article-content/article-content.compo
 import { NgInviewModule } from 'angular-inport';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotkeyModule } from 'angular2-hotkeys';
-
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -77,7 +77,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgInviewModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    HotkeyModule.forRoot()
+    HotkeyModule.forRoot(),
+    LoadingBarHttpClientModule
   ],
   entryComponents: [AppComponent, MarkreaddialogComponent],
   providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,

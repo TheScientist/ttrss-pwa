@@ -19,7 +19,8 @@ import {
   MatTooltipModule,
   MatTabsModule,
   MatTreeModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatProgressBarModule
 } from '@angular/material';
 
 @NgModule({
@@ -43,7 +44,8 @@ import {
     MatTooltipModule,
     MatTabsModule,
     MatTreeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressBarModule
   ],
   exports: [
     CdkTableModule,
@@ -65,7 +67,8 @@ import {
     MatTooltipModule,
     MatTabsModule,
     MatTreeModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressBarModule
   ]
 })
 export class MaterialModule {}
