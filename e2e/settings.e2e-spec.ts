@@ -20,7 +20,7 @@ describe('Settings page', () => {
   it('should save valid settings', async () => {
     const settings = new SettingsPage();
     settings.doTestSettings(browser.params.login.url, browser.params.login.user, browser.params.login.password);
-    const logMsgFound = await settings.waitForLastLogMessageText('login successful');
+    const logMsgFound = await settings.waitForLastLogMessageText('Login erfolgreich');
     expect(logMsgFound).toBe(true);
   });
 });
