@@ -20,6 +20,7 @@
             "assets": [
               "src/assets",
               "src/manifest.json",
+              "src/manifest-dark.json",
               "src/favicon.ico"
             ],
             "styles": [

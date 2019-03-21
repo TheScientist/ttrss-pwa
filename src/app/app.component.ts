@@ -41,5 +41,7 @@ export class AppComponent implements OnInit {
        overlayContainerClasses.remove(...themeClassesToRemove);
     }
     overlayContainerClasses.add(newThemeClass);
+    const manifest = this.isDarkTheme ? 'manifest-dark.json' : 'manifest.json';
+    document.querySelector('#manifest-link').setAttribute('href', manifest);
   }
 }
