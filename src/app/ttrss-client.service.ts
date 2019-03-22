@@ -236,7 +236,7 @@ export class TtrssClientService {
   * @param result - optional value to return as the observable result
   */
   private handleError<T>(operation = 'operation', error: any, result?: T) {
-    this.messages.log(new LogMessage('ERROR', this.translate.instant('Log_Request_Failed') + operation), error);
+    this.messages.log(new LogMessage('ERROR', this.translate.instant('Log_Request_Failed', {value: operation})), error);
     return of(result as T);
   }
 }

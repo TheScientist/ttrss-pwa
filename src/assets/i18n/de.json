@@ -10,7 +10,7 @@
     "Log_Catchup": "Feed als gelesen markiert",
     "Log_Article": "Artikel geladen",
     "Log_Article_Update": "Artikel wurde aktualisiert",
-    "Log_Request_Failed": "Anfrage an Server fehlgeschlagen: ",
+    "Log_Request_Failed": "Anfrage an Server fehlgeschlagen: {{value}}",
     "NoHeadlines": "Keine Artikel zur Anzeige gefunden.",
     "NoFeed": "Kein Feed ausgewählt.",
     "Open_Article": "Artikel in neuem Tab öffnen.",
