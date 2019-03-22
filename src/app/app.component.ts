@@ -43,5 +43,7 @@ export class AppComponent implements OnInit {
     overlayContainerClasses.add(newThemeClass);
     const manifest = this.isDarkTheme ? 'manifest-dark.json' : 'manifest.json';
     document.querySelector('#manifest-link').setAttribute('href', manifest);
+    const theme_color = this.isDarkTheme ? '#424242' : '#fff';
+    document.querySelector('#theme-color').setAttribute('content', theme_color);
   }
 }

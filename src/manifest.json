@@ -2,9 +2,9 @@
   "short_name": "tt-rss WebApp",
   "name": "Tiny Tiny RSS Progressive Web App",  
   "start_url": "/overview",
-  "background_color": "#d8751e00",
+  "background_color": "#fff",
   "display": "standalone",
-  "theme_color": "#3f51b5",
+  "theme_color": "#fff",
   "icons": [
     {
       "src": "/assets/app-icon-144.png",
