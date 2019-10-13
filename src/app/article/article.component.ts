@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ViewChild, SimpleChanges, SimpleChange, ElementRef, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, SimpleChange, ElementRef, OnChanges } from '@angular/core';
 import { TtrssClientService } from '../ttrss-client.service';
 import { trigger, transition, animate, keyframes } from '@angular/animations';
 import * as kf from './keyframes';

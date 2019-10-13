@@ -19,8 +19,8 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 })
 export class OverviewComponent implements OnInit, OnDestroy {
 
-  @ViewChild('snav') public snav: MatSidenav;
-  @ViewChild('feedtoolbar') public feedtoolbar: MatToolbar;
+  @ViewChild('snav', { static: true }) public snav: MatSidenav;
+  @ViewChild('feedtoolbar', { static: true }) public feedtoolbar: MatToolbar;
 
   nestedTreeControl: NestedTreeControl<ICategory>;
   nestedDataSource: MatTreeNestedDataSource<ICategory>;
