@@ -6,11 +6,12 @@
 
 ## Usage
 A sample installation is installed at https://ttrss.thescientist.eu/
-You will redirected to the settings page. Put your tt-rss server credentials into the fields and click on 'Verify'. Login successful should be written at the bottom. Click ob 'Back to feeds' and use the app.
+You will get redirected to the settings page. Put your tt-rss server credentials into the fields and click on 'Verify'. 'Login successful' should be written at the bottom. Click on 'Back to feeds' and use the app.
 Don't worry your credentials will stay on your device.
 
 ### CORS header
-Your tt-rss server will probably block this app's api queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
+Your tt-rss server will probably block this app's API queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
+You need to configure your web server to accept requests from my domain.
 TODO Sample server configuration
 
 ## Development Prerequisites
