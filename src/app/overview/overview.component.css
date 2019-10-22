@@ -4,25 +4,6 @@
     flex-grow: 1;
 }
 
-.headSelected {
-    position: sticky;
-    top: 0px;
-}
-
-.mat-nav-list .mat-list-item {    
-    height: auto;
-}
-
-.mat-nav-list mat-checkbox {
-    padding-left: 12px;
-    padding-right: 0px;
-}
-
-.mat-list-item .extOpen {
-    padding-left: 8px;
-    width: auto;
-}
-
 mat-tree-node.mat-tree-node:hover {
     cursor: pointer;
 }
@@ -108,10 +89,4 @@ mat-tree-node.mat-tree-node:hover {
   
   .ttrss-toolbar .tb-buttons {
     margin-left: auto;
-  }
-
-  .article-toolbar {
-      position: sticky;
-      bottom: 0px;
-      flex-direction: row-reverse;
   }

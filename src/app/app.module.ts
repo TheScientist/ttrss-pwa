@@ -20,7 +20,6 @@ import { MessagingComponent } from './messaging/messaging.component';
 import { OverviewComponent } from './overview/overview.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import './util/rxjs-operators';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CounterFilterPipe } from './util/counter-filter-pipe';
 import { DateFixPipe } from './util/datefix-pipe';
@@ -37,6 +36,7 @@ import { NgInviewModule } from 'angular-inport';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { ListviewComponent } from './listview/listview.component';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -55,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     DateFixPipe,
     ArticleComponent,
     MarkreaddialogComponent,
-    ArticleContentComponent
+    ArticleContentComponent,
+    ListviewComponent
   ],
   imports: [
     BrowserModule,

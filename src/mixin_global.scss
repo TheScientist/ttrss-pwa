@@ -4,6 +4,7 @@
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
     $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
     .tree-item:hover {
         background-color: mat-color($background, hover);
     }
@@ -16,7 +17,19 @@
     .mat-progress-bar.mat-accent .mat-progress-bar-buffer {
         background-color: mat-color($background, card);
     }
+    #headlist .swipe-item-container {
+        background-color: mat-color($background, background);
+    } 
+    #headlist .swipe-item-container>div:hover {
+        background-color: mat-color($background, hover);
+    } 
+    #headlist .swipe-action-indicator {
+        background-color: mat-color($accent);
+    }
     
+    ttrss-overview {
+        background-color: mat-color($background, background);
+    }    
     
     ttrss-settings {
         background-color: mat-color($background, background);
