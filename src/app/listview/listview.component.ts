@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { trigger, style, keyframes, transition, animate, query, stagger } from '@angular/animations';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
 import { TtrssClientService } from '../ttrss-client.service';
@@ -22,7 +22,7 @@ import { SettingsService } from '../settings.service';
     ])
   ]
 })
-export class ListviewComponent implements OnInit {
+export class ListviewComponent implements OnInit, OnDestroy {
 
   @Input() selectedFeed: ICategory;
   @Input() headlines: Headline[];
@@ -41,11 +41,11 @@ export class ListviewComponent implements OnInit {
 
   slideThreshold: number;
   swipedHead: Headline = null;
-  swipedIdx: number = -1;
+  swipedIdx = -1;
   elementLeftSign: Boolean;
 
-  private eventsSubscription: any
-  private multiSelectEventSubscription: any
+  private eventsSubscription: any;
+  private multiSelectEventSubscription: any;
 
   constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
     private translate: TranslateService, private _hotkeysService: HotkeysService, private settings: SettingsService) {
@@ -58,7 +58,7 @@ export class ListviewComponent implements OnInit {
       if (field < 0) {
         this.updateArticle(this.headlines.slice(0, -field).filter(h => h.unread), 2, 0);
       } else {
-        this.updateSelected(field)
+        this.updateSelected(field);
       }
     });
     this.multiSelectEventSubscription = this.multiSelectChangedEvent.subscribe(() => {
@@ -68,12 +68,12 @@ export class ListviewComponent implements OnInit {
       } else {
         this.multiSelectedHeadlines.length = 0;
       }
-    })
+    });
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe()
-    this.multiSelectEventSubscription.unsubscribe()
+    this.eventsSubscription.unsubscribe();
+    this.multiSelectEventSubscription.unsubscribe();
   }
 
   updateSelected(field: number) {
@@ -96,7 +96,7 @@ export class ListviewComponent implements OnInit {
 
   onArticleSelect(headline: Headline) {
     if (this.swipedHead != null) {
-      return
+      return;
     }
     if (!this.multiSelectEnabled) {
       if (headline !== this.selectedHeadline) {

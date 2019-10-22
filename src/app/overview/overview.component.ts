@@ -40,7 +40,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   multiSelectEnabled = false;
   headlines: Headline[] = [];
   fetch_more = true;
-  toolbarHeight: number = 0;
+  toolbarHeight = 0;
   private headlineUpdateEvent: Subject<number> = new Subject<number>();
   private multiSelectionChanged: Subject<void> = new Subject<void>();
 
@@ -217,9 +217,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
   }
 
   onCounterChanged(event: UpdateCounterEvent) {
-    if (event.feed_id == 0) {
+    if (event.feed_id === 0) {
       this.updateFavCounter(event.count);
-    } else if (event.feed_id == 2) {
+    } else if (event.feed_id === 2) {
       if (event.isCat) {
         this.updateReadCounters(event.count, null, event.target_feed);
       } else {
