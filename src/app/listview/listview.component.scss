@@ -1,0 +1,61 @@
+.headSelected {
+    position: sticky;
+    top: 0px;
+}
+
+.mat-nav-list .mat-list-item {    
+    height: auto;
+}
+
+.mat-nav-list mat-checkbox {
+    padding-left: 12px;
+    padding-right: 0px;
+}
+
+.mat-list-item .extOpen {
+    padding-left: 8px;
+    width: auto;
+}
+
+  .article-toolbar {
+    position: sticky;
+    bottom: 0px;
+    flex-direction: row-reverse;
+}
+
+.swipe-action-indicator {
+  width: 98%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.swipe-action-indicator>div {
+  display: flex;
+  align-items: center;
+}
+
+.swipe-action-indicator>div>span {
+  line-height: 24px;
+}
+
+.swipe-action-indicator .swipe-action-icon {
+  margin-left: 16px;
+  margin-right: 16px;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.swipe-item-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  position: relative;
+  height: inherit;
+}   

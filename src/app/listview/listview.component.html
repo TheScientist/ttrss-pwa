@@ -1,0 +1,64 @@
+<div #feedList class="clearFloat" *ngIf="selectedFeed;else noFeed">
+    <mat-nav-list id="headlist" role="list" *ngIf="headlines && headlines.length>0;else emtpyList">
+        <div role="listitem" *ngFor="let head of headlines;let i = index">
+            <div fxLayout="row" style="width:100%;">
+                <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center"
+                    [checked]="multiSelectedHeadlines.includes(head)" (change)="onArticleSelect(head)"></mat-checkbox>
+                <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)"
+                    [scrollELement]="scrollContainer" [data]="head" [id]="'article' + head.id" [throttle]="500">
+                    <mat-list-item>
+                        <div class="swipe-action-indicator">
+                            <div *ngIf="isLeftSwipe(i)">
+                                <i class="material-icons swipe-action-icon">star_half</i>
+                                <span>Mark starred</span>
+                            </div>
+                            <span>&nbsp;</span>
+                            <div *ngIf="isRightSwipe(i)">
+                                <span>Mark unread</span>
+                                <i class="material-icons swipe-action-icon">mail_outline</i>
+                            </div>
+                        </div>
+                        <div #elementRefrence class="swipe-item-container"
+                            (panend)="panend($event, head, elementRefrence)"
+                            (panmove)="panmove($event, i, elementRefrence)" [@slideLeft]="swipedHead === head"
+                            (@slideLeft.done)=alignComplete($event)>
+
+                            <div fxLayout="row" style="width:100%;"
+                                [class.headSelected]="selectedHeadline && head===selectedHeadline">
+                                <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed"
+                                    [article]="head" (click)="onArticleSelect(head);"
+                                    [selected]="selectedHeadline && head===selectedHeadline" fxFlex="1 1 auto">
+                                </ttrss-article>
+                                <button mat-icon-button (click)="openArticleLink(head, true)"
+                                    (auxclick)="openArticleLink(head, false)" fxFlexAlign="center" class="extOpen">
+                                    <mat-icon [matTooltip]="'Open_Article' | translate">launch</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-list-item>
+
+                    <ttrss-article-content [article]="head" *ngIf="selectedHeadline && head===selectedHeadline">
+                    </ttrss-article-content>
+                    <mat-toolbar #articletoolbar class="article-toolbar"
+                        *ngIf="selectedHeadline && head===selectedHeadline">
+                        <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleStar' | translate"
+                            matTooltipShowDelay="1000" (click)="updateSelected(0)" [checked]="selectedHeadline.marked">
+                            <mat-icon>star</mat-icon>
+                        </mat-button-toggle>
+                        <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleRead' | translate"
+                            matTooltipShowDelay="1000" (click)="updateSelected(2)" [checked]="selectedHeadline.unread">
+                            <mat-icon>email</mat-icon>
+                        </mat-button-toggle>
+                    </mat-toolbar>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-nav-list>
+    <ng-template #emtpyList>
+        <p style="text-align: center;">{{'NoHeadlines' | translate}}</p>
+    </ng-template>
+</div>
+<ng-template #noFeed>
+    <p class="clearFloat" style="text-align: center;">{{'NoFeed' | translate}}</p>
+</ng-template>
