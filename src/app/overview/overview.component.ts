@@ -41,8 +41,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
   headlines: Headline[] = [];
   fetch_more = true;
   toolbarHeight = 0;
-  private headlineUpdateEvent: Subject<number> = new Subject<number>();
-  private multiSelectionChanged: Subject<void> = new Subject<void>();
+  headlineUpdateEvent: Subject<number> = new Subject<number>();
+  multiSelectionChanged: Subject<void> = new Subject<void>();
 
   private _mobileQueryListener: () => void;
 
