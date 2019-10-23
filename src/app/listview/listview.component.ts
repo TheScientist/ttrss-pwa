@@ -53,7 +53,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.slideThreshold = 12;
+    this.slideThreshold = 30;
     this.eventsSubscription = this.updateHeadlinesEvents.subscribe((field) => {
       if (field < 0) {
         this.updateArticle(this.headlines.slice(0, -field).filter(h => h.unread), 2, 0);

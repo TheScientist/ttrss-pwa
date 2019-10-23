@@ -15,7 +15,7 @@ mat-tree-node.mat-tree-node:hover {
     z-index: 100;
 }
 .list-indent {
-    margin-top: 40px;
+    margin-top: 60px;
 }
 #sidenav {
     max-width: 400px;
