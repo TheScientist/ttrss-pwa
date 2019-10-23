@@ -230,8 +230,8 @@ export class ListviewComponent implements OnInit, OnDestroy {
     return idx === this.swipedIdx && this.elementLeftSign != null && !this.elementLeftSign.valueOf();
   }
   swipeAction(head: Headline): void {
-    var field = 2;
-    if(this.elementLeftSign) {
+    let field = 2;
+    if (this.elementLeftSign) {
       field = 0;
     }
     this.updateArticle([head], field, 2);

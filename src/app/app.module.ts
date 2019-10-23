@@ -51,7 +51,7 @@ export class MyHammerConfig extends HammerGestureConfig {
     'pan': { direction: 6 },
     'pinch': { enable: false },
     'rotate': { enable: false }
-  }
+  };
 }
 
 @NgModule({
