@@ -207,7 +207,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   panend(action, head: Headline, elementRefrence): void {
     const currentMargin = this.getLeftPosition(elementRefrence);
     if (currentMargin > this.slideThreshold || currentMargin < - this.slideThreshold) {
-      this.removeElement(head);
+      this.swipeAction(head);
     }
     this.swipedHead = head;
   }
@@ -229,8 +229,12 @@ export class ListviewComponent implements OnInit, OnDestroy {
   isRightSwipe(idx: number) {
     return idx === this.swipedIdx && this.elementLeftSign != null && !this.elementLeftSign.valueOf();
   }
-  removeElement(head: Headline): void {
-    console.log('swiped ' + head.feed_title);
+  swipeAction(head: Headline): void {
+    var field = 2;
+    if(this.elementLeftSign) {
+      field = 0;
+    }
+    this.updateArticle([head], field, 2);
   }
   getLeftPosition(elementRefrence): number {
     const currentleftPosition = elementRefrence.style.left.slice(0, -2);

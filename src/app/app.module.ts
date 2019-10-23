@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,12 +37,21 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ListviewComponent } from './listview/listview.component';
+import { Directionality } from '@angular/cdk/bidi';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
+}
+
+export class MyHammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    'pan': { direction: 6 },
+    'pinch': { enable: false },
+    'rotate': { enable: false }
+  }
 }
 
 @NgModule({
@@ -87,6 +96,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: LOCALE_ID,
       deps: [SettingsService],
       useFactory: (settings) => settings.getLanguage()
+    },
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: MyHammerConfig
     }
   ],
   bootstrap: [AppComponent]

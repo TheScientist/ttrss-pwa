@@ -10,11 +10,11 @@
                         <div class="swipe-action-indicator">
                             <div *ngIf="isLeftSwipe(i)">
                                 <i class="material-icons swipe-action-icon">star_half</i>
-                                <span>Mark starred</span>
+                                <span>{{'TB_ToggleStar' | translate}}</span>
                             </div>
                             <span>&nbsp;</span>
                             <div *ngIf="isRightSwipe(i)">
-                                <span>Mark unread</span>
+                                <span>{{'TB_ToggleRead' | translate}}</span>
                                 <i class="material-icons swipe-action-icon">mail_outline</i>
                             </div>
                         </div>
