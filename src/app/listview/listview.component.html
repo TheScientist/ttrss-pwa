@@ -6,7 +6,7 @@
                     [checked]="multiSelectedHeadlines.includes(head)" (change)="onArticleSelect(head)"></mat-checkbox>
                 <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)"
                     [scrollELement]="scrollContainer" [data]="head" [id]="'article' + head.id" [throttle]="500">
-                    <mat-list-item>
+                    <mat-list-item fxLayout="column" fxFlex="1 1 auto">
                         <div class="swipe-action-indicator">
                             <div *ngIf="isLeftSwipe(i)">
                                 <i class="material-icons swipe-action-icon">star_half</i>
