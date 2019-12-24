@@ -26,6 +26,9 @@
     #headlist .swipe-action-indicator {
         background-color: mat-color($accent);
     }
+    .article-toolbar .mat-raised-button {
+        border: solid 1px rgba(0, 0, 0, 0.12);
+    }
     
     ttrss-overview {
         background-color: mat-color($background, background);
