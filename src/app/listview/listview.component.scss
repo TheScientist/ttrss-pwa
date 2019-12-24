@@ -17,10 +17,19 @@
     width: auto;
 }
 
-  .article-toolbar {
+.article-toolbar {
     position: sticky;
     bottom: 0px;
     flex-direction: row-reverse;
+}
+
+.article-toolbar .mat-raised-button {
+  width: 50px;
+  height: 50px;
+  min-width: 50px;
+  border: solid 1px rgba(0, 0, 0, 0.12);
+  box-shadow: none;
+  padding: 0;
 }
 
 .swipe-action-indicator {

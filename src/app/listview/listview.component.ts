@@ -7,6 +7,7 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { TranslateService } from '@ngx-translate/core';
 import { UpdateCounterEvent } from '../util/update-counter-event';
 import { SettingsService } from '../settings.service';
+import { NgNavigatorShareService } from 'ng-navigator-share';
 
 @Component({
   selector: 'ttrss-listview',
@@ -46,10 +47,15 @@ export class ListviewComponent implements OnInit, OnDestroy {
 
   private eventsSubscription: any;
   private multiSelectEventSubscription: any;
+  private ngNavigatorShareService: NgNavigatorShareService;
+  
 
   constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
-    private translate: TranslateService, private _hotkeysService: HotkeysService, private settings: SettingsService) {
+    private translate: TranslateService, private _hotkeysService: HotkeysService, 
+    private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService) {
+
     this.registerHotKeys();
+    this.ngNavigatorShareService = ngNavigatorShareService;
   }
 
   ngOnInit() {
@@ -136,6 +142,18 @@ export class ListviewComponent implements OnInit, OnDestroy {
     if (head === this.selectedHeadline) {
       this.selectedHeadline = null;
     }
+  }
+
+  shareSelected() {
+    this.ngNavigatorShareService.share({
+      title: this.selectedHeadline.title,
+      url: this.selectedHeadline.link
+    }).then( (response) => {
+      console.log(response);
+    })
+    .catch( (error) => {
+      console.log(error);
+    });
   }
 
   private updateArticle(heads: Headline[], field: number, mode: number) {

@@ -38,5 +38,6 @@
     "TB_MarkRead" : "Als gelesen markieren",
     "TB_MarkRead_Feed": "Markiere Feed als gelesen",
     "TB_MarkRead_Feed_Hint": "Diese Aktion markiert alle Artikel in diesem Feed als gelesen. Bist du dir sicher?",
+    "TB_Share": "Teilen",
     "TB_ToggleRead" : "Gelesen-Status umschalten"
 }
