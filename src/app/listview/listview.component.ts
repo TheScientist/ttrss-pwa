@@ -48,10 +48,10 @@ export class ListviewComponent implements OnInit, OnDestroy {
   private eventsSubscription: any;
   private multiSelectEventSubscription: any;
   private ngNavigatorShareService: NgNavigatorShareService;
-  
+
 
   constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
-    private translate: TranslateService, private _hotkeysService: HotkeysService, 
+    private translate: TranslateService, private _hotkeysService: HotkeysService,
     private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService) {
 
     this.registerHotKeys();
