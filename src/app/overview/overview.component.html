@@ -4,7 +4,7 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;">
-    <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation">
+    <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation" [disableClose]="true">
       <mat-tree [class.list-indent]="isMobile" id="feedTree" [dataSource]="nestedDataSource"
         [treeControl]="nestedTreeControl">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="tree-item">
@@ -80,7 +80,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
         </div>
-        <mat-menu #appMenu>
+        <mat-menu #appMenu>          
+          <button mat-menu-item (click)="updateSelected(1)" *ngIf="multiSelectEnabled">
+            <mat-icon>language</mat-icon>{{'TB_TogglePublish' | translate }}
+          </button>
           <a mat-menu-item aria-label="Settings" routerLink="/settings">
             <mat-icon>settings</mat-icon>{{'Settings' | translate }}
           </a>
@@ -94,7 +97,6 @@
         [toolbarHeight]="toolbarHeight"
         [updateHeadlinesEvents]="headlineUpdateEvent.asObservable()"
         [scrollContainer]="scrollContainer"
-        [multiSelectEnabled]="multiSelectEnabled"
         (counterChanged)="onCounterChanged($event)">
       </ttrss-listview>
     </mat-sidenav-content>

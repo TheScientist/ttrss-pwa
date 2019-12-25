@@ -45,6 +45,10 @@
                             matTooltipShowDelay="1000" (click)="shareSelected()">
                             <mat-icon>share</mat-icon>
                         </button>
+                        <mat-button-toggle mat-icon-button [matTooltip]="'TB_TogglePublish' | translate"
+                            matTooltipShowDelay="1000" (click)="updateSelected(1)" [checked]="selectedHeadline.published">
+                            <mat-icon>language</mat-icon>
+                        </mat-button-toggle>
                         <mat-button-toggle mat-icon-button [matTooltip]="'TB_ToggleStar' | translate"
                             matTooltipShowDelay="1000" (click)="updateSelected(0)" [checked]="selectedHeadline.marked">
                             <mat-icon>star</mat-icon>

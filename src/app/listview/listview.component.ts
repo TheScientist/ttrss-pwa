@@ -35,7 +35,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   @Input() toolbarHeight: number;
   @Input() multiSelectChangedEvent: Observable<void>;
   @Input() scrollContainer: HTMLElement;
-  @Input() multiSelectEnabled: Boolean;
+  multiSelectEnabled = false;
 
   @Output() counterChanged = new EventEmitter<UpdateCounterEvent>();
 
@@ -75,7 +75,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
       if (this.multiSelectEnabled) {
         this.selectedHeadline = null;
       } else {
-        this.multiSelectedHeadlines.length = 0;
+        this.multiSelectedHeadlines = [];
       }
     });
   }
@@ -93,6 +93,9 @@ export class ListviewComponent implements OnInit, OnDestroy {
       switch (field) {
         case 0:
           mode = this.selectedHeadline.marked ? 0 : 1;
+          break;
+        case 1:
+          mode = this.selectedHeadline.published ? 0 : 1;
           break;
         case 2:
           mode = this.selectedHeadline.unread ? 0 : 1;
@@ -151,12 +154,12 @@ export class ListviewComponent implements OnInit, OnDestroy {
     this.ngNavigatorShareService.share({
       title: this.selectedHeadline.title,
       url: this.selectedHeadline.link
-    }).then( (response) => {
-      this.messageService.log(new LogMessage("INFO", this.translate.instant("TB_Share_Success")), response);
+    }).then((response) => {
+      this.messageService.log(new LogMessage('INFO', this.translate.instant('TB_Share_Success')), response);
     })
-    .catch( (error) => {
-      this.messageService.log(new LogMessage("ERROR", this.translate.instant("TB_Share_Error") + ' ' + error.error), error);
-    });
+      .catch((error) => {
+        this.messageService.log(new LogMessage('ERROR', this.translate.instant('TB_Share_Error') + ' ' + error.error), error);
+      });
   }
 
   private updateArticle(heads: Headline[], field: number, mode: number) {
@@ -191,6 +194,30 @@ export class ListviewComponent implements OnInit, OnDestroy {
               }
             });
             this.counterChanged.next(new UpdateCounterEvent(0, amount, 0, false));
+            break;
+          case 1:
+            let published = 0;
+            heads.forEach(head => {
+              switch (mode) {
+                case 0:
+                  if (head.published) {
+                    head.published = false;
+                    published--;
+                  }
+                  break;
+                case 1:
+                  if (!head.published) {
+                    head.published = true;
+                    published++;
+                  }
+                  break;
+                default:
+                  head.published = !head.published;
+                  head.published ? published++ : published--;
+                  break;
+              }
+            });
+            this.counterChanged.next(new UpdateCounterEvent(1, published, 1, false));
             break;
           case 2:
             let change = 0;
@@ -315,12 +342,26 @@ export class ListviewComponent implements OnInit, OnDestroy {
       return false;
     }, undefined, this.translate.instant('TB_ToggleStar')));
 
+    this._hotkeysService.add(new Hotkey('p', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null || this.multiSelectedHeadlines.length > 0) {
+        this.updateSelected(1);
+      }
+      return false;
+    }, undefined, this.translate.instant('TB_TogglePublish')));
+
     this._hotkeysService.add(new Hotkey('u', (event: KeyboardEvent): boolean => {
       if (this.selectedHeadline != null || this.multiSelectedHeadlines.length > 0) {
         this.updateSelected(2);
       }
       return false;
     }, undefined, this.translate.instant('TB_ToggleRead')));
+
+    this._hotkeysService.add(new Hotkey('t', (event: KeyboardEvent): boolean => {
+      if (this.selectedHeadline != null) {
+        this.shareSelected();
+      }
+      return false;
+    }, undefined, this.translate.instant('TB_Share')));
 
     this._hotkeysService.add(new Hotkey('v', (event: KeyboardEvent): boolean => {
       if (this.selectedHeadline != null) {

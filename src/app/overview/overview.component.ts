@@ -91,7 +91,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
         this.headlines = data;
         this.toolbarHeight = this.feedtoolbar._elementRef.nativeElement.offsetHeight;
       });
-    this.multiSelectEnabled = false;
+    if (this.multiSelectEnabled) {
+      this.multiselectChanged();
+    }
   }
 
   ngOnDestroy(): void {
@@ -216,9 +218,18 @@ export class OverviewComponent implements OnInit, OnDestroy {
     }
   }
 
+  updatePubCounter(amount: number) {
+    const cntResult: CounterResult = this.counters.find(cnt => cnt.id === '-2' && (!cnt.kind || cnt.kind !== 'cat'));
+    if (cntResult) {
+      cntResult.auxcounter += amount;
+    }
+  }
+
   onCounterChanged(event: UpdateCounterEvent) {
     if (event.feed_id === 0) {
       this.updateFavCounter(event.count);
+    } else if (event.feed_id === 1) {
+      this.updatePubCounter(event.count);
     } else if (event.feed_id === 2) {
       if (event.isCat) {
         this.updateReadCounters(event.count, null, event.target_feed);
