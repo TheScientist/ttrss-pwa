@@ -8,6 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { UpdateCounterEvent } from '../util/update-counter-event';
 import { SettingsService } from '../settings.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
+import { MessagingService } from '../messaging.service';
+import { LogMessage } from '../model/logmessage';
 
 @Component({
   selector: 'ttrss-listview',
@@ -52,7 +54,8 @@ export class ListviewComponent implements OnInit, OnDestroy {
 
   constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
     private translate: TranslateService, private _hotkeysService: HotkeysService,
-    private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService) {
+    private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService,
+    private messageService: MessagingService) {
 
     this.registerHotKeys();
     this.ngNavigatorShareService = ngNavigatorShareService;
@@ -149,10 +152,10 @@ export class ListviewComponent implements OnInit, OnDestroy {
       title: this.selectedHeadline.title,
       url: this.selectedHeadline.link
     }).then( (response) => {
-      console.log(response);
+      this.messageService.log(new LogMessage("INFO", this.translate.instant("TB_Share_Success")), response);
     })
     .catch( (error) => {
-      console.log(error);
+      this.messageService.log(new LogMessage("ERROR", this.translate.instant("TB_Share_Error") + ' ' + error.error), error);
     });
   }
 
