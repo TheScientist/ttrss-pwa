@@ -342,7 +342,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
       return false;
     }, undefined, this.translate.instant('TB_ToggleStar')));
 
-    this._hotkeysService.add(new Hotkey('p', (event: KeyboardEvent): boolean => {
+    this._hotkeysService.add(new Hotkey('S', (event: KeyboardEvent): boolean => {
       if (this.selectedHeadline != null || this.multiSelectedHeadlines.length > 0) {
         this.updateSelected(1);
       }
