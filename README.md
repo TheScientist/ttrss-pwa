@@ -12,7 +12,7 @@ Don't worry your credentials will stay on your device.
 ### CORS header
 Your tt-rss server will probably block this app's API queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
 You need to configure your web server to accept requests from my domain.
-TODO Sample server configuration
+See [wiki|https://github.com/TheScientist/ttrss-pwa/wiki/Administration] for sample configurations.
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
