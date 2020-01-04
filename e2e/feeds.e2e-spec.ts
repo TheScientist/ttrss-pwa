@@ -11,7 +11,7 @@ describe('Feed list', () => {
     browser.executeScript('window.sessionStorage.clear()');
     const settings = new SettingsPage();
     settings.navigateTo();
-    settings.doTestSettings(browser.params.login.url, browser.params.login.user, browser.params.login.password);
+    settings.doTestSettings('http://example.org/tt-rss', 'admin', 'password');
     page = settings.goBackToFeeds();
   });
 

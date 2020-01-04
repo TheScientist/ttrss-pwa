@@ -10,21 +10,23 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
     constructor(private injector: Injector) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const body = JSON.parse(request.body);
-        switch (body.op) {
-            case 'login': return ok({
-                content: {
-                    session_id: 'session'
-                },
-                status: 0
-            });
-            case 'getConfig': return ok({
-                content: {
-                    icons_url: 'http://example.org'
-                },
-                status: 0
-            });
-            case 'getFeedTree': return ok(feeds);
+        if (request.method === 'POST') {
+            const body = JSON.parse(request.body);
+            switch (body.op) {
+                case 'login': return ok({
+                    content: {
+                        session_id: 'session'
+                    },
+                    status: 0
+                });
+                case 'getConfig': return ok({
+                    content: {
+                        icons_url: 'http://example.org'
+                    },
+                    status: 0
+                });
+                case 'getFeedTree': return ok(feeds);
+            }
         }
         return next.handle(request);
 

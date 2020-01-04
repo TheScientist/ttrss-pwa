@@ -12,7 +12,7 @@ Don't worry your credentials will stay on your device.
 ### CORS header
 Your tt-rss server will probably block this app's API queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
 You need to configure your web server to accept requests from my domain.
-See [wiki|https://github.com/TheScientist/ttrss-pwa/wiki/Administration] for sample configurations.
+See [wiki](https://github.com/TheScientist/ttrss-pwa/wiki/Administration) for sample configurations.
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
@@ -31,8 +31,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running end-to-end tests
 
-Configure params section in protractor.conf.js with a valid tt-rss connection
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Test are run against a mocked ttrss server (see mockinterceptor.ts).
 
 ## Further help
 
