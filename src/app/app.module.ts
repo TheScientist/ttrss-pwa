@@ -2,7 +2,7 @@ import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angu
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxWebstorageModule } from 'ngx-webstorage';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -38,6 +38,8 @@ import { HotkeyModule } from 'angular2-hotkeys';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ListviewComponent } from './listview/listview.component';
 import { Directionality } from '@angular/cdk/bidi';
+import { HttpMockRequestInterceptor } from './util/mockinterceptor';
+import { HttpRequestInterceptor } from './util/defaultinterceptor';
 
 registerLocaleData(localeDe, 'de');
 registerLocaleData(localeEn, 'en');
@@ -45,6 +47,8 @@ registerLocaleData(localeEn, 'en');
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/');
 }
+
+export const isMock = environment.mock;
 
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -100,6 +104,11 @@ export class MyHammerConfig extends HammerGestureConfig {
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: MyHammerConfig
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: isMock ? HttpMockRequestInterceptor : HttpRequestInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

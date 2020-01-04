@@ -49,6 +49,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ]
+            },
+            "mock": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.mock.ts"
+                }
+              ]
             }
           }
         },
@@ -61,6 +69,12 @@
             "production": {
               "browserTarget": "ttrss-pwa:build:production"
             }
+          }
+        },
+        "serve-mock": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ttrss-pwa:build:mock"
           }
         },
         "extract-i18n": {
@@ -77,6 +91,7 @@
               "src/tsconfig.spec.json"
             ],
             "exclude": [
+              "src/app/**/*.json",
               "**/node_modules/**"
             ]
           }
@@ -92,7 +107,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "ttrss-pwa:serve"
+            "devServerTarget": "ttrss-pwa:serve-mock"
           }
         },
         "lint": {
@@ -102,6 +117,7 @@
               "e2e/tsconfig.e2e.json"
             ],
             "exclude": [
+              "src/app/**/*.json",
               "**/node_modules/**"
             ]
           }
