@@ -12,7 +12,51 @@ Don't worry your credentials will stay on your device.
 ### CORS header
 Your tt-rss server will probably block this app's API queries, cause the app uses Cross-Origin Resource Sharing (JavaScript HTTP calls to a different domain.)
 You need to configure your web server to accept requests from my domain.
-TODO Sample server configuration
+If you are using Nginx to forward requests to ttrss, here is a sample configuration to allow CORS only for the domain of the PWA demo page.
+```
+server {
+  listen 80;
+  server_name ttrss.EXAMPLE;
+  include no-spyder.conf;
+  return 301 https://$server_name$request_uri;
+}
+upstream ttrssdev {
+    server 127.0.0.1:YOUR_PORT_HERE;
+}
+server {
+  listen 443 ssl;
+  gzip on;
+  server_name ttrss.EXAMPLE;
+  include no-spyder.conf;
+  client_max_body_size 400m;
+  ssl_certificate /etc/letsencrypt/live/EXAMPLE/fullchain.pem;
+  ssl_certificate_key /etc/letsencrypt/live/EXAMPLE/privkey.pem;
+  ssl_session_timeout 5m;
+  location / {
+    proxy_redirect off;
+    proxy_pass http://ttrssdev;
+
+    add_header Access-Control-Allow-Origin "https://ttrss.thescientist.eu";
+    add_header Access-Control-Allow-Methods 'GET, POST, OPTIONS';
+    add_header Access-Control-Allow-Headers 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization';
+
+    proxy_set_header  Host                $http_host;
+    proxy_set_header  X-Real-IP           $remote_addr;
+    proxy_set_header  X-Forwarded-Ssl     on;
+    proxy_set_header  X-Forwarded-For     $proxy_add_x_forwarded_for;
+    proxy_set_header  X-Forwarded-Proto   $scheme;
+    proxy_set_header  X-Frame-Options     SAMEORIGIN;
+
+    client_max_body_size        100m;
+    client_body_buffer_size     128k;
+
+    proxy_buffer_size           4k;
+    proxy_buffers               4 32k;
+    proxy_busy_buffers_size     64k;
+    proxy_temp_file_write_size  64k;
+  }
+}
+```
 
 ## Development Prerequisites
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.4.
