@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { SessionStorage } from 'ngx-webstorage';
-import { Language } from './model/language';
+import { SettingsEnum as SettingsEnum } from './model/seetings-enum';
 import * as CryptoJS from 'crypto-js';
 import { Subject } from 'rxjs';
 
@@ -9,11 +9,18 @@ import { Subject } from 'rxjs';
 export class SettingsService {
 
   constructor() { }
-  public locales: Language[] = [{ key: 'en', name: 'English' }, { key: 'de', name: 'Deutsch' }];
+  public locales: SettingsEnum[] = [{ key: 'en', name: 'English' }, { key: 'de', name: 'Deutsch' }];
+  public counterOptions: SettingsEnum[] = [
+    { key: 'always', name: 'Always' },
+    { key: '30s', name: 'Every 30s' },
+    { key: '5m', name: 'Every 5m' }
+  ];
   @LocalStorage()
   public url: string;
   @LocalStorage()
   public locale: string;
+  @LocalStorage()
+  public counterUpdate: string;
   @LocalStorage()
   public username: string;
   @LocalStorage()
@@ -39,6 +46,14 @@ export class SettingsService {
       return 'de';
     } else {
       return this.locale;
+    }
+  }
+
+  getCounterUpdate(): string {
+    if (this.counterUpdate === null) {
+      return 'always';
+    } else {
+      return this.counterUpdate;
     }
   }
 

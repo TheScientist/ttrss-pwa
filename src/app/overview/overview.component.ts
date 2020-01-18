@@ -14,7 +14,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { NestedTreeControl } from '@angular/cdk/tree';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
-import { UpdateCounterEvent } from '../util/update-counter-event';
+import { NgSwitchCase } from '@angular/common';
+import { filter, map } from 'rxjs/operators';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',
@@ -50,15 +51,20 @@ export class OverviewComponent implements OnInit, OnDestroy {
     private client: TtrssClientService, private settings: SettingsService,
     private translate: TranslateService, private titleService: Title, private ngZone: NgZone,
     private _hotkeysService: HotkeysService) {
-    this.watcher = media.media$.subscribe((change: MediaChange) => {
-      this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
-      this.toolbarHeight = this.feedtoolbar._elementRef.nativeElement.offsetHeight;
-      if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
-        this.isMobile = true;
-      } else {
-        this.isMobile = false;
-      }
-    });
+    this.watcher = media.asObservable()
+      .pipe(
+        filter((changes: MediaChange[]) => changes.length > 0),
+        map((changes: MediaChange[]) => changes[0])
+      )
+      .subscribe((change: MediaChange) => {
+        this.activeMediaQuery = change ? `'${change.mqAlias}' = (${change.mediaQuery})` : '';
+        this.toolbarHeight = this.feedtoolbar._elementRef.nativeElement.offsetHeight;
+        if (change.mqAlias === 'sm' || change.mqAlias === 'xs') {
+          this.isMobile = true;
+        } else {
+          this.isMobile = false;
+        }
+      });
     this.nestedDataSource = new MatTreeNestedDataSource<ICategory>();
     this.nestedTreeControl = new NestedTreeControl<ICategory>(this._getChildren);
     this.registerHotKeys();
@@ -105,11 +111,16 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
     this.refreshCounters();
     this.ngZone.runOutsideAngular(() => {
+      let interval;
+      switch (this.settings.getCounterUpdate()) {
+        case '30s': interval = 30000; break;
+        default: interval = 60000; break;
+      }
       setInterval(() => {
         this.ngZone.run(() => {
           this.refreshCounters();
         });
-      }, 60000);
+      }, interval);
     });
     this.client.getFeedTree().subscribe(
       data => {
@@ -145,7 +156,13 @@ export class OverviewComponent implements OnInit, OnDestroy {
     return null;
   }
 
-  refreshCounters() {
+  onCounterChanged() {
+    if (this.settings.getCounterUpdate() === 'always') {
+      this.refreshCounters();
+    }
+  }
+
+  private refreshCounters() {
     this.client.updateCounters().subscribe(data => {
       this.counters = data;
       const fresh = this.counters.find(cnt => cnt.id === '-3' && !cnt.kind);
@@ -156,8 +173,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
         }
         this.translate.get('App_Title').subscribe(result => this.titleService.setTitle(prefix + result));
       }
-    }
-    );
+    });
   }
 
   elementExistsInHeadlines(h: Headline, orig: Headline[]): boolean {
@@ -209,49 +225,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   updateSelected(field: number) {
     this.headlineUpdateEvent.next(field);
-  }
-
-  updateFavCounter(amount: number) {
-    const cntResult: CounterResult = this.counters.find(cnt => cnt.id === '-1' && (!cnt.kind || cnt.kind !== 'cat'));
-    if (cntResult) {
-      cntResult.auxcounter += amount;
-    }
-  }
-
-  updatePubCounter(amount: number) {
-    const cntResult: CounterResult = this.counters.find(cnt => cnt.id === '-2' && (!cnt.kind || cnt.kind !== 'cat'));
-    if (cntResult) {
-      cntResult.auxcounter += amount;
-    }
-  }
-
-  onCounterChanged(event: UpdateCounterEvent) {
-    if (event.feed_id === 0) {
-      this.updateFavCounter(event.count);
-    } else if (event.feed_id === 1) {
-      this.updatePubCounter(event.count);
-    } else if (event.feed_id === 2) {
-      if (event.isCat) {
-        this.updateReadCounters(event.count, null, event.target_feed);
-      } else {
-        this.updateReadCounters(event.count, event.target_feed, null);
-      }
-    }
-  }
-
-  updateReadCounters(amount: number, feedid: number, catid: number): void {
-    const arr: string[] = [];
-    if (feedid != null) {
-      arr.push(feedid + '');
-    }
-    arr.push('-3');
-    arr.push('-4');
-    this.counters.forEach(cnt => {
-      if (arr.includes(cnt.id) && (!cnt.kind || cnt.kind !== 'cat')
-        || catid && catid + '' === cnt.id && cnt.kind === 'cat') {
-        cnt.counter += amount;
-      }
-    });
   }
 
   multiselectChanged() {

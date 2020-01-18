@@ -5,7 +5,6 @@ import { TtrssClientService } from '../ttrss-client.service';
 import { Observable } from 'rxjs';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { TranslateService } from '@ngx-translate/core';
-import { UpdateCounterEvent } from '../util/update-counter-event';
 import { SettingsService } from '../settings.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
 import { MessagingService } from '../messaging.service';
@@ -37,7 +36,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   @Input() scrollContainer: HTMLElement;
   multiSelectEnabled = false;
 
-  @Output() counterChanged = new EventEmitter<UpdateCounterEvent>();
+  @Output() counterChanged = new EventEmitter();
 
   multiSelectedHeadlines: Headline[] = [];
   selectedHeadline: Headline;
@@ -163,8 +162,6 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   private updateArticle(heads: Headline[], field: number, mode: number) {
-    const feedOrCat = this.selectedFeed;
-    const isCat = this.is_cat;
     if (heads.length === 0) {
       return;
     }
@@ -172,78 +169,22 @@ export class ListviewComponent implements OnInit, OnDestroy {
       if (result) {
         switch (field) {
           case 0:
-            let amount = 0;
             heads.forEach(head => {
-              switch (mode) {
-                case 0:
-                  if (head.marked) {
-                    head.marked = false;
-                    amount--;
-                  }
-                  break;
-                case 1:
-                  if (!head.marked) {
-                    head.marked = true;
-                    amount++;
-                  }
-                  break;
-                default:
-                  head.marked = !head.marked;
-                  head.marked ? amount++ : amount--;
-                  break;
-              }
+              head.marked = !head.marked;
             });
-            this.counterChanged.next(new UpdateCounterEvent(0, amount, 0, false));
             break;
           case 1:
-            let published = 0;
             heads.forEach(head => {
-              switch (mode) {
-                case 0:
-                  if (head.published) {
-                    head.published = false;
-                    published--;
-                  }
-                  break;
-                case 1:
-                  if (!head.published) {
-                    head.published = true;
-                    published++;
-                  }
-                  break;
-                default:
-                  head.published = !head.published;
-                  head.published ? published++ : published--;
-                  break;
-              }
+              head.published = !head.published;
             });
-            this.counterChanged.next(new UpdateCounterEvent(1, published, 1, false));
             break;
           case 2:
-            let change = 0;
             heads.forEach(head => {
-              switch (mode) {
-                case 0:
-                  if (head.unread) {
-                    head.unread = false;
-                    change--;
-                  }
-                  break;
-                case 1:
-                  if (!head.unread) {
-                    head.unread = true;
-                    change++;
-                  }
-                  break;
-                default:
-                  head.unread = !head.unread;
-                  head.unread ? change++ : change--;
-                  break;
-              }
+              head.unread = !head.unread;
             });
-            this.counterChanged.next(new UpdateCounterEvent(2, change, feedOrCat.bare_id, isCat.valueOf()));
             break;
         }
+        this.counterChanged.next();
       }
     });
   }

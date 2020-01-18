@@ -28,9 +28,19 @@
               {{ lang.name }}
             </mat-option>
           </mat-select>
-        </mat-form-field><br />
+        </mat-form-field>
+        <br />
+        <mat-form-field>
+          <mat-select [placeholder]="'Settings_Counter_Update' | translate" [(value)]="settings.counterUpdate">
+            <mat-option *ngFor="let counter of settings.counterOptions" [value]="counter.key">
+              {{'Settings_Counter_' + counter.key | translate }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
         <mat-slide-toggle color='primary' [(ngModel)]="settings.markReadOnScroll">{{'Settings_MarkRead_OnScroll' |
-          translate }}</mat-slide-toggle> <br />
+          translate }}</mat-slide-toggle>
+        <br />
         <mat-slide-toggle color='primary' [(ngModel)]="settings.darkDesign">{{'Settings_Use_DarkDesign' | translate }}</mat-slide-toggle>
       </p>
     </mat-tab>

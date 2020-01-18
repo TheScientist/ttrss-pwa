@@ -1,4 +1,4 @@
-export class Language {
+export class SettingsEnum {
     key: string;
     name: string;
 }
