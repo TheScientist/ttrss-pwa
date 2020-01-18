@@ -113,8 +113,9 @@ export class OverviewComponent implements OnInit, OnDestroy {
     this.ngZone.runOutsideAngular(() => {
       let interval;
       switch (this.settings.getCounterUpdate()) {
-        case '30s': interval = 30000; break;
-        default: interval = 60000; break;
+        case '30s': interval = 30_000; break;
+        case '5m': interval = 300_000; break;
+        default: interval = 60_000; break;
       }
       setInterval(() => {
         this.ngZone.run(() => {
