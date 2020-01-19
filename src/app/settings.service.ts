@@ -4,6 +4,7 @@ import { SessionStorage } from 'ngx-webstorage';
 import { SettingsEnum as SettingsEnum } from './model/seetings-enum';
 import * as CryptoJS from 'crypto-js';
 import { Subject } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class SettingsService {
@@ -61,12 +62,12 @@ export class SettingsService {
     if (this._password === null) {
       return null;
     }
-    const bytes = CryptoJS.AES.decrypt(this._password, 'notsosecretseed_itsopensourced');
+    const bytes = CryptoJS.AES.decrypt(this._password, environment.password_seed);
     const out = bytes.toString(CryptoJS.enc.Utf8);
     return out;
   }
   set password(newValue: string) {
-    const encrypted = CryptoJS.AES.encrypt(newValue, 'notsosecretseed_itsopensourced').toString();
+    const encrypted = CryptoJS.AES.encrypt(newValue, environment.password_seed).toString();
     this._password = encrypted;
   }
 
