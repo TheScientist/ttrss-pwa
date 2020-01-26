@@ -4,6 +4,8 @@
 [![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
 
+![Preview](https://thescientist.eu/owncloud/s/cAxREWnGiotXr68/preview)
+
 ## Usage
 A sample installation is installed at https://ttrss.thescientist.eu/
 You will get redirected to the settings page. Put your tt-rss server credentials into the fields and click on 'Verify'. 'Login successful' should be written at the bottom. Click on 'Back to feeds' and use the app.
