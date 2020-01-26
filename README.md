@@ -15,10 +15,11 @@ Click [here](https://thescientist.eu/owncloud/s/HZ4A6qawiS8yzcg/download) (mobil
 ### Features
 - list articles of feeds or categories, including special feeds
 - mark articles as read, starred or published
-- light and dark material theme
+- responsive light and dark material theme
 - keyboard shortcuts
 - share articles (mobile only on supported browsers that implement share-api)
 - login only once (stored in local browser storage)
+- quick actions: swipe to mark as read/starred
 - mark all articles of feed as read (catchup feed)
 - mark multiple headlines as starred, read, published
 - link to external source of article
