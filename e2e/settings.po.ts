@@ -37,6 +37,8 @@ export class SettingsPage extends AppPage {
   async doSetSettings(markReadOnScroll: boolean, showEmptyCategories: boolean) {
     this.settingsTab.click();
 
+    await this.delay(1000);
+
     const classValue = await this.markReadOnScrollToggle.getAttribute('class');
     if (classValue.includes('mat-checked') !== markReadOnScroll) {
       this.markReadOnScrollToggle.click();
@@ -46,7 +48,7 @@ export class SettingsPage extends AppPage {
     if (emptyCatClassValue.includes('mat-checked') !== showEmptyCategories) {
       this.showEmptyCategoryToggle.click();
     }
-    await this.delay(1000);
+    await this.delay(2000);
   }
 
 
