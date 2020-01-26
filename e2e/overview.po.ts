@@ -19,4 +19,9 @@ export class OverviewPage extends AppPage {
     const elem = this.sideNav.element(by.xpath('.//h2[text()="' + catName + '"]'));
     return elem.getLocation().then(l => l.y);
   }
+
+  isCategoryVisible(catName: string) {
+    const elem = this.sideNav.element(by.xpath('.//h2[text()="' + catName + '"]'));
+    return elem.isPresent();
+  }
 }

@@ -3,6 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import feeds from './mock-responses/feed-tree.json';
+import feedsLight from './mock-responses/feed-tree-light.json';
 
 
 @Injectable()
@@ -25,7 +26,7 @@ export class HttpMockRequestInterceptor implements HttpInterceptor {
                     },
                     status: 0
                 });
-                case 'getFeedTree': return ok(feeds);
+                case 'getFeedTree': return body.include_empty ?  ok(feeds) : ok(feedsLight);
             }
         }
         return next.handle(request);

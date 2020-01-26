@@ -25,6 +25,7 @@
     "Settings_Password": "Passwort",
     "Settings_Language": "Sprache wählen",
     "Settings_Leave": "Zu den Feeds",
+    "Settings_Load_Empty": "Lade leere Kategorien",
     "Settings_Version": "Version",
     "Settings_Connection": "Verbindung",
     "Settings_MarkRead_OnScroll": "Durch scrollen als gelesen markieren",

@@ -11,8 +11,12 @@ export class AppPage {
   async waitForLastLogMessageText(msg: string) {
     return browser.wait(
       () => this.lastLogMessage.getText()
-      .then((txt) => {
+        .then((txt) => {
           return txt === msg;
-      }), 30000);
+        }), 30000);
+  }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(() => resolve(), ms));
   }
 }

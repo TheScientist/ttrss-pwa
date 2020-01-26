@@ -19,7 +19,7 @@ describe('Settings page', () => {
 
   it('should save valid settings', async () => {
     const settings = new SettingsPage();
-    settings.doTestSettings('http://example.org/tt-rss', 'admin', 'password');
+    settings.doTestConnection('http://example.org/tt-rss', 'admin', 'password');
     const logMsgFound = await settings.waitForLastLogMessageText('Login erfolgreich');
     expect(logMsgFound).toBe(true);
   });

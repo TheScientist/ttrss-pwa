@@ -17,10 +17,7 @@
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/node_modules/protractor/bin/protractor",
-            "protocol": "inspector",
-            "args": [
-                "${workspaceRoot}/protractor.conf-local.js"
-            ]
+            "protocol": "inspector"
         }
     ]
 }

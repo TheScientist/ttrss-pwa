@@ -1,0 +1,303 @@
+{
+    "content": {
+        "categories": {
+            "items": [
+                {
+                    "id": "CAT:-1",
+                    "items": [
+                        {
+                            "id": "FEED:-4",
+                            "name": "Alle Artikel",
+                            "unread": 3,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "inbox",
+                            "bare_id": -4,
+                            "auxcounter": 0
+                        },
+                        {
+                            "id": "FEED:-3",
+                            "name": "Neue Artikel",
+                            "unread": 3,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "whatshot",
+                            "bare_id": -3,
+                            "auxcounter": 0
+                        },
+                        {
+                            "id": "FEED:-1",
+                            "name": "Markierte Artikel",
+                            "unread": 0,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "star",
+                            "bare_id": -1,
+                            "auxcounter": 0
+                        },
+                        {
+                            "id": "FEED:-2",
+                            "name": "Veröffentlichte Artikel",
+                            "unread": 0,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "rss_feed",
+                            "bare_id": -2,
+                            "auxcounter": 0
+                        },
+                        {
+                            "id": "FEED:0",
+                            "name": "Archivierte Artikel",
+                            "unread": 0,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "archive",
+                            "bare_id": 0,
+                            "auxcounter": 0
+                        },
+                        {
+                            "id": "FEED:-6",
+                            "name": "Kürzlich gelesen",
+                            "unread": 0,
+                            "type": "feed",
+                            "error": "",
+                            "updated": "",
+                            "icon": "restore",
+                            "bare_id": -6,
+                            "auxcounter": 0
+                        }
+                    ],
+                    "name": "Special",
+                    "type": "category",
+                    "unread": 0,
+                    "bare_id": -1
+                },
+                {
+                    "id": "CAT:5",
+                    "bare_id": 5,
+                    "auxcounter": -1,
+                    "name": "Top",
+                    "items": [
+                        {
+                            "id": "FEED:75",
+                            "bare_id": 75,
+                            "auxcounter": -1,
+                            "name": "LN-Online.de Lübeck",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/75.ico?1533552961",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:73",
+                            "bare_id": 73,
+                            "auxcounter": -1,
+                            "name": "t3n RSS Feed - News",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/73.ico?1519127761",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:76",
+                            "bare_id": 76,
+                            "auxcounter": -1,
+                            "name": "Travemünde Aktuell",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/76.ico?1533552962",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:70",
+                            "bare_id": 70,
+                            "auxcounter": -1,
+                            "name": "WindowsUnited",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/70.ico?1502868482",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:31",
+                            "bare_id": 31,
+                            "auxcounter": -1,
+                            "name": "tagesschau.de",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/31.ico?1462254504",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:30",
+                            "bare_id": 30,
+                            "auxcounter": -1,
+                            "name": "heise online News",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/30.ico?1462254504",
+                            "param": "22:28",
+                            "updates_disabled": 0
+                        }
+                    ],
+                    "checkbox": false,
+                    "type": "category",
+                    "unread": -1,
+                    "child_unread": -1,
+                    "param": "(6 Feeds)"
+                },
+                {
+                    "id": "CAT:2",
+                    "bare_id": 2,
+                    "auxcounter": -1,
+                    "name": "Middle",
+                    "items": [
+                        {
+                            "id": "FEED:8",
+                            "bare_id": 8,
+                            "auxcounter": -1,
+                            "name": "Platten vor Gericht",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/8.ico?1462254504",
+                            "param": "22:28",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:57",
+                            "bare_id": 57,
+                            "auxcounter": -1,
+                            "name": "spon - Die Mensch-Maschine",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/57.ico?1462254504",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "CAT:3",
+                            "bare_id": 3,
+                            "auxcounter": -1,
+                            "name": "Sub",
+                            "items": [],
+                            "checkbox": false,
+                            "type": "category",
+                            "unread": -1,
+                            "child_unread": -1,
+                            "param": "(0 Feeds)"
+                        },
+                        {
+                            "id": "CAT:4",
+                            "bare_id": 4,
+                            "auxcounter": -1,
+                            "name": "Sub2",
+                            "items": [],
+                            "checkbox": false,
+                            "type": "category",
+                            "unread": -1,
+                            "child_unread": -1,
+                            "param": "(0 Feeds)"
+                        }
+                    ],
+                    "checkbox": false,
+                    "type": "category",
+                    "unread": -1,
+                    "child_unread": -1,
+                    "param": "(2 Feeds)"
+                },
+                {
+                    "id": "CAT:6",
+                    "bare_id": 6,
+                    "auxcounter": -1,
+                    "name": "Bottom",
+                    "items": [
+                        {
+                            "id": "FEED:32",
+                            "bare_id": 32,
+                            "auxcounter": -1,
+                            "name": "A Scientist's Blog » Deutsch",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/32.ico?1462254504",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:67",
+                            "bare_id": 67,
+                            "auxcounter": -1,
+                            "name": "Inga Prasse",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/67.ico?1472388122",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:63",
+                            "bare_id": 63,
+                            "auxcounter": -1,
+                            "name": "Nextcloud Planet",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/63.ico?1467365282",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:60",
+                            "bare_id": 60,
+                            "auxcounter": -1,
+                            "name": "Tiny Tiny RSS – Blog",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/60.ico?1464587763",
+                            "param": "22:14",
+                            "updates_disabled": 0
+                        },
+                        {
+                            "id": "FEED:33",
+                            "bare_id": 33,
+                            "auxcounter": -1,
+                            "name": "A Scientist's Blog » English",
+                            "checkbox": false,
+                            "unread": -1,
+                            "error": "",
+                            "icon": "feed-icons/33.ico?1462254504",
+                            "param": "Thu, Jun 02 2016 - 9:14",
+                            "updates_disabled": 1
+                        }
+                    ],
+                    "checkbox": false,
+                    "type": "category",
+                    "unread": -1,
+                    "child_unread": -1,
+                    "param": "(5 Feeds)"
+                }
+            ]
+        }
+    },
+    "status": 0
+}

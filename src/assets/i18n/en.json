@@ -25,6 +25,7 @@
     "Settings_Password": "Password",
     "Settings_Language": "Choose Language",
     "Settings_Leave": "Back to feeds",
+    "Settings_Load_Empty": "Show empty categories",
     "Settings_Version": "Version",
     "Settings_Connection": "Connection",
     "Settings_MarkRead_OnScroll": "Mark articles as read by scrolling",

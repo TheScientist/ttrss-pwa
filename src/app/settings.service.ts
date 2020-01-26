@@ -37,6 +37,8 @@ export class SettingsService {
   @LocalStorage()
   public markReadOnScroll: boolean;
   @LocalStorage()
+  public loadEmptyCategories: boolean;
+  @LocalStorage()
   private _darkDesign: boolean;
 
   private designSource = new Subject<void>();

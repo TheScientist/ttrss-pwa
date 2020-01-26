@@ -4,23 +4,27 @@ import { OverviewPage } from './overview.po';
 
 describe('Feed list', () => {
   let page: OverviewPage;
+  let settings: SettingsPage;
 
   beforeEach(() => {
     browser.get('/');
     browser.executeScript('window.localStorage.clear()');
     browser.executeScript('window.sessionStorage.clear()');
-    const settings = new SettingsPage();
+    settings = new SettingsPage();
     settings.navigateTo();
-    settings.doTestSettings('http://example.org/tt-rss', 'admin', 'password');
-    page = settings.goBackToFeeds();
+    settings.doTestConnection('http://example.org/tt-rss', 'admin', 'password');
   });
 
   it('should have no feed selected', () => {
+    page = settings.goBackToFeeds();
     const head = page.getSelectedFeedTitle();
     expect(head).toBe('Tiny Tiny RSS PWA');
   });
 
-  it('should order categories correctly', async () => {
+  it('should order categories correctly withEmpty', async () => {
+    await settings.doSetSettings(false, true);
+    page = settings.goBackToFeeds();
+
     const specialLoc = await page.getCategoryLocation('Special');
     const topLoc = await page.getCategoryLocation('Top');
     const middleLoc = await page.getCategoryLocation('Middle');
@@ -34,5 +38,18 @@ describe('Feed list', () => {
     expect(subLoc).toBeLessThan(sub2Loc);
     expect(sub2Loc).toBeLessThan(bottomLoc);
     expect(bottomLoc).toBeLessThan(uncatLoc);
+  });
+
+  it('should not show empty categories', async () => {
+    await settings.doSetSettings(false, false);
+    page = settings.goBackToFeeds();
+
+    const uncatVisible = await page.isCategoryVisible('Uncategorized');
+    const emptyVisible = await page.isCategoryVisible('Empty');
+    const topVisible = await page.isCategoryVisible('Top');
+
+    expect(uncatVisible).toBeFalsy();
+    expect(emptyVisible).toBeFalsy();
+    expect(topVisible).toBe(true);
   });
 });

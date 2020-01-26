@@ -76,7 +76,7 @@ export class TtrssClientService {
 
   getFeedTree(): Observable<ICategory[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", '
-      + '"op":"getFeedTree", "include_empty":true }';
+      + '"op":"getFeedTree", "include_empty":' + this.settings.loadEmptyCategories + ' }';
     const result = this.http.post<ApiResult<IFeedTree>>(this.settings.url, body);
     return result.pipe(
       map(data => {
