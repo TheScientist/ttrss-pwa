@@ -16,8 +16,9 @@ Click [here](https://thescientist.eu/owncloud/s/HZ4A6qawiS8yzcg/download) (mobil
 - list articles of feeds or categories, including special feeds
 - mark articles as read, starred or published
 - light and dark material theme
-- shortcut navigation
+- keyboard shortcuts
 - share articles (mobile only on supported browsers that implement share-api)
+- login only once (stored in local browser storage)
 - mark all articles of feed as read (catchup feed)
 - mark multiple headlines as starred, read, published
 - link to external source of article
