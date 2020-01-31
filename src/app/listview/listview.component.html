@@ -2,7 +2,7 @@
     <mat-nav-list id="headlist" role="list" *ngIf="headlines && headlines.length>0;else emtpyList">
         <div role="listitem" *ngFor="let head of headlines;let i = index">
             <div fxLayout="row" style="width:100%;">
-                <mat-checkbox *ngIf="multiSelectEnabled" fxFlexAlign="center"
+                <mat-checkbox *ngIf="feedManagerService.multiSelectEnabled" fxFlexAlign="center"
                     [checked]="multiSelectedHeadlines.includes(head)" (change)="onArticleSelect(head)"></mat-checkbox>
                 <div fxLayout="column" fxFlex="1 1 auto" in-view (inview)="inview($event)"
                     [scrollELement]="scrollContainer" [data]="head" [id]="'article' + head.id" [throttle]="500">
@@ -25,7 +25,7 @@
 
                             <div fxLayout="row" style="width:100%;"
                                 [class.headSelected]="selectedHeadline && head===selectedHeadline">
-                                <ttrss-article [multiSelectEnabled]="multiSelectEnabled" [feed]="selectedFeed"
+                                <ttrss-article [multiSelectEnabled]="feedManagerService.multiSelectEnabled" [feed]="selectedFeed"
                                     [article]="head" (click)="onArticleSelect(head);"
                                     [selected]="selectedHeadline && head===selectedHeadline" fxFlex="1 1 auto">
                                 </ttrss-article>

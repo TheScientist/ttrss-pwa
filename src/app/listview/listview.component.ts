@@ -9,6 +9,7 @@ import { SettingsService } from '../settings.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
 import { MessagingService } from '../messaging.service';
 import { LogMessage } from '../model/logmessage';
+import { FeedManagerService } from '../feed-manager.service';
 
 @Component({
   selector: 'ttrss-listview',
@@ -32,9 +33,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   @Input() fetch_more = true;
   @Input() updateHeadlinesEvents: Observable<number>;
   @Input() toolbarHeight: number;
-  @Input() multiSelectChangedEvent: Observable<void>;
   @Input() scrollContainer: HTMLElement;
-  multiSelectEnabled = false;
 
   @Output() counterChanged = new EventEmitter();
 
@@ -54,7 +53,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
     private translate: TranslateService, private _hotkeysService: HotkeysService,
     private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService,
-    private messageService: MessagingService) {
+    private messageService: MessagingService, private feedManagerService: FeedManagerService) {
 
     this.registerHotKeys();
     this.ngNavigatorShareService = ngNavigatorShareService;
@@ -69,9 +68,8 @@ export class ListviewComponent implements OnInit, OnDestroy {
         this.updateSelected(field);
       }
     });
-    this.multiSelectEventSubscription = this.multiSelectChangedEvent.subscribe(() => {
-      this.multiSelectEnabled = !this.multiSelectEnabled;
-      if (this.multiSelectEnabled) {
+    this.multiSelectEventSubscription = this.feedManagerService.multiselectChangedEvent.subscribe(() => {
+      if (this.feedManagerService.multiSelectEnabled) {
         this.selectedHeadline = null;
       } else {
         this.multiSelectedHeadlines = [];
@@ -85,7 +83,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   updateSelected(field: number) {
-    if (this.multiSelectEnabled) {
+    if (this.feedManagerService.multiSelectEnabled) {
       this.updateArticle(this.multiSelectedHeadlines, field, 2);
     } else {
       let mode = 2;
@@ -109,7 +107,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
     if (this.swipedHead != null) {
       return;
     }
-    if (!this.multiSelectEnabled) {
+    if (!this.feedManagerService.multiSelectEnabled) {
       if (headline !== this.selectedHeadline) {
         this.selectedHeadline = null;
         if (!headline.content) {
@@ -237,7 +235,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   inview(event) {
-    if (this.settings.markReadOnScroll && !this.multiSelectEnabled) {
+    if (this.settings.markReadOnScroll && !this.feedManagerService.multiSelectEnabled) {
       let idx = 0;
       if (this.fetch_more && event.isClipped && !event.parts.top) {
         idx = this.headlines.indexOf(event.data) + 3;
