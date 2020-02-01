@@ -5,21 +5,20 @@
   </button>
   <mat-sidenav-container autosize class="ttrss-sidenav-container" style="height:100%;">
     <mat-sidenav #snav id="sidenav" [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" role="navigation" [disableClose]="true">
-      <mat-tree [class.list-indent]="isMobile" id="feedTree" [dataSource]="nestedDataSource"
-        [treeControl]="nestedTreeControl">
+      <mat-tree [class.list-indent]="isMobile" id="feedTree" [dataSource]="feedManagerService.nestedDataSource"
+        [treeControl]="feedManagerService.nestedTreeControl">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle class="tree-item">
-          <li [id]="'feed' + node.bare_id" [class.feedSelected]="node === selectedFeed">
+          <li [id]="'feed' + node.bare_id" [class.feedSelected]="node === feedManagerService.selectedFeed">
             <div class="mat-tree-node" (click)="onSelect(node);">
               <img mat-list-icon *ngIf="node.bare_id>0 && node.icon; else matIcon"
-                [src]="client.getFeedIconURL(node.bare_id)" width="auto" height="24px" style="margin-right: 4px;" />
+                [src]="feedManagerService.getFeedIconURL(node.bare_id)" width="auto" height="24px" style="margin-right: 4px;" />
               <ng-template #matIcon>
-                <mat-icon mat-list-icon style="margin-right: 4px;">{{ client.getFeedIconURL(node.bare_id,
+                <mat-icon mat-list-icon style="margin-right: 4px;">{{ feedManagerService.getFeedIconURL(node.bare_id,
                   node.bare_id>0) }}</mat-icon>
               </ng-template>
               <span fxFlex="1 1 auto" style="margin-right: 8px;">{{node.name}}</span>
-              <!-- <span style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:false}}</span> -->
-              <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:false;else noChip">
-                <mat-chip selected color="accent">{{counters | counterFilter:node.bare_id:false}}</mat-chip>
+              <mat-chip-list style="margin-right: 4px;" *ngIf="feedManagerService.counters | counterFilter:node.bare_id:false;else noChip">
+                <mat-chip selected color="accent">{{feedManagerService.counters | counterFilter:node.bare_id:false}}</mat-chip>
               </mat-chip-list>
             </div>
           </li>
@@ -29,14 +28,13 @@
           <mat-divider></mat-divider>
           <li>
             <div (click)="onSelect(node);" class="mat-tree-node tree-category tree-item"
-              [class.feedSelected]="node === selectedFeed">
+              [class.feedSelected]="node === feedManagerService.selectedFeed">
               <h2 fxFlex="1 1 auto" style="margin-right: 4px;">{{node.name}}</h2>
-              <!-- <span mat-list-item style="margin-right: 4px;">{{counters | counterFilter:node.bare_id:true}}</span> -->
-              <mat-chip-list style="margin-right: 4px;" *ngIf="counters | counterFilter:node.bare_id:true;else noChip">
-                <mat-chip selected color="accent">{{counters | counterFilter:node.bare_id:true}}</mat-chip>
+              <mat-chip-list style="margin-right: 4px;" *ngIf="feedManagerService.counters | counterFilter:node.bare_id:true;else noChip">
+                <mat-chip selected color="accent">{{feedManagerService.counters | counterFilter:node.bare_id:true}}</mat-chip>
               </mat-chip-list>
             </div>
-            <ul [class.example-tree-invisible]="!nestedTreeControl.isExpanded(node)">
+            <ul [class.example-tree-invisible]="!feedManagerService.nestedTreeControl.isExpanded(node)">
               <ng-container matTreeNodeOutlet></ng-container>
             </ul>
           </li>
@@ -44,36 +42,36 @@
       </mat-tree>
     </mat-sidenav>
 
-    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="loadHeadlines()"
+    <mat-sidenav-content #feedView role="main" id="feedView" infiniteScroll (scrolled)="feedManagerService.loadHeadlines()"
       [scrollWindow]="false" [infiniteScrollDistance]="1">
       <mat-toolbar color="primary" #feedtoolbar id="feedtoolbar" class="ttrss-toolbar">
-        <h1 *ngIf="selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
-          <img *ngIf="selectedFeed.bare_id>0 && !is_cat;else matFeedIcon"
-            [src]="client.getFeedIconURL(selectedFeed.bare_id)" width="auto" height="24px" />
+        <h1 *ngIf="feedManagerService.selectedFeed;else defaultHead" [class.menu-indent]="isMobile">
+          <img *ngIf="feedManagerService.selectedFeed.bare_id>0 && !feedManagerService.is_cat;else matFeedIcon"
+            [src]="feedManagerService.getFeedIconURL(feedManagerService.selectedFeed.bare_id)" width="auto" height="24px" />
           <ng-template #matFeedIcon>
-            <mat-icon mat-list-icon>{{ client.getFeedIconURL(selectedFeed.bare_id, is_cat) }}</mat-icon>
+            <mat-icon mat-list-icon>{{ feedManagerService.getFeedIconURL(feedManagerService.selectedFeed.bare_id, feedManagerService.is_cat) }}</mat-icon>
           </ng-template>
-          <span style="padding-left: 4px;">{{ selectedFeed.name }}</span>
+          <span style="padding-left: 4px;">{{ feedManagerService.selectedFeed.name }}</span>
         </h1>
         <ng-template #defaultHead>
           <h1 class="ttrss-app-name" [class.menu-indent]="isMobile">{{'App_Title' | translate}}</h1>
         </ng-template>
         <div class="tb-buttons">
           <button mat-icon-button [matTooltip]="'TB_Multiselect' | translate" matTooltipShowDelay="1000"
-            style="vertical-align: middle;" *ngIf="selectedFeed" (click)="multiselectChanged()"
-            [class.multiselect]="multiSelectEnabled">
+            style="vertical-align: middle;" *ngIf="feedManagerService.selectedFeed" (click)="feedManagerService.multiselectChanged()"
+            [class.multiselect]="feedManagerService.multiSelectEnabled">
             <mat-icon>list</mat-icon>
           </button>
           <button mat-icon-button [matTooltip]="'TB_ToggleStar' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(0)" *ngIf="multiSelectEnabled">
+            (click)="updateSelected(0)" *ngIf="feedManagerService.multiSelectEnabled">
             <mat-icon>star</mat-icon>
           </button>
           <button mat-icon-button [matTooltip]="'TB_ToggleRead' | translate" matTooltipShowDelay="1000"
-            (click)="updateSelected(2)" *ngIf="multiSelectEnabled">
+            (click)="updateSelected(2)" *ngIf="feedManagerService.multiSelectEnabled">
             <mat-icon>mail</mat-icon>
           </button>
           <button mat-icon-button [matTooltip]="'TB_MarkRead' | translate" matTooltipShowDelay="1000"
-            (click)="catchupFeed()" *ngIf="selectedFeed && !multiSelectEnabled">
+            (click)="catchupFeed()" *ngIf="feedManagerService.selectedFeed && !feedManagerService.multiSelectEnabled">
             <mat-icon>done_all</mat-icon>
           </button>
           <button mat-icon-button [matMenuTriggerFor]="appMenu" aria-label="More">
@@ -81,7 +79,7 @@
           </button>
         </div>
         <mat-menu #appMenu>          
-          <button mat-menu-item (click)="updateSelected(1)" *ngIf="multiSelectEnabled">
+          <button mat-menu-item (click)="updateSelected(1)" *ngIf="feedManagerService.multiSelectEnabled">
             <mat-icon>language</mat-icon>{{'TB_TogglePublish' | translate }}
           </button>
           <a mat-menu-item aria-label="Settings" routerLink="/settings">
@@ -89,15 +87,11 @@
           </a>
         </mat-menu>
       </mat-toolbar>
-      <ttrss-listview [selectedFeed]="selectedFeed" 
-        [headlines]="headlines" 
-        [multiSelectChangedEvent]="multiSelectionChanged.asObservable()"
-        [is_cat]="is_cat"
-        [fetch_more]="fetch_more"
+      <ttrss-listview
+        [headlines]="feedManagerService.headlines" 
         [toolbarHeight]="toolbarHeight"
         [updateHeadlinesEvents]="headlineUpdateEvent.asObservable()"
-        [scrollContainer]="scrollContainer"
-        (counterChanged)="onCounterChanged()">
+        [scrollContainer]="scrollContainer">
       </ttrss-listview>
     </mat-sidenav-content>
   </mat-sidenav-container>

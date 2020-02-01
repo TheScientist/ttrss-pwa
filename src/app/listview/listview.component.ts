@@ -1,7 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { trigger, style, keyframes, transition, animate, query, stagger } from '@angular/animations';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { trigger, style, keyframes, transition, animate } from '@angular/animations';
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
-import { TtrssClientService } from '../ttrss-client.service';
 import { Observable } from 'rxjs';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { TranslateService } from '@ngx-translate/core';
@@ -9,6 +8,7 @@ import { SettingsService } from '../settings.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
 import { MessagingService } from '../messaging.service';
 import { LogMessage } from '../model/logmessage';
+import { FeedManagerService } from '../feed-manager.service';
 
 @Component({
   selector: 'ttrss-listview',
@@ -26,17 +26,10 @@ import { LogMessage } from '../model/logmessage';
 })
 export class ListviewComponent implements OnInit, OnDestroy {
 
-  @Input() selectedFeed: ICategory;
   @Input() headlines: Headline[];
-  @Input() is_cat: Boolean;
-  @Input() fetch_more = true;
   @Input() updateHeadlinesEvents: Observable<number>;
   @Input() toolbarHeight: number;
-  @Input() multiSelectChangedEvent: Observable<void>;
   @Input() scrollContainer: HTMLElement;
-  multiSelectEnabled = false;
-
-  @Output() counterChanged = new EventEmitter();
 
   multiSelectedHeadlines: Headline[] = [];
   selectedHeadline: Headline;
@@ -49,29 +42,30 @@ export class ListviewComponent implements OnInit, OnDestroy {
   private eventsSubscription: any;
   private multiSelectEventSubscription: any;
   private ngNavigatorShareService: NgNavigatorShareService;
+  feedManagerService: FeedManagerService;
 
 
-  constructor(private _scrollToService: ScrollToService, private client: TtrssClientService,
+  constructor(private _scrollToService: ScrollToService,
     private translate: TranslateService, private _hotkeysService: HotkeysService,
     private settings: SettingsService, ngNavigatorShareService: NgNavigatorShareService,
-    private messageService: MessagingService) {
+    private messageService: MessagingService, feedManagerService: FeedManagerService) {
 
     this.registerHotKeys();
     this.ngNavigatorShareService = ngNavigatorShareService;
+    this.feedManagerService = feedManagerService;
   }
 
   ngOnInit() {
     this.slideThreshold = 30;
     this.eventsSubscription = this.updateHeadlinesEvents.subscribe((field) => {
       if (field < 0) {
-        this.updateArticle(this.headlines.slice(0, -field).filter(h => h.unread), 2, 0);
+        this.feedManagerService.updateArticle(this.headlines.slice(0, -field).filter(h => h.unread), 2, 0);
       } else {
         this.updateSelected(field);
       }
     });
-    this.multiSelectEventSubscription = this.multiSelectChangedEvent.subscribe(() => {
-      this.multiSelectEnabled = !this.multiSelectEnabled;
-      if (this.multiSelectEnabled) {
+    this.multiSelectEventSubscription = this.feedManagerService.multiselectChangedEvent.subscribe(() => {
+      if (this.feedManagerService.multiSelectEnabled) {
         this.selectedHeadline = null;
       } else {
         this.multiSelectedHeadlines = [];
@@ -85,8 +79,8 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   updateSelected(field: number) {
-    if (this.multiSelectEnabled) {
-      this.updateArticle(this.multiSelectedHeadlines, field, 2);
+    if (this.feedManagerService.multiSelectEnabled) {
+      this.feedManagerService.updateArticle(this.multiSelectedHeadlines, field, 2);
     } else {
       let mode = 2;
       switch (field) {
@@ -101,7 +95,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
           break;
       }
 
-      this.updateArticle(new Array(this.selectedHeadline), field, mode);
+      this.feedManagerService.updateArticle(new Array(this.selectedHeadline), field, mode);
     }
   }
 
@@ -109,12 +103,10 @@ export class ListviewComponent implements OnInit, OnDestroy {
     if (this.swipedHead != null) {
       return;
     }
-    if (!this.multiSelectEnabled) {
+    if (!this.feedManagerService.multiSelectEnabled) {
       if (headline !== this.selectedHeadline) {
         this.selectedHeadline = null;
-        if (!headline.content) {
-          this.client.getArticle(headline.id).subscribe(article => headline.content = article.content);
-        }
+        this.feedManagerService.getArticleContent(headline);
 
         this.selectedHeadline = headline;
         if (headline.unread) {
@@ -161,34 +153,6 @@ export class ListviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  private updateArticle(heads: Headline[], field: number, mode: number) {
-    if (heads.length === 0) {
-      return;
-    }
-    this.client.updateArticle(heads, field, mode).subscribe(result => {
-      if (result) {
-        switch (field) {
-          case 0:
-            heads.forEach(head => {
-              head.marked = !head.marked;
-            });
-            break;
-          case 1:
-            heads.forEach(head => {
-              head.published = !head.published;
-            });
-            break;
-          case 2:
-            heads.forEach(head => {
-              head.unread = !head.unread;
-            });
-            break;
-        }
-        this.counterChanged.next();
-      }
-    });
-  }
-
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -223,7 +187,7 @@ export class ListviewComponent implements OnInit, OnDestroy {
     if (this.elementLeftSign) {
       field = 0;
     }
-    this.updateArticle([head], field, 2);
+    this.feedManagerService.updateArticle([head], field, 2);
   }
   getLeftPosition(elementRefrence): number {
     const currentleftPosition = elementRefrence.style.left.slice(0, -2);
@@ -237,15 +201,15 @@ export class ListviewComponent implements OnInit, OnDestroy {
   }
 
   inview(event) {
-    if (this.settings.markReadOnScroll && !this.multiSelectEnabled) {
+    if (this.settings.markReadOnScroll && !this.feedManagerService.multiSelectEnabled) {
       let idx = 0;
-      if (this.fetch_more && event.isClipped && !event.parts.top) {
+      if (this.feedManagerService.fetch_more && event.isClipped && !event.parts.top) {
         idx = this.headlines.indexOf(event.data) + 3;
-      } else if (!this.fetch_more && event.status && this.headlines.indexOf(event.data) === this.headlines.length - 1) {
+      } else if (!this.feedManagerService.fetch_more && event.status && this.headlines.indexOf(event.data) === this.headlines.length - 1) {
         idx = this.headlines.length;
       }
       if (idx > 0) {
-        this.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0);
+        this.feedManagerService.updateArticle(this.headlines.slice(0, idx).filter(h => h.unread), 2, 0);
       }
     }
   }
