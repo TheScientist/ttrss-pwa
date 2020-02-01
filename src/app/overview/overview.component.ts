@@ -34,13 +34,15 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   toolbarHeight = 0;
   headlineUpdateEvent: Subject<number> = new Subject<number>();
+  feedManagerService: FeedManagerService;
 
   private _mobileQueryListener: () => void;
 
   constructor(private _scrollToService: ScrollToService, media: MediaObserver, public dialog: MatDialog,
-    private settings: SettingsService, private feedManagerService: FeedManagerService,
+    private settings: SettingsService, feedManagerService: FeedManagerService,
     private translate: TranslateService, private ngZone: NgZone,
     private _hotkeysService: HotkeysService) {
+    this.feedManagerService = feedManagerService;
     this.watcher = media.asObservable()
       .pipe(
         filter((changes: MediaChange[]) => changes.length > 0),

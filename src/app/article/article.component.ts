@@ -16,8 +16,11 @@ export class ArticleComponent implements OnInit {
   @Input() multiSelectEnabled: boolean;
 
   animationState: string;
+  feedManagerService: FeedManagerService
 
-  constructor(private feedManagerService: FeedManagerService) {}
+  constructor(feedManagerService: FeedManagerService) {
+    this.feedManagerService = feedManagerService;
+  }
 
   ngOnInit() {
   }
