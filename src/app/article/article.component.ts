@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges, SimpleChange, ElementRef, OnCh
 import { TtrssClientService } from '../ttrss-client.service';
 import { trigger, transition, animate, keyframes } from '@angular/animations';
 import * as kf from './keyframes';
+import { FeedManagerService } from '../feed-manager.service';
 
 @Component({
   selector: 'ttrss-article',
@@ -12,18 +13,17 @@ export class ArticleComponent implements OnInit {
 
   @Input() article: Headline;
   @Input() selected: boolean;
-  @Input() feed: ICategory;
   @Input() multiSelectEnabled: boolean;
 
   animationState: string;
 
-  constructor(private client: TtrssClientService, private artElement: ElementRef) { }
+  constructor(private feedManagerService: FeedManagerService) {}
 
   ngOnInit() {
   }
 
   showFeedIcons() {
-    return this.feed.bare_id < 0 || this.feed.type === 'category';
+    return this.feedManagerService.selectedFeed.bare_id < 0 || this.feedManagerService.selectedFeed.type === 'category';
   }
 
   startAnimation(state) {

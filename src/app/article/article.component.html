@@ -5,7 +5,7 @@
     <span fxFlex="1 1 auto" style="text-align:right;">{{article.updated | datefix | date:'short'}}</span>
   </div>
   <div matLine *ngIf="showFeedIcons()">
-    <img [src]="client.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto" height="16px"
+    <img [src]="feedManagerService.getFeedIconURL(article.feed_id)" onerror="this.src='../assets/icon-rss.png'" width="auto" height="16px"
       style="vertical-align:middle;padding-right:4px;" />
     <span style="vertical-align:middle;">{{article.feed_title}}</span>
   </div>

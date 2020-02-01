@@ -87,10 +87,8 @@
           </a>
         </mat-menu>
       </mat-toolbar>
-      <ttrss-listview [selectedFeed]="feedManagerService.selectedFeed" 
+      <ttrss-listview
         [headlines]="feedManagerService.headlines" 
-        [is_cat]="feedManagerService.is_cat"
-        [fetch_more]="feedManagerService.fetch_more"
         [toolbarHeight]="feedManagerService.toolbarHeight"
         [updateHeadlinesEvents]="headlineUpdateEvent.asObservable()"
         [scrollContainer]="scrollContainer">

@@ -115,6 +115,40 @@ export class FeedManagerService {
       }
     });
   }
+  
+  getArticleContent(headline: Headline) {
+    if (!headline.content) {
+      this.client.getArticle(headline.id).subscribe(article => headline.content = article.content);
+    }
+  }
+  
+  updateArticle(heads: Headline[], field: number, mode: number) {
+    if (heads.length === 0) {
+      return;
+    }
+    this.client.updateArticle(heads, field, mode).subscribe(result => {
+      if (result) {
+        switch (field) {
+          case 0:
+            heads.forEach(head => {
+              head.marked = !head.marked;
+            });
+            break;
+          case 1:
+            heads.forEach(head => {
+              head.published = !head.published;
+            });
+            break;
+          case 2:
+            heads.forEach(head => {
+              head.unread = !head.unread;
+            });
+            break;
+        }
+        this.refreshCounters();
+      }
+    });
+  }
 
   private elementExistsInHeadlines(h: Headline, orig: Headline[]): boolean {
     return typeof this.headlines.find(existing => existing.id === h.id) === 'undefined';

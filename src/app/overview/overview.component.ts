@@ -84,7 +84,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
       }, interval);
     });
     this.feedManagerService.initFeedTree();
-    // TODO set toolbarheigh property?
   }
 
   onSelect(feed: ICategory) {
@@ -96,7 +95,6 @@ export class OverviewComponent implements OnInit, OnDestroy {
       duration: 0
     });
     this.feedManagerService.selectFeed(feed);
-    // TODO maybe has to wait for feed name while loading   
     this.toolbarHeight = this.feedtoolbar._elementRef.nativeElement.offsetHeight;
   }
 
