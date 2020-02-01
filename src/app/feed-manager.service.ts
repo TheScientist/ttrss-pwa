@@ -115,13 +115,13 @@ export class FeedManagerService {
       }
     });
   }
-  
+
   getArticleContent(headline: Headline) {
     if (!headline.content) {
       this.client.getArticle(headline.id).subscribe(article => headline.content = article.content);
     }
   }
-  
+
   updateArticle(heads: Headline[], field: number, mode: number) {
     if (heads.length === 0) {
       return;

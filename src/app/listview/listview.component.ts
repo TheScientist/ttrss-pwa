@@ -151,7 +151,6 @@ export class ListviewComponent implements OnInit, OnDestroy {
       });
   }
 
-  
   sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
