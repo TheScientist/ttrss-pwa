@@ -16,7 +16,7 @@ export class ArticleComponent implements OnInit {
   @Input() multiSelectEnabled: boolean;
 
   animationState: string;
-  feedManagerService: FeedManagerService
+  feedManagerService: FeedManagerService;
 
   constructor(feedManagerService: FeedManagerService) {
     this.feedManagerService = feedManagerService;
