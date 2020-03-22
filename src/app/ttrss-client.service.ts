@@ -8,6 +8,13 @@ import { MessagingService } from './messaging.service';
 import { CounterResult } from './model/counter-result';
 import { LogMessage } from './model/logmessage';
 import { TranslateService } from '@ngx-translate/core';
+import { ApiResult } from './model/api-result';
+import { UpdateResult } from './model/update-result';
+import { Headline } from './model/headline';
+import { Article } from './model/article';
+import { ICategory } from './model/icategory';
+import { ICounterResult } from './model/icounter-result';
+import { IFeedTree } from './model/feed-tree';
 
 @Injectable()
 export class TtrssClientService {

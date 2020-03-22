@@ -7,6 +7,8 @@ import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { of, Subject } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { ICategory } from './model/icategory';
+import { Headline } from './model/headline';
 
 @Injectable({
   providedIn: 'root'

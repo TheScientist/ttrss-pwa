@@ -1,4 +1,4 @@
-interface ICounterResult {
+export interface ICounterResult {
     id: string|number;
     updated: string;
     counter: number;

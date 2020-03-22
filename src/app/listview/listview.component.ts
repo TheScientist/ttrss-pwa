@@ -8,6 +8,7 @@ import { SettingsService } from '../settings.service';
 import { NgNavigatorShareService } from 'ng-navigator-share';
 import { MessagingService } from '../messaging.service';
 import { LogMessage } from '../model/logmessage';
+import { Headline } from '../model/headline';
 import { FeedManagerService } from '../feed-manager.service';
 
 @Component({

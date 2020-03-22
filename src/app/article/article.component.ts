@@ -3,6 +3,7 @@ import { TtrssClientService } from '../ttrss-client.service';
 import { trigger, transition, animate, keyframes } from '@angular/animations';
 import * as kf from './keyframes';
 import { FeedManagerService } from '../feed-manager.service';
+import { Headline } from '../model/headline';
 
 @Component({
   selector: 'ttrss-article',

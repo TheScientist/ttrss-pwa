@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Headline } from '../model/headline';
 
 @Component({
   selector: 'ttrss-article-content',

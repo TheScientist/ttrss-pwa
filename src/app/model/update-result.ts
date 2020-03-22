@@ -1,4 +1,4 @@
-interface UpdateResult {
+export interface UpdateResult {
   updated: number;
   status: string;
 }

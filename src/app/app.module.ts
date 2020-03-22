@@ -32,12 +32,11 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ArticleComponent } from './article/article.component';
 import { MarkreaddialogComponent } from './markreaddialog/markreaddialog.component';
 import { ArticleContentComponent } from './article-content/article-content.component';
-import { NgInviewModule } from 'angular-inport';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ListviewComponent } from './listview/listview.component';
-import { Directionality } from '@angular/cdk/bidi';
+import { NgInviewModule } from '@stockopedia/angular-inport'; 
 import { HttpMockRequestInterceptor } from './util/mockinterceptor';
 import { HttpRequestInterceptor } from './util/defaultinterceptor';
 

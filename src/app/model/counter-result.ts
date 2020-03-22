@@ -1,3 +1,5 @@
+import { ICounterResult } from './icounter-result';
+
 export class CounterResult {
     id: string;
     updated: string;

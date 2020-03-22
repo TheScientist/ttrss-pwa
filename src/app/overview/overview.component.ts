@@ -16,6 +16,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { HotkeysService, Hotkey } from 'angular2-hotkeys';
 import { filter, map } from 'rxjs/operators';
 import { FeedManagerService } from '../feed-manager.service';
+import { ICategory } from '../model/icategory';
 @Component({
   selector: 'ttrss-overview',
   templateUrl: './overview.component.html',

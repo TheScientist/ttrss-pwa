@@ -1,4 +1,4 @@
-interface Headline {
+export interface Headline {
   id: number;
   unread: boolean;
   marked: boolean;
