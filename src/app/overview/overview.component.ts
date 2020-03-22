@@ -35,6 +35,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
   toolbarHeight = 0;
   headlineUpdateEvent: Subject<number> = new Subject<number>();
   feedManagerService: FeedManagerService;
+  private feedUpdateSubscription: any;
 
   private _mobileQueryListener: () => void;
 
@@ -66,6 +67,7 @@ export class OverviewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.watcher.unsubscribe();
+    this.feedUpdateSubscription.unsubscribe();
   }
 
   ngOnInit() {
@@ -86,6 +88,8 @@ export class OverviewComponent implements OnInit, OnDestroy {
       }, interval);
     });
     this.feedManagerService.initFeedTree();
+    this.feedUpdateSubscription = this.feedManagerService.selectedFeedChangeEvent
+      .subscribe(() => this.toolbarHeight = this.feedtoolbar._elementRef.nativeElement.offsetHeight);
   }
 
   onSelect(feed: ICategory) {

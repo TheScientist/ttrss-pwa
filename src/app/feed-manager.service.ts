@@ -20,6 +20,7 @@ export class FeedManagerService {
   selectedFeed: ICategory;
   is_cat = false;
   multiselectChangedEvent: Subject<boolean> = new Subject<boolean>();
+  selectedFeedChangeEvent: Subject<void> = new Subject<void>();
   multiSelectEnabled = false;
   headlines: Headline[] = [];
   fetch_more = true;
@@ -44,6 +45,7 @@ export class FeedManagerService {
     if (this.multiSelectEnabled) {
       this.multiselectChanged();
     }
+    this.selectedFeedChangeEvent.next();
   }
 
   multiselectChanged() {
