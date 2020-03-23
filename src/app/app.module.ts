@@ -36,7 +36,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { HotkeyModule } from 'angular2-hotkeys';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { ListviewComponent } from './listview/listview.component';
-import { NgInviewModule } from '@stockopedia/angular-inport'; 
+import { NgInviewModule } from '@stockopedia/angular-inport';
 import { HttpMockRequestInterceptor } from './util/mockinterceptor';
 import { HttpRequestInterceptor } from './util/defaultinterceptor';
 
