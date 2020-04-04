@@ -1,4 +1,4 @@
-import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -89,6 +89,7 @@ export class MyHammerConfig extends HammerGestureConfig {
       }
     }),
     NgInviewModule,
+    HammerModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     HotkeyModule.forRoot(),
     LoadingBarHttpClientModule
