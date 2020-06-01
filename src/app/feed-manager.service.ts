@@ -135,23 +135,34 @@ export class FeedManagerService {
         switch (field) {
           case 0:
             heads.forEach(head => {
-              head.marked = !head.marked;
+              head.marked = this.setStatus(mode, head.marked);
             });
             break;
           case 1:
             heads.forEach(head => {
-              head.published = !head.published;
+              head.published = this.setStatus(mode, head.published);
             });
             break;
           case 2:
             heads.forEach(head => {
-              head.unread = !head.unread;
+              head.unread = this.setStatus(mode, head.unread);
             });
             break;
         }
         this.refreshCounters();
       }
     });
+  }
+
+  private setStatus(mode: number, currentValue: boolean): boolean {
+    switch (mode) {
+      case 0:
+        return false;
+      case 1:
+        return true;
+      default:
+        return !currentValue;
+    }
   }
 
   private elementExistsInHeadlines(h: Headline, orig: Headline[]): boolean {

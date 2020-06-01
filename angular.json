@@ -81,7 +81,7 @@
           "configurations": {
             "production": {
               "browserTarget": "ttrss-pwa:build:production"
-            },            
+            },
             "mock": {
               "browserTarget": "ttrss-pwa:build:mock"
             }
@@ -150,5 +150,8 @@
     "@schematics/angular:directive": {
       "prefix": "ttrss"
     }
+  },
+  "cli": {
+    "analytics": "0f247ddc-c431-4ad8-a925-486c58d47da3"
   }
 }
