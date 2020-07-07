@@ -10,7 +10,7 @@ import { environment } from '../environments/environment';
 export class SettingsService {
 
   constructor() { }
-  public locales: SettingsEnum[] = [{ key: 'en', name: 'English' }, { key: 'de', name: 'Deutsch' }];
+  public locales: SettingsEnum[] = [{ key: 'en', name: 'English' }, { key: 'de', name: 'Deutsch' }, { key: 'zh', name: 'Chinese' }];
   public counterOptions: SettingsEnum[] = [
     { key: 'always', name: 'Always' },
     { key: '30s', name: 'Every 30s' },
