@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MarkreaddialogComponent } from './markreaddialog.component';
 
@@ -6,7 +6,7 @@ describe('MarkreaddialogComponent', () => {
   let component: MarkreaddialogComponent;
   let fixture: ComponentFixture<MarkreaddialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ MarkreaddialogComponent ]
     })
