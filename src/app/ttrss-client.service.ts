@@ -170,7 +170,7 @@ export class TtrssClientService {
 
   catchupFeed(feed: ICategory, is_cat: boolean): Observable<boolean> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"catchupFeed", "feed_id":"' + feed.bare_id +
-      '", "is_cat ": ' + is_cat + ' }';
+      '", "is_cat": ' + is_cat + ' }';
     const result = this.http.post<ApiResult<UpdateResult>>(this.settings.url, body);
     return result.pipe(
       map(data => {
