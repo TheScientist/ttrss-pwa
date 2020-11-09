@@ -1,5 +1,5 @@
 import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG, HammerModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -49,6 +49,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 export const isMock = environment.mock;
 
+@Injectable()
 export class MyHammerConfig extends HammerGestureConfig {
   overrides = <any>{
     'pan': { direction: 6 },
