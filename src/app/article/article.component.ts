@@ -10,7 +10,7 @@ import { Headline } from '../model/headline';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-export class ArticleComponent implements OnInit {
+export class ArticleComponent {
 
   @Input() article: Headline;
   @Input() selected: boolean;
@@ -21,9 +21,6 @@ export class ArticleComponent implements OnInit {
 
   constructor(feedManagerService: FeedManagerService) {
     this.feedManagerService = feedManagerService;
-  }
-
-  ngOnInit() {
   }
 
   showFeedIcons() {

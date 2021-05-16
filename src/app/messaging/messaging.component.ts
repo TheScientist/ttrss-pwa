@@ -7,7 +7,7 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
   templateUrl: './messaging.component.html',
   styleUrls: ['./messaging.component.css']
 })
-export class MessagingComponent implements OnInit {
+export class MessagingComponent {
 
   msgService: MessagingService;
   loaderService: LoadingBarService;
@@ -16,8 +16,4 @@ export class MessagingComponent implements OnInit {
     this.msgService = messageService;
     this.loaderService = loader;
   }
-
-  ngOnInit() {
-  }
-
 }

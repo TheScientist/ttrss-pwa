@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent {
 
   settings: SettingsService;
   version: string = environment.VERSION;
@@ -18,9 +18,6 @@ export class SettingsComponent implements OnInit {
     private client: TtrssClientService,
     private translate: TranslateService) {
     this.settings = settingsSvc;
-  }
-
-  ngOnInit() {
   }
 
   testConnection() {
