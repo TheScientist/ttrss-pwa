@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { SessionStorage } from 'ngx-webstorage';
 import { SettingsEnum as SettingsEnum } from './model/seetings-enum';
-import * as CryptoJS from 'crypto-browserify';
 import { Subject } from 'rxjs';
-import { environment } from '../environments/environment';
 
 @Injectable()
 export class SettingsService {
@@ -64,13 +62,10 @@ export class SettingsService {
     if (this._password === null) {
       return null;
     }
-    const bytes = CryptoJS.AES.decrypt(this._password, environment.password_seed);
-    const out = bytes.toString(CryptoJS.enc.Utf8);
-    return out;
+    return atob(this._password);
   }
   set password(newValue: string) {
-    const encrypted = CryptoJS.AES.encrypt(newValue, environment.password_seed).toString();
-    this._password = encrypted;
+    this._password = btoa(newValue);
   }
 
   get darkDesign(): boolean {
