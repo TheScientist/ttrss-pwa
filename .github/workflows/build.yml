@@ -25,9 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm lint
+    - run: npm run lint
     - run: npm run build
-    - run: npm e2e
+    - run: npm run e2e
     - name: zip release
       if: startsWith(github.ref, 'refs/tags/')
       uses: papeloto/action-zip@v1
