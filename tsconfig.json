@@ -17,6 +17,9 @@
       "es2017",
       "dom"
     ],
+    "paths": {
+      "stream": ["../node_modules/readable-stream"]
+    },
     "resolveJsonModule": true,
     "esModuleInterop": true
   }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { SessionStorage } from 'ngx-webstorage';
 import { SettingsEnum as SettingsEnum } from './model/seetings-enum';
-import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from 'crypto-browserify';
 import { Subject } from 'rxjs';
 import { environment } from '../environments/environment';
 
