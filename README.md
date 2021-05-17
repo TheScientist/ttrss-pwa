@@ -1,10 +1,8 @@
 # Tiny Tiny RSS Progressive Web App
 
-[![Build Status](https://ci.thescientist.eu/job/ttrss/job/master/badge/icon)](https://ci.thescientist.eu/job/ttrss/job/master/)
+[![Node.js CI](https://github.com/TheScientist/ttrss-pwa/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/TheScientist/ttrss-pwa/actions/workflows/build.yml)
 [![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
-
-![Preview](https://thescientist.eu/owncloud/s/cAxREWnGiotXr68/preview)
 
 ## Usage
 A sample installation is installed at https://ttrss.thescientist.eu/
