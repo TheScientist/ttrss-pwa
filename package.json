@@ -34,6 +34,7 @@
     "angular2-hotkeys": "^2.2.0",
     "buffer": "^6.0.3",
     "core-js": "^3.12.1",
+    "hammerjs": "^2.0.8",
     "jasmine-reporters": "^2.4.0",
     "ng-navigator-share": "^1.0.4",
     "ngx-infinite-scroll": "^10.0.1",
