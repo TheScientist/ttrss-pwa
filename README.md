@@ -8,7 +8,7 @@
 A sample installation is installed at https://ttrss.thescientist.eu/
 You will get redirected to the settings page. Put your tt-rss server credentials into the fields and click on 'Verify'. 'Login successful' should be written at the bottom. Click on 'Back to feeds' and use the app.
 Don't worry your credentials will stay on your device.
-Click [here](https://thescientist.eu/owncloud/s/HZ4A6qawiS8yzcg/download) (mobile) or [here](https://thescientist.eu/owncloud/s/WbBf8ELdXwyixCc/download) (desktop) for demo videos.
+Click [here](https://nextcloud.thescientist.eu/index.php/s/dkNorgPSyLBqe5H) (mobile) or [here](https://nextcloud.thescientist.eu/index.php/s/eoDEHiAf3FrPTTM) (desktop) for demo videos.
 
 ### Features
 - list articles of feeds or categories, including special feeds
