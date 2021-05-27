@@ -6,6 +6,5 @@
 export const environment = {
   production: false,
   VERSION: require('../../package.json').version,
-  mock: false,
-  password_seed: 'notsosecret'
+  mock: false
 };

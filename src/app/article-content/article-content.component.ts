@@ -6,13 +6,10 @@ import { Headline } from '../model/headline';
   templateUrl: './article-content.component.html',
   styleUrls: ['./article-content.component.css']
 })
-export class ArticleContentComponent implements OnInit {
+export class ArticleContentComponent {
 
   @Input() article: Headline;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
