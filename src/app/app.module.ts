@@ -59,60 +59,59 @@ export class MyHammerConfig extends HammerGestureConfig {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SettingsComponent,
-    MessagingComponent,
-    OverviewComponent,
-    CounterFilterPipe,
-    DateFixPipe,
-    ArticleComponent,
-    MarkreaddialogComponent,
-    ArticleContentComponent,
-    ListviewComponent
-  ],
-  imports: [
-    BrowserModule,
-    HammerModule,
-    AppRoutingModule,
-    FormsModule,
-    InfiniteScrollModule,
-    NgxWebstorageModule.forRoot(),
-    MaterialModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    ScrollToModule.forRoot(),
-    FlexLayoutModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }),
-    NgInviewModule,
-    HammerModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    HotkeyModule.forRoot(),
-    LoadingBarHttpClientModule
-  ],
-  entryComponents: [AppComponent, MarkreaddialogComponent],
-  providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,
-    {
-      provide: LOCALE_ID,
-      deps: [SettingsService],
-      useFactory: (settings) => settings.getLanguage()
-    },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: MyHammerConfig
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: isMock ? HttpMockRequestInterceptor : HttpRequestInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        SettingsComponent,
+        MessagingComponent,
+        OverviewComponent,
+        CounterFilterPipe,
+        DateFixPipe,
+        ArticleComponent,
+        MarkreaddialogComponent,
+        ArticleContentComponent,
+        ListviewComponent
+    ],
+    imports: [
+        BrowserModule,
+        HammerModule,
+        AppRoutingModule,
+        FormsModule,
+        InfiniteScrollModule,
+        NgxWebstorageModule.forRoot(),
+        MaterialModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ScrollToModule.forRoot(),
+        FlexLayoutModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        }),
+        NgInviewModule,
+        HammerModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+        HotkeyModule.forRoot(),
+        LoadingBarHttpClientModule
+    ],
+    providers: [MediaMatcher, SettingsGuard, SettingsService, TtrssClientService, MessagingService,
+        {
+            provide: LOCALE_ID,
+            deps: [SettingsService],
+            useFactory: (settings) => settings.getLanguage()
+        },
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: MyHammerConfig
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: isMock ? HttpMockRequestInterceptor : HttpRequestInterceptor,
+            multi: true
+        }
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
