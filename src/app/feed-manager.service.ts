@@ -52,7 +52,7 @@ export class FeedManagerService {
 
   multiselectChanged() {
     this.multiSelectEnabled = !this.multiSelectEnabled;
-    this.multiselectChangedEvent.next();
+    this.multiselectChangedEvent.next(true);
   }
 
   initFeedTree() {

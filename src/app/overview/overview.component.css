@@ -1,4 +1,4 @@
-:host() {
+:host {
     flex-direction: column;
     display: inline-flex; 
     flex-grow: 1;

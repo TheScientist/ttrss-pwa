@@ -17,6 +17,6 @@ export class AppPage {
   }
 
   async delay(ms: number) {
-    await new Promise(resolve => setTimeout(() => resolve(), ms));
+    await new Promise(resolve => setTimeout(() => resolve(null), ms));
   }
 }
