@@ -1,18 +1,19 @@
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 // always include only once per project
-@include mat-core();
+@include mat.core();
 
-$ttrss-theme-primary: mat-palette($mat-orange, 700, 300, 900);
-$ttrss-theme-accent: mat-palette($mat-indigo);
-$ttrss-theme-warn: mat-palette($mat-red, A200);
+$ttrss-theme-primary: mat.define-palette(mat.$orange-palette, 700, 300, 900);
+$ttrss-theme-accent: mat.define-palette(mat.$indigo-palette);
+$ttrss-theme-warn: mat.define-palette(mat.$red-palette, A200);
 
-$ttrss-light-theme: mat-light-theme(
+$ttrss-light-theme: mat.define-light-theme(
     $ttrss-theme-primary,
     $ttrss-theme-accent,
     $ttrss-theme-warn
 );
 
-$ttrss-dark-theme: mat-dark-theme(
+$ttrss-dark-theme: mat.define-dark-theme(
     $ttrss-theme-primary,
     $ttrss-theme-accent,
     $ttrss-theme-warn
@@ -21,11 +22,11 @@ $ttrss-dark-theme: mat-dark-theme(
 @import 'mixin_global';
 @import 'mixin_dark';
 
-@include angular-material-theme($ttrss-light-theme);
+@include mat.all-component-themes($ttrss-light-theme);
 @include global-mixin($ttrss-light-theme);
 
 .ttrss-dark-theme {
-  @include angular-material-theme($ttrss-dark-theme);
+  @include mat.all-component-themes($ttrss-dark-theme);
   @include global-mixin($ttrss-dark-theme);
   @include dark-mixin($ttrss-dark-theme);
 }

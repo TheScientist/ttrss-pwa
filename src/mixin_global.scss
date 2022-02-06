@@ -1,3 +1,4 @@
+@use '~@angular/material' as mat;
 @import '~@angular/material/theming';
 
 @mixin global-mixin($theme) {
@@ -6,36 +7,36 @@
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     .tree-item:hover {
-        background-color: mat-color($background, hover);
+        background-color: mat.get-color-from-palette($background, hover);
     }
     .feedSelected {
-        background-color: mat-color($background, selected-button);
+        background-color: mat.get-color-from-palette($background, selected-button);
     }
     .multiselect {        
-        background-color: mat-color($primary, darker);
+        background-color: mat.get-color-from-palette($primary, darker);
     }
     .mat-progress-bar.mat-accent .mat-progress-bar-buffer {
-        background-color: mat-color($background, card);
+        background-color: mat.get-color-from-palette($background, card);
     }
     #headlist .swipe-item-container {
-        background-color: mat-color($background, background);
+        background-color: mat.get-color-from-palette($background, background);
     } 
     #headlist .swipe-item-container>div:hover {
-        background-color: mat-color($background, hover);
+        background-color: mat.get-color-from-palette($background, hover);
     } 
     #headlist .swipe-action-indicator {
-        background-color: mat-color($accent);
+        background-color: mat.get-color-from-palette($accent);
     }
     .article-toolbar .mat-raised-button {
         border: solid 1px rgba(0, 0, 0, 0.12);
     }
     
     ttrss-overview {
-        background-color: mat-color($background, background);
+        background-color: mat.get-color-from-palette($background, background);
     }    
     
     ttrss-settings {
-        background-color: mat-color($background, background);
+        background-color: mat.get-color-from-palette($background, background);
     }
 
 }
