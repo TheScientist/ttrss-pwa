@@ -144,7 +144,6 @@
       }
     }
   },
-  "defaultProject": "ttrss-pwa",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "ttrss",
@@ -156,6 +155,8 @@
   },
   "cli": {
     "analytics": "0f247ddc-c431-4ad8-a925-486c58d47da3",
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
