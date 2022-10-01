@@ -41,10 +41,10 @@
                     </ttrss-article-content>
                     <mat-toolbar #articletoolbar class="article-toolbar"
                         *ngIf="selectedHeadline && head===selectedHeadline">
-                        <button mat-raised-button [matTooltip]="'TB_Share' | translate"
-                            matTooltipShowDelay="1000" (click)="shareSelected()">
+                        <mat-button-toggle mat-icon-button [matTooltip]="'TB_Share' | translate"
+                            matTooltipShowDelay="1000" (click)="shareSelected()" [checked]="false">
                             <mat-icon>share</mat-icon>
-                        </button>
+                        </mat-button-toggle>
                         <mat-button-toggle mat-icon-button [matTooltip]="'TB_TogglePublish' | translate"
                             matTooltipShowDelay="1000" (click)="updateSelected(1)" [checked]="selectedHeadline.published">
                             <mat-icon>language</mat-icon>
