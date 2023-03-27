@@ -104,7 +104,7 @@ export class TtrssClientService {
 
   getHeadlines(feed: ICategory, limit: number, skip: number, view_mode: string, is_cat: boolean): Observable<Headline[]> {
     const body = '{"sid":"' + this.settings.sessionKey + '", "op":"getHeadlines", "feed_id":' + feed.bare_id +
-      ', "limit":' + limit + ', "skip":' + skip + ', "is_cat":' + is_cat + ' }';
+      ', "limit":' + limit + ', "skip":' + skip + ', "is_cat":' + is_cat + ', "order_by":"feed_dates"}';
     const result = this.http.post<ApiResult<Headline[]>>(this.settings.url, body);
     return result.pipe(
       map(data => {
@@ -140,11 +140,7 @@ export class TtrssClientService {
       }
       return maticon;
     } else {
-      let iconsDir = 'feed-icons';
-      if (this.settings.icons_url !== null) {
-        iconsDir = this.settings.icons_url;
-      }
-      return this.settings.url.replace('/api/', '/' + iconsDir + '/') + id + '.ico';
+      return this.settings.url.replace('/api/', '/public.php?op=feed_icon&id=') + id;
     }
   }
 
