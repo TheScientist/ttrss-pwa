@@ -1,5 +1,8 @@
 # Tiny Tiny RSS Progressive Web App
 
+(!) I stopped developing this cause keeping up to date with angular releases was not doable with the time I am able to spend for this project.
+However, out of interest I developed another version using AI based on react with the same feature set: see https://github.com/TheScientist/ttrss-react
+
 [![Node.js CI](https://github.com/TheScientist/ttrss-pwa/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/TheScientist/ttrss-pwa/actions/workflows/build.yml)
 [![dependencies Status](https://david-dm.org/thescientist/ttrss-pwa/status.svg)](https://david-dm.org/thescientist/ttrss-pwa)
 [![devDependencies Status](https://david-dm.org/thescientist/ttrss-pwa/dev-status.svg)](https://david-dm.org/thescientist/ttrss-pwa?type=dev)
